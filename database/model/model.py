@@ -86,6 +86,16 @@ class dayTrade(Base):
     caida = Column(Float)
     rule = Column(String)
 
+class label(Base):
+    __tablename__ = "label"
+    id = Column(Integer, primary_key=True)
+    date = Column(DateTime)
+    underlying = Column(Float)
+    retorno = Column(Float)
+    signo = Column(Integer)
+    varianza = Column(Float)
+    label = Column(Integer)
+     
 
 class routineFault(Base):
     __tablename__ = "routineFault"

@@ -98,6 +98,7 @@ def writeDayTrade(app, vars, params):
         new_data = dayTrade(
             date=datetime_now,
             etf=app.etfs[5]["symbol"],
+            vix = app.etfs[6]["symbol"],
             underlying=app.etfs[5]["price"],
             cStrike=app.options[1]["strike"],
             pStrike=app.options[2]["strike"],
@@ -150,6 +151,29 @@ def writeTransactions(app, id, vars):
         )
 
         session.add(new_transaction)
+        session.commit()
+
+    except:
+        printStamp("Error al escribir en Base de datos transactions")
+    finally:
+        session.close()
+
+def writeLabel(app, vars,params):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    try:
+
+        datetime_now = datetime.now(params.zone)
+        new_data = label(
+            date=datetime_now,
+            underlying = app.etfs[5]["price"],
+            retorno = vars.retorno,
+            signo = vars.signo,
+            varianza = vars.varianza,
+            label = vars.label
+        )
+
+        session.add(new_data)
         session.commit()
 
     except:

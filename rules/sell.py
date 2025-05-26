@@ -10,6 +10,7 @@ from config.IB.options import sellOptionContract
 from database.repository.repository import writeDayTrade
 
 from functions.broadcasting import comparar_precios, send_sell, verificar_regla
+from functions.labels import generar_label
 from functions.logs import printStamp, read_rentabilidad, read_sell, readIBData_action
 from functions.notifications import sendError
 from functions.saveJson import saveJson
@@ -82,22 +83,7 @@ def sellCall(app, params, vars):
 
     vars.caida = vars.rentabilidad - vars.pico
 
-    # FIN DE DIA DE TRADE
-    # if timeNow >= params.fd and   vars.tipo == "U":
-    #     vars.venta_intentos=params.intentos
-    #     name = "FD-U"
-         
-        
-    #     sell(
-    #         app,
-    #         vars,
-    #         params,
-    #         "C",
-    #         name,
-    #         app.options[1]["contract"],
-    #         app.options[1]["symbol"],
-    #     )
-    #     return
+   
     
     if timeNow >= params.fd:
         vars.venta_intentos=params.intentos
@@ -135,215 +121,174 @@ def sellCall(app, params, vars):
     #########################################################
     ################      CALL  R1    ##################
     #########################################################
-    if vars.tipo == "R1" or vars.tipo == "R1-E":
+    if vars.tipo == "R1"  :
 
-        if (
-            (
-                vars.dcall > params.umbral_manifestacion_cu
-                or vars.docall > params.umbral_manifestacion_cu
-            )
-            and vars.flag_umbral_cr1 == False
-            and timeNow < params.timeCall_umbral
-        ):
-            vars.flag_umbral_cr1 = True
-            vars.ugs_n = 0
-
-            vars.manifesto = True
-            vars.tipo = "U"
-
-        if vars.flag_umbral_cr1 == False:
-
-            # MANIFIESTA
-
-            if vars.manifesto:
-
-                # DIAMANTE
-
-                for y in range(vars.ugs_n, len(params.diamante_cr1)):
-                    if round(vars.pico, 3) > params.diamante_cr1[y]:
-                        vars.ugs_n = y
-                        if vars.ugs_n != vars.ugs_n_ant:
-                            vars.minutos = 0
-                            vars.ugs_n_ant = vars.ugs_n
-                    else:
-                        break
-
-                # MAXIMA RENTABILIDAD
-
-                if vars.rentabilidad <= (vars.pico - params.resta_cr1[vars.ugs_n]):
-
-                    name = f"T{vars.ugs_n}"
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        name,
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-                else:
-                    pass
-
-            # AUN NO MANIFIESTA
-            else:
-
-                # TOMA DE DESICION
-
-                if (
-                    vars.minutos >= params.min_desicion_cr1
-                    and (vars.flag_pos == False or vars.flag_neg == False)
-                    and vars.flag_desicion
-                ):
-
-                    if vars.rentabilidad >= 0:
-                        vars.flag_pos = True
-                        vars.min_extras = params.min_extras_pos
-                    else:
-                        vars.flag_neg = True
-                        vars.min_extras = params.min_extras_neg
-                    vars.flag_desicion = False
-
-     
-                # ------------------------------
-                # vars.manifesto
-                if vars.rentabilidad >= params.umbral_manifestacion_cR1:
-                    vars.manifesto = True
-                    vars.minutos = 0
-
-                # NO SE vars.manifesto POR TIEMPO POSITIVO
-                elif vars.minutos >= (params.min_desicion_cr1 + vars.min_extras) and (
-                    vars.flag_pos and vars.flag_neg == False
-                ):
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "NMT-P",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-                # NO SE vars.manifesto POR TIEMPO REBPOTE
-                elif vars.minutos >= (vars.min_extras) and (
-                    vars.flag_pos and vars.flag_neg
-                ):
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "NMT-P",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-                # NO SE vars.manifesto POR TIEMPO
-                elif vars.minutos >= (params.min_desicion_cr1 + vars.min_extras) and (
-                    vars.flag_neg and vars.flag_pos == False
-                ):
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "NMT-N",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-                # STOP LOSS ANTES DE DESICION
-                elif vars.rentabilidad <= params.sl_cr1 and vars.flag_desicion:
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "SL",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-                # DESICION POSITIVA
-                elif vars.flag_pos:
-
-                    # SL - POSITIVO
-
-                    if vars.rentabilidad <= params.sl_cr1_p and vars.flag_neg == False:
-
-                        sell(
-                            app,
-                            vars,
-                            params,
-                            "C",
-                            "NMR-P",
-                            app.options[1]["contract"],
-                            app.options[1]["symbol"],
-                        )
-
-                        return
-
-                    if vars.rentabilidad <= params.sl_cr1_rebote and vars.flag_neg:
-
-                        sell(
-                            app,
-                            vars,
-                            params,
-                            "C",
-                            "NMR-P",
-                            app.options[1]["contract"],
-                            app.options[1]["symbol"],
-                        )
-
-                        return
-
-                # DESICION NEGATIVA
-
-                elif vars.flag_neg and vars.flag_pos == False:
-
-                    # REBOTA
-                    if vars.rentabilidad >= 0:
-
-                        vars.min_extras = params.min_extras_rebote
+        # MANIFIESTA
+        if vars.manifesto:
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr1)):
+                if round(vars.pico, 3) > params.diamante_cr1[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
                         vars.minutos = 0
-
-                        # flag_neg = False
-                        vars.flag_pos = True
-
-                    # SL - NEGATIVO
-                    elif vars.rentabilidad <= params.sl_cr1_n:
-
-                        sell(
-                            app,
-                            vars,
-                            params,
-                            "C",
-                            "NMR-N",
-                            app.options[1]["contract"],
-                            app.options[1]["symbol"],
-                        )
-
-                        return
-
+                        vars.ugs_n_ant = vars.ugs_n
                 else:
-                    pass
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr1[vars.ugs_n]):
 
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    name,
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        # AUN NO MANIFIESTA
+        else:
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR1:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr1:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+            
+    #########################################################
+    ################      CALL  R1  E      ##################
+    #########################################################
+    elif vars.tipo == "R1-E"  :
+
+        # MANIFIESTA
+        if vars.manifesto:
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr1_e)):
+                if round(vars.pico, 3) > params.diamante_cr1_e[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr1_e[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    name,
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        # AUN NO MANIFIESTA
+        else:
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR1_e:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr1_e:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+            
+    
+    #########################################################
+    ################      CALL  R1  FAST   ##################
+    #########################################################
+    elif vars.tipo == "R1-FAST":  
+
+        # MANIFIESTA
+        if vars.manifesto:
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr1_fast)):
+                if round(vars.pico, 3) > params.diamante_cr1_fast[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr1_fast[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    name,
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        # AUN NO MANIFIESTA
+        else:
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR1_fast:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr1_fast:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
     #########################################################
     ################      CALL    R2    ##################
     #########################################################
@@ -401,181 +346,90 @@ def sellCall(app, params, vars):
 
                 return
 
+
     #########################################################
-        ####################      CALL  R1 -C  ###################
-        #########################################################
+    ################      CALL  R1  INV    ##################
+    #########################################################
+    elif vars.tipo == "R1-I":
 
-    elif vars.tipo == "R1-C":
-        
-        
-
-
-        if vars.manifesto:
-                
-
-            if vars.pico>=params.target_r1_c and vars.rentabilidad <= (vars.pico-params.resta_r1_c):
-
-                sell(
+        # MANIFESTO
+        if vars.pico >= params.target_cR1_i:
+            name = "TARGET"
+            sell(
                 app,
                 vars,
                 params,
                 "C",
-                "TARGET",
-                app.options[1]["contract"],
-                app.options[1]["symbol"],
-            )
-
-                return
-
-            # NMT
-            elif vars.minutos>= (params.min_desicion_cr1_c ):
-                sell(
-                app,
-                vars,
-                params,
-                "C",
-                "NMT",
-                app.options[1]["contract"],
-                app.options[1]["symbol"],
-            )
-
-                return
-
-            # NMT
-            elif vars.rentabilidad <=params.retroceso_abs_cr1_c:
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    "NMR",
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-                return
-
-
-        else:
-            # MANIFESTO
-            if vars.rentabilidad >= params.umbral_manifestacion_cr1_c:
-                vars.manifesto = True
-                vars.minutos = 0
-
-            # NMT
-            elif vars.minutos>= (params.min_desicion_cr1_c ):
-                sell(
-                app,
-                vars,
-                params,
-                "C",
-                "NMT",
-                app.options[1]["contract"],
-                app.options[1]["symbol"],
-            )
-
-                return
-
-
-            # STOP LOSS
-            elif vars.rentabilidad <= params.sl_cr1_c:
-                sell(
-                app,
-                vars,
-                params,
-                "C",
-                "SL",
+                name,
                 app.options[1]["contract"],
                 app.options[1]["symbol"],
             )
 
             return
 
+
+        elif vars.rentabilidad <= params.sl_cr1_i:
+            sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+            return
+
+
+        else:
+            pass
+
     #########################################################
-    ####################      CALL F     ####################
+    ################      CALL  R1  C      ##################
     #########################################################
-    elif vars.tipo == "F":
+    elif vars.tipo ==  "R1-C":
+
         # MANIFIESTA
         if vars.manifesto:
-
-            # TARGET
-            if vars.flag_target:
-                if vars.rentabilidad < vars.pico:
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "TARGET",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-
-            else:
-
-                if vars.rentabilidad >= params.target_cf:
-                    vars.flag_target = True
-                # TIEMPO TERMINADO
-                elif vars.minutos >= params.min_extras_cf:
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "NMT",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
-                # SL
-                elif vars.rentabilidad <= params.sl_cf:
-
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "C",
-                        "SL",
-                        app.options[1]["contract"],
-                        app.options[1]["symbol"],
-                    )
-
-                    return
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr1_c)):
+                if round(vars.pico, 3) > params.diamante_cr1_c[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
                 else:
-                    pass
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr1_c[vars.ugs_n]):
 
-        # AUN NO MANIFIESTA
-        else:
-            # vars.manifesto
-            if vars.rentabilidad >= params.umb_manifestacion_cf:
-                vars.manifesto = True
-                vars.minutos = 0
-                if vars.rentabilidad >= params.target_cf:
-                    vars.flag_target = True
-
-            # FIN DE ESPERA
-            elif vars.minutos >= params.min_desicion_cf:
-
+                name = f"T{vars.ugs_n}"
                 sell(
                     app,
                     vars,
                     params,
                     "C",
-                    "NMT",
+                    name,
                     app.options[1]["contract"],
                     app.options[1]["symbol"],
                 )
 
                 return
 
-            # SL
-            elif vars.rentabilidad <= params.sl_cf:
+            else:
+                pass
 
+        # AUN NO MANIFIESTA
+        else:
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR1_c:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr1_c:
                 sell(
                     app,
                     vars,
@@ -587,57 +441,44 @@ def sellCall(app, params, vars):
                 )
 
                 return
-            else:
-                pass
-
-    
-    
-
-    #########################################################
-    ####################    CALL - U   ######################
-    #########################################################
-    elif vars.tipo == "U":
-
-        if vars.rentabilidad <params.umbral_resta_cu and vars.rentabilidad <=(vars.pico-params.resta_cu[0])  :
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    "NMR-U",
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-            return
-             
-        elif   vars.rentabilidad >=params.umbral_resta_cu and vars.rentabilidad <=(vars.pico-params.resta_cu[1])  : 
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    "NMR-U",
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-            return
-             
-        elif vars.pico>=params.target_cu and vars.rentabilidad <=(vars.pico-params.retroceso_cu):
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    "TARGET-U",
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-            return
             
-        else:pass
+    #########################################################
+    ################      CALL  R2  E      ##################
+    #########################################################
+    elif vars.tipo == "R2-E":
+
+        # MANIFESTO
+        if vars.pico >= params.target_cR2_e:
+            name = "TARGET"
+            sell(
+                app,
+                vars,
+                params,
+                "C",
+                name,
+                app.options[1]["contract"],
+                app.options[1]["symbol"],
+            )
+
+            return
+
+
+        elif vars.rentabilidad <= params.sl_cr2:
+            sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+            return
+
+
+        else:
+            pass
     vars.regla_broadcasting=""
 
 def sellPut(app, params, vars):
@@ -698,153 +539,140 @@ def sellPut(app, params, vars):
     ####################      PUT  R1     ###################
     #########################################################
     if vars.tipo == "R1":
-        # UMBRAL
-        if (
-            (
-                vars.dput > params.umbral_manifestacion_pu
-                or vars.doput > params.umbral_manifestacion_pu
-            )
-            and vars.flag_umbral_pr1 == False
-            and timeNow < params.timePut_umbral
-        ):
-            vars.flag_umbral_pr1 = True
-            vars.ugs_n = 0
+        # MANIFIESTA
+        if vars.manifesto:
 
-            vars.manifesto = True
-            vars.tipo = "U"
-
-        if vars.flag_umbral_pr1 == False:
-
-            # MANIFIESTA
-            if vars.manifesto:
-
-                if vars.flag_target:
-                    # TARGET AL PRIMER RETROCESO
-                    if vars.rentabilidad < vars.pico:
-                        sell(
-                            app,
-                            vars,
-                            params,
-                            "P",
-                            "TARGET",
-                            app.options[2]["contract"],
-                            app.options[2]["symbol"],
-                        )
-
-                        return
-
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1)):
+                if round(vars.pico, 3) > params.diamante_pr1[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
                 else:
-                    # MANIFESTACION DEL TARGET
-                    if vars.rentabilidad >= params.diamante_pr1[-1]:
-                        vars.flag_target = True
+                    break
 
-                    else:
-                        # DIAMANTE
-                        for y in range(vars.ugs_n, len(params.diamante_pr1)):
-                            if round(vars.pico, 3) > params.diamante_pr1[y]:
-                                vars.ugs_n = y
-                                if vars.ugs_n != vars.ugs_n_ant:
-                                    vars.minutos = 0
-                                    vars.ugs_n_ant = vars.ugs_n
-                            else:
-                                break
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1[vars.ugs_n]):
 
-                        # RETROCEOS ABSOLUTO
-                        if vars.ugs_n == 0:
-                            if vars.rentabilidad <= params.retroceso_absoluto_pr1:
-                                sell(
-                                    app,
-                                    vars,
-                                    params,
-                                    "P",
-                                    "NMR",
-                                    app.options[2]["contract"],
-                                    app.options[2]["symbol"],
-                                )
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
 
-                                return
+                return
 
-                        # RETROCESO
-                        elif vars.rentabilidad <= (
-                            vars.pico - params.resta_pr1[vars.ugs_n]
-                        ):
-
-                            name = f"T{vars.ugs_n}"
-                            sell(
-                                app,
-                                vars,
-                                params,
-                                "P",
-                                name,
-                                app.options[2]["contract"],
-                                app.options[2]["symbol"],
-                            )
-
-                            return
-
-                        else:
-                            pass
-
-            # AUN NO MANIFIESTA
             else:
+                pass
 
-                # vars.manifesto
-                if vars.rentabilidad >= params.umbral_manifestacion_pR1:
-                    vars.manifesto = True
-                    vars.minutos = 0
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1:
+                vars.manifesto = True
+                vars.minutos = 0
 
-                # FIN DE ESPERA
-                elif vars.minutos >= params.min_desicion_pr1:
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "P",
-                        "NMT",
-                        app.options[2]["contract"],
-                        app.options[2]["symbol"],
-                    )
+ 
 
-                    return
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1:
 
-                # SL
-                elif vars.rentabilidad <= params.sl_pr1:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
 
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "P",
-                        "SL",
-                        app.options[2]["contract"],
-                        app.options[2]["symbol"],
-                    )
-
-                    return
-
-                else:
-                    pass
-
+                return
     #########################################################
-    ####################      PUT  R1 -E  ###################
+    ####################      PUT  R1  I  ###################
+    #########################################################
+    elif vars.tipo == "R1-I":
+        # MANIFIESTA
+        if vars.manifesto:
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_i)):
+                if round(vars.pico, 3) > params.diamante_pr1_i[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_i[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_i:
+                vars.manifesto = True
+                vars.minutos = 0
+
+ 
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_i:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
+            
+    #########################################################
+    ####################      PUT  R1  E  ###################
     #########################################################
     elif vars.tipo == "R1-E":
-
+        # MANIFIESTA
         if vars.manifesto:
-            # # DIAMANTE
-            # for y in range(vars.ugs_n, len(params.diamante_pr1e)):
-            #     if round(vars.pico, 3) > params.diamante_pr1e[y]:
-            #         vars.ugs_n = y
-            #         if vars.ugs_n != vars.ugs_n_ant:
-            #             vars.minutos = 0
-            #             vars.ugs_n_ant = vars.ugs_n
-            #     else:
-            #         break
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_e)):
+                if round(vars.pico, 3) > params.diamante_pr1_e[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
 
             # RETROCESO
-            if vars.rentabilidad <= (vars.pico - params.resta_pr1e ):
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_e[vars.ugs_n]):
 
-                name = f"TARGET"
+                name = f"T{vars.ugs_n}"
                 sell(
                     app,
                     vars,
@@ -860,60 +688,50 @@ def sellPut(app, params, vars):
             else:
                 pass
 
-        # AUN NO MANIFIESTA
         else:
-            # TOMA DE DESICION
-
             # vars.manifesto
-            if vars.rentabilidad >= params.umbral_manifestacion_pR1e:
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_e:
                 vars.manifesto = True
                 vars.minutos = 0
 
-            # FIN DE ESPERA
-            elif vars.minutos >= params.min_desicion_pr1e:
-
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMT",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
-
-            # SL
-            elif vars.rentabilidad <= params.sl_pr1e:
-
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "SL",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
-
-            else:
-                pass
-
-
-    #########################################################
-    ####################      PUT  R1 - C  ###################
-    #########################################################
-    elif vars.tipo == "R1-C":
-
-        if vars.manifesto:
  
-            # RETROCESO
-            if vars.rentabilidad <= (vars.pico - params.resta_pr1c ):
 
-                name = f"TARGET"
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_e:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
+            
+    #########################################################
+    ####################      PUT  R1  FAST   ###############
+    #########################################################
+    elif vars.tipo == "R1-FAST":
+        # MANIFIESTA
+        if vars.manifesto:
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_fast)):
+                if round(vars.pico, 3) > params.diamante_pr1_fast[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_fast[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
                 sell(
                     app,
                     vars,
@@ -929,32 +747,16 @@ def sellPut(app, params, vars):
             else:
                 pass
 
-        # AUN NO MANIFIESTA
         else:
-            # TOMA DE DESICION
-
             # vars.manifesto
-            if vars.rentabilidad >= params.umbral_manifestacion_pR1c:
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_fast:
                 vars.manifesto = True
                 vars.minutos = 0
 
-            # FIN DE ESPERA
-            elif vars.minutos >= params.min_desicion_pr1c:
-
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMT",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
+ 
 
             # SL
-            elif vars.rentabilidad <= params.sl_pr1c:
+            elif vars.rentabilidad <= params.sl_pr1_fast:
 
                 sell(
                     app,
@@ -968,10 +770,8 @@ def sellPut(app, params, vars):
 
                 return
 
-            else:
-                pass
     #########################################################
-    ####################      PUT  R2     ###################
+    ####################      PUT  R2         ###############
     #########################################################
     elif vars.tipo == "R2":
         # MANIFIESTA
@@ -1014,7 +814,6 @@ def sellPut(app, params, vars):
 
             # FIN DE ESPERA
             elif vars.minutos >= params.min_desicion_pr2:
-
                 sell(
                     app,
                     vars,
@@ -1026,6 +825,7 @@ def sellPut(app, params, vars):
                 )
 
                 return
+ 
 
             # SL
             elif vars.rentabilidad <= params.sl_pr2:
@@ -1043,15 +843,50 @@ def sellPut(app, params, vars):
                 return
 
     #########################################################
-    ####################      PUT  M     ###################
+    ####################      PUT  R2 E       ###############
     #########################################################
-    elif vars.tipo == "M" or vars.tipo == "M2":
+    elif vars.tipo == "R2-E":
+        # MANIFESTO
+        if vars.pico >= params.target_pR2_e:
+            sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "TARGET",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+            return
+
+        elif vars.rentabilidad <= params.sl_pr2_e:
+            sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+            return
+
+        else:
+            pass
+
+
+    #########################################################
+    ####################      PUT  R1  F      ###############
+    #########################################################
+    elif vars.tipo =="F":
         # MANIFIESTA
         if vars.manifesto:
 
             # DIAMANTE
-            for y in range(vars.ugs_n, len(params.diamante_pm)):
-                if round(vars.pico, 3) > params.diamante_pm[y]:
+            for y in range(vars.ugs_n, len(params.diamante_pr1_f)):
+                if round(vars.pico, 3) > params.diamante_pr1_f[y]:
                     vars.ugs_n = y
                     if vars.ugs_n != vars.ugs_n_ant:
                         vars.minutos = 0
@@ -1060,7 +895,7 @@ def sellPut(app, params, vars):
                     break
 
             # RETROCESO
-            if vars.rentabilidad <= (vars.pico - params.resta_pm[vars.ugs_n]):
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_f[vars.ugs_n]):
 
                 name = f"T{vars.ugs_n}"
                 sell(
@@ -1080,164 +915,26 @@ def sellPut(app, params, vars):
 
         else:
             # vars.manifesto
-            if vars.rentabilidad >= params.umbral_manifestacion_pm:
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_f:
                 vars.manifesto = True
                 vars.minutos = 0
 
-            
-            # SL
-            elif vars.rentabilidad <= params.sl_m:
-
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "SL",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
-    #########################################################
-    ####################      PUT  F     ###################
-    #########################################################
-    elif vars.tipo == "F":
-        # UMBRAL
-        # if (
-        #     (vars.doput > params.umbral_manifestacion_pu)
-        #     and vars.flag_umbral_pf == False
-        #     and timeNow < params.timePut_umbral
-        # ):
-        #     vars.flag_umbral_pf = True
-        #     vars.ugs_n = 0
-
-        #     vars.manifesto = True
-        #     vars.tipo = "U"
-
-        # if vars.flag_umbral_pf == False:
-        # MANIFIESTA
-        if vars.manifesto:
-
-            if vars.flag_target:
-                # TARGET AL PRIMER RETROCESO
-                if vars.rentabilidad < vars.pico - params.resta_pf:
-                    sell(
-                        app,
-                        vars,
-                        params,
-                        "P",
-                        "TARGET",
-                        app.options[2]["contract"],
-                        app.options[2]["symbol"],
-                    )
-
-                    return
-
-            else:
-                # MANIFESTACION DEL TARGET
-                if vars.rentabilidad >= params.target_pf:
-                    vars.flag_target = True
-
-            if vars.rentabilidad <= params.proteccion_pf:
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMR",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-                return
-
-        # AUN NO MANIFIESTA
-        else:
-
-            # vars.manifesto
-            if vars.rentabilidad >= params.umb_manifestacion_pf:
-                vars.manifesto = True
-                vars.minutos = 0
-                if vars.rentabilidad >= params.target_pf:
-                    vars.flag_target = True
-
-            # FIN DE ESPERA
-            elif vars.minutos >= params.min_desicion_pf:
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMT",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
-
-            # SL
-            elif vars.rentabilidad <= params.sl_pf:
-
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "SL",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-                return
-
-            else:
-                pass
-
-   
-
-    #########################################################
-    ####################       PUT - U   ####################
-    #########################################################
-    elif vars.tipo == "U":
-
-        if vars.rentabilidad <params.umbral_resta_pu and vars.rentabilidad <=(vars.pico-params.resta_pu[0])  :
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMR-U",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-            return
-        elif   vars.rentabilidad >=params.umbral_resta_pu and vars.rentabilidad <=(vars.pico-params.resta_pu[1])  : 
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMR-U",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-            return
-        elif vars.pico>=params.target_pu and vars.rentabilidad <=(vars.pico-params.retroceso_pu):
-            sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "TARGET-U",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
-
-            return
-        else:pass
  
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_f:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
     vars.regla_broadcasting=""
      
 def sell(app, vars, params, tipo, regla, contract, symbol):
@@ -1271,7 +968,8 @@ def sell(app, vars, params, tipo, regla, contract, symbol):
     while app.statusIB == False:
 
         timeNow = datetime.now(params.zone).time()
-
+        if timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5:
+            generar_label(params, vars,app)
         if int(timeNow.second) in params.frecuencia_muestra:
             calculations(app, vars, params)
             # ESPERANDO Y REGISTRANDO

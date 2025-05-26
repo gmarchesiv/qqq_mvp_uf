@@ -82,6 +82,9 @@ class parameters:
         self.max_askbid_venta_abs = 0.0275
         self.max_askbid_compra_abs = 0.0185
 
+        self.umbral_askbid=0.08
+        # self.askbid_len_lista=91
+
         self.max_askbid_venta_forzada = 0.04
 
         self.slippage=1.075

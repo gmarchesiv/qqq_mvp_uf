@@ -102,24 +102,12 @@ def saveJson(vars, app, params, estado):
         "put": vars.put,
         "compra": vars.compra,
         "manifesto": vars.manifesto,
-        "flag_pos": vars.flag_pos,
-        "flag_neg": vars.flag_neg,
-        "flag_target": vars.flag_target,
-        "flag_call_r1": vars.flag_call_r1,
-        "flag_put_r1 ": vars.flag_put_r1,
-        "flag_r2c": vars.flag_r2c,
-        "flag_r2p": vars.flag_r2p,
-        "flag_umbral_pr1": vars.flag_umbral_pr1,
-        "flag_umbral_cr1": vars.flag_umbral_cr1,
-        "flag_umbral_pf": vars.flag_umbral_pf,
-        "flag_retroceso": vars.flag_retroceso,
-        "flag_R2_desicion": vars.flag_R2_desicion,
-        "flag_retroceso_nmr30": vars.flag_retroceso_nmr30,
-        "flag_desicion": vars.flag_desicion,
-         "flag_call_r1_e" :vars.flag_call_r1_e,
-        "flag_put_f" :vars.flag_put_f,
-        "flag_call_r1_c_reset" :vars.flag_call_r1_c_reset,
-        "flag_put_m_reset" :vars.flag_put_m_reset,
+        "flag_Call_R2": vars.flag_Call_R2,
+        "flag_Put_R2": vars.flag_Put_R2,
+        "flag_Call_reset_r1": vars.flag_Call_reset_r1,
+        "flag_Put_reset_r1_i": vars.flag_Put_reset_r1_i,
+        "flag_Put_reset_r1 ": vars.flag_Put_reset_r1,
+        
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
@@ -139,6 +127,8 @@ def saveJson(vars, app, params, estado):
         "doput": vars.doput,
         "askbid_call": vars.askbid_call,
         "askbid_put": vars.askbid_put,
+        "askbid_call_prom": list(vars.askbid_put_prom),
+        "askbid_put_prom":  list(vars.askbid_put_prom),
         "quantity": vars.quantity,
         "rentabilidad": vars.rentabilidad,
         "rentabilidad_ant": vars.rentabilidad_ant,
@@ -182,6 +172,26 @@ def saveJson(vars, app, params, estado):
         "sendError": app.sendError,
         "Error": app.Error,
         "Error_buy": app.Error_buy,
+
+        ###############################################
+        # LABEL
+        ###############################################
+        "label": vars.label,
+        "retorno_lista": list(vars.retorno_lista),
+        "retorno": vars.retorno,
+        "signo": vars.signo,
+        "varianza": vars.varianza,
+        "pico_etf": vars.pico_etf,
+        "d_pico": vars.d_pico,
+        "ret_1H_back": list(vars.ret_1H_back),
+        "ret_3H_back": list(vars.ret_3H_back),
+        "ret_6H_back": list(vars.ret_6H_back),
+        "ret_12H_back": list(vars.ret_12H_back),
+        "ret_24H_back": list(vars.ret_24H_back),
+        "ret_96H_back": list(vars.ret_96H_back),
+        "etf_price_lista": list(vars.etf_price_lista),
+        "rsi": vars.rsi,
+    
        
     }
 

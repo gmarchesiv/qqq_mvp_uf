@@ -12,6 +12,7 @@ from database.repository.repository import writeDayTrade
 
 # from functions.broadcasting import broadcasting_buy, send_buy
 from functions.broadcasting import send_buy
+from functions.labels import generar_label
 from functions.logs import printStamp, read_buy, readIBData_action
 from functions.notifications import sendError
 from functions.saveJson import saveJson
@@ -19,12 +20,13 @@ from functions.saveJson import saveJson
 
 # INICIO DE LAS REGLAS DE COMPRA
 def buyOptions(app, vars, params):
-  
-    if vars.askbid_call < params.max_askbid_compra_abs and vars.cask > 0:
+    promedio_call = sum(vars.askbid_call_prom) / len(vars.askbid_call_prom) if len(vars.askbid_call_prom)!=0 else 0
+    if vars.askbid_call < params.max_askbid_compra_abs and vars.cask > 0 and promedio_call < params.max_askbid_compra_prom :
         calculos_call(vars, params)
         buy_Call(app, vars, params)
 
-    if vars.askbid_put < params.max_askbid_compra_abs and vars.pask > 0:
+    promedio_put = sum(vars.askbid_put_prom) / len(vars.askbid_put_prom) if len(vars.askbid_put_prom)!=0 else 0
+    if vars.askbid_put < params.max_askbid_compra_abs and vars.pask > 0 and  promedio_put < params.max_askbid_compra_prom :
         calculos_put(vars, params)
         buy_Put(app, vars, params)
  
@@ -365,6 +367,9 @@ def buy(params, app, vars, tipo, regla, ask, contract, symbol):
     while app.statusIB == False:
 
         timeNow = datetime.now(params.zone).time()
+
+        if timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5:
+            generar_label(params, vars,app)
 
         if int(timeNow.second) in params.frecuencia_muestra:
             calculations(app, vars, params)

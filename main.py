@@ -115,7 +115,7 @@ def main():
             clean_vars(vars)
             vars.call_open = app.options[1]["BID"]
             vars.put_open = app.options[2]["BID"]
-            generar_label(params, vars)
+            generar_label(params, vars,app)
         else:
             load_app_vars(app, vars)
 
@@ -134,7 +134,8 @@ def main():
             # MIENTRAS NO SEA FIN DE DIA
             if params.fd >= timeNow:
                 if timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5:
-                    generar_label(params, vars)
+                    generar_label(params, vars,app)
+                    time.sleep(0.5)
 
            
                 if vars.bloqueo == False: 

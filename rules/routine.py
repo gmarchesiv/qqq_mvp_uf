@@ -105,7 +105,13 @@ def calculations(app, vars, params):
     vars.dput = vars.pbid / vars.put_close - 1
     vars.docall = vars.cbid / vars.call_open - 1
     vars.doput = vars.pbid / vars.put_open - 1
+    if vars.askbid_call >0 and params.umbral_askbid>vars.askbid_call:
+        vars.askbid_call_prom.append(vars.askbid_call)
 
+    if vars.askbid_put >0 and params.umbral_askbid>vars.askbid_put:
+        vars.askbid_put_prom.append(vars.askbid_put)
+
+     
     if vars.rule:
         if vars.dcall >= params.umbral_cr2:
             vars.flag_Call_R2 = True

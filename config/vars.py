@@ -4,7 +4,7 @@
 import json
 import os
 from functions.logs import printStamp
-
+from collections import deque
 
 ###############################################
 #                  VARIABLES
@@ -88,6 +88,8 @@ class variables:
         self.doput = self.data.get("doput", 0)
         self.askbid_call = self.data.get("askbid_call", 0)
         self.askbid_put = self.data.get("askbid_put", 0)
+        self.askbid_call_prom = self.data.get("askbid_call_prom ", [])
+        self.askbid_put_prom  = self.data.get("askbid_put_prom ",[])
         self.quantity = self.data.get("quantity", 0)
         self.rentabilidad = self.data.get("rentabilidad", 0)
         self.rentabilidad_ant = self.data.get("rentabilidad_ant", 0)
@@ -139,8 +141,35 @@ class variables:
         ###############################################
 
         self.label = self.data.get("label", True)
+        self.retorno_lista = self.data.get("retorno_lista", [])
         self.retorno = self.data.get("retorno", 0)
         self.signo  = self.data.get("signo", "")
         self.varianza  = self.data.get("varianza", "")
 
- 
+
+        self.pico_etf=self.data.get("pico_etf", 540.81)
+        self.d_pico  = self.data.get("d_pico", 0)   
+
+        self.ret_1H_back= self.data.get("ret_1H_back", [])
+        self.ret_3H_back= self.data.get("ret_3H_back", [])
+        self.ret_6H_back= self.data.get("ret_6H_back", [])
+        self.ret_12H_back= self.data.get("ret_12H_back", [])
+        self.ret_24H_back= self.data.get("ret_24H_back", [])
+        self.ret_96H_back= self.data.get("ret_96H_back", [])
+
+        self.etf_price_lista=self.data.get("dic_etf", [])
+
+        self.rsi=self.data.get("rsi",0)
+        # DEQUES
+        self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=90)
+        self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=90)
+
+        self.retorno_lista =  deque(self.askbid_put_prom, maxlen=79)
+
+        self.ret_1H_back= deque(self.ret_1H_back, maxlen=1)
+        self.ret_3H_back= deque(self.ret_3H_back, maxlen=3)
+        self.ret_6H_back= deque(self.ret_6H_back, maxlen=6)
+        self.ret_12H_back= deque(self.ret_12H_back, maxlen=12)
+        self.ret_24H_back= deque(self.ret_24H_back, maxlen=24)
+        self.ret_96H_back= deque(self.ret_96H_back, maxlen=96)
+        self.etf_price_lista=deque(self.etf_price_lista, maxlen=10)
