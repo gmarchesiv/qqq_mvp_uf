@@ -15,7 +15,7 @@ os.environ["PATH"] += os.pathsep + "/usr/bin/docker"
 
 
 app = Flask(__name__)
-origin = {"origins": "http://localhost:3000"}
+origin = {"origins": "http://localhost:3002"}
 CORS(
     app,
     resources={
@@ -382,4 +382,4 @@ def get_regla():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8002)
