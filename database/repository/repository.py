@@ -98,7 +98,7 @@ def writeDayTrade(app, vars, params):
         new_data = dayTrade(
             date=datetime_now,
             etf=app.etfs[5]["symbol"],
-            vix = float(app.etfs[6]["symbol"]),
+            vix = float(app.etfs[6]["price"]),
             underlying=float(app.etfs[5]["price"]),
             cStrike=app.options[1]["strike"],
             pStrike=app.options[2]["strike"],
