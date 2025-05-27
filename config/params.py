@@ -353,3 +353,15 @@ class parameters:
         self.umbral_manifestacion_pR1_f=0.0395
         self.diamante_pr1_f = [self.umbral_manifestacion_pR1_f, 0.079 ] # DIAMANTE DE COMPRA
         self.resta_pr1_f = [0.01, 0.02 ] # RETROCESO DEL DIAMANTE 
+
+
+
+        #########################################################
+        ####################      LABELS      ###################
+        #########################################################
+        self.mu=0.000606934500
+        self.omega=0.00000297000000
+        self.alpha=0.027400000
+        self.beta=0.90520000
+        self.gamma=0.11470000
+

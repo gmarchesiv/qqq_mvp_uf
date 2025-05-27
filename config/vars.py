@@ -164,7 +164,7 @@ class variables:
         self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=90)
         self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=90)
 
-        self.retorno_lista =  deque(self.askbid_put_prom, maxlen=79)
+        self.retorno_lista =  deque(self.retorno_lista, maxlen=79)
 
         self.ret_1H_back= deque(self.ret_1H_back, maxlen=1)
         self.ret_3H_back= deque(self.ret_3H_back, maxlen=3)
