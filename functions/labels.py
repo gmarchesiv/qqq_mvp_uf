@@ -10,20 +10,20 @@ import joblib
 from database.repository.repository import writeLabel      
 
 def generar_label(params, vars,app):
-    print("a")
+   
     generar_garch(params, vars,app)
-    print("b")
+   
     generar_hour_back(params, vars,app)
-    print("c")
+    
     generar_rsi(params, vars,app)
-    print("d")
+  
     generar_d_pico(params, vars,app)
-    print("e")
+ 
 
 
 
     clusterizar(params, vars,app)
-    print("d")
+    
     pass
 
 
@@ -74,8 +74,8 @@ def generar_d_pico(params, vars,app):
 
 
 def clusterizar(params, vars,app):
-    scaler = joblib.load('scaler.joblib')
-    km = joblib.load('model.joblib')
+    scaler = joblib.load('/usr/src/app/functions/scaler.joblib')
+    km = joblib.load('/usr/src/app/functions/model.joblib')
 
     df=pd.DataFrame(
 
