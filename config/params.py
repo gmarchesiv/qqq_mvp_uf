@@ -364,4 +364,5 @@ class parameters:
         self.alpha=0.027400000
         self.beta=0.90520000
         self.gamma=0.11470000
+        self.days_year=252
 
