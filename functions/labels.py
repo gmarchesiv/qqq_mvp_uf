@@ -62,8 +62,7 @@ def generar_rsi(params, vars,app):
         df=pd.DataFrame({"price":vars.etf_price_lista})
         df["rsi"]=ta.rsi(df["price"])
         df["rsi_prom_3"]=df["rsi"]*0.5+df["rsi"].shift(1)*0.25+df["rsi"].shift(2)*0.25
-        print(df)
-        print(df["rsi_prom_3"].iloc[-1])
+ 
         vars.rsi=float(df["rsi_prom_3"].iloc[-1])
     pass
 

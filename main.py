@@ -187,6 +187,14 @@ def main():
                 
                 while (vars.call or vars.put):
                     timeNow = datetime.now(params.zone).time()
+                    if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+                        if vars.flag_minuto_label:
+                            generar_label(params, vars,app)
+                            vars.flag_minuto_label=False
+                            time.sleep(0.5)
+                    else:
+                        vars.flag_minuto_label=True
+           
                     if int(timeNow.second) in params.frecuencia_accion:
                         calculations(app, vars, params)
                         readIBData(app, vars)
@@ -209,7 +217,14 @@ def main():
         while True:
 
             timeNow = datetime.now(params.zone).time()
-
+            if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+                if vars.flag_minuto_label:
+                    generar_label(params, vars,app)
+                    vars.flag_minuto_label=False
+                    time.sleep(0.5)
+            else:
+                vars.flag_minuto_label=True
+           
             if params.fin_rutina < timeNow:
                 printStamp(" - Registrando Nuevo Strike - ")
                 registro_strike(app, vars, params)

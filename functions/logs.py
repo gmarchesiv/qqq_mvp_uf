@@ -19,6 +19,9 @@ def printStamp(msg):
     print(timestamp, msg)
 
 def readIBData(app, vars):
+    promedio_call = sum(vars.askbid_call_prom) / len(vars.askbid_call_prom) if len(vars.askbid_call_prom)!=0 else 0
+    promedio_put = sum(vars.askbid_put_prom) / len(vars.askbid_put_prom) if len(vars.askbid_put_prom)!=0 else 0
+
     print("===============================================")
  
     printStamp(f"{app.etfs[5]['symbol']} : $ {app.etfs[5]['price']}")
@@ -31,13 +34,14 @@ def readIBData(app, vars):
     printStamp(f"ASK :{vars.cask } | DCALL :{round(vars.dcall*100,2)}%")
     printStamp(f"BID :{vars.cbid} | DOCALL :{round(vars.docall*100,2)}%")
     printStamp(f"ASK/BID-CALL : {round(vars.askbid_call*100,2)}%")
+    printStamp(f"A/B-CALL_PROM: {round(promedio_call*100,2)}%")
     print("-----------------------------------------------")
 
     printStamp(f"{app.options[2]['symbol']}")
     printStamp(f"ASK :{vars.pask} | DPUT :{round(vars.dput*100,2)}%")
     printStamp(f"BID :{vars.pbid} | DOPUT :{round(vars.doput*100,2)}%")
     printStamp(f"ASK/BID-PUT : {round(vars.askbid_put*100,2)}%")
-    
+    printStamp(f"A/B-PUT_PROM: {round(promedio_put*100,2)}%")
 
  
 def read_rentabilidad(vars):
