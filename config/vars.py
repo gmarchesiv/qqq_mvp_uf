@@ -139,8 +139,8 @@ class variables:
         ###############################################
         # LABEL
         ###############################################
-
-        self.label = self.data.get("label", True)
+        self.flag_minuto_label=self.data.get("flag_minuto_label", False)
+        self.label = self.data.get("label", 0)
         self.retorno_lista = self.data.get("retorno_lista", [])
         self.retorno = self.data.get("retorno", 0)
         self.signo  = self.data.get("signo", "")

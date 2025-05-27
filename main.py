@@ -133,10 +133,12 @@ def main():
             timeNow = datetime.now(params.zone).time()
             # MIENTRAS NO SEA FIN DE DIA
             if params.fd >= timeNow:
-                if timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5:
+                if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5)and vars.flag_minuto_label:
                     generar_label(params, vars,app)
+                    vars.flag_minuto_label=False
                     time.sleep(0.5)
-
+                else:
+                    vars.flag_minuto_label=True
            
                 if vars.bloqueo == False: 
                     # ==================================
