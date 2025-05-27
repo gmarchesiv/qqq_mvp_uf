@@ -61,7 +61,9 @@ def generar_rsi(params, vars,app):
     else:
         df["rsi"]=ta.rsi(df["price"])
         df["rsi_prom_3"]=df["rsi"]*0.5+df["rsi"].shift(1)*0.25+df["rsi"].shift(2)*0.25
-        vars.rsi=df["rsi_prom_3"].iloc[-1]
+        print(df)
+        print(df["rsi_prom_3"].iloc[-1])
+        vars.rsi=float(df["rsi_prom_3"].iloc[-1])
     pass
 
 def generar_d_pico(params, vars,app):
@@ -92,7 +94,7 @@ def clusterizar(params, vars,app):
             "D_PICO":[vars.d_pico]
         }
     )
-    print(df)
+ 
     X = df.copy()
     df_final = X.copy()
     # Usar en nuevos datos
@@ -101,5 +103,5 @@ def clusterizar(params, vars,app):
     df_final["LABELS"] = labels
     df_final.reset_index(drop=True,inplace=True)
     vars.label=df_final["LABELS"][0]
-    print(type(vars.label))
+ 
     writeLabel(app, vars,params)
