@@ -157,7 +157,7 @@ class variables:
         self.ret_24H_back= self.data.get("ret_24H_back", [])
         self.ret_96H_back= self.data.get("ret_96H_back", [])
 
-        self.etf_price_lista=self.data.get("dic_etf", [])
+        self.etf_price_lista=self.data.get("etf_price_lista", [])
 
         self.rsi=self.data.get("rsi",0)
         # DEQUES

@@ -54,11 +54,12 @@ def generar_hour_back(params, vars,app):
 
 def generar_rsi(params, vars,app):
     vars.etf_price_lista.append(app.etfs[5]['price'])
-    df=pd.DataFrame({"price":vars.etf_price_lista})
-    if df.shape[0]<4:
+    print()
+    if len(vars.etf_price_lista)<4:
         vars.rsi=0
 
     else:
+        df=pd.DataFrame({"price":vars.etf_price_lista})
         df["rsi"]=ta.rsi(df["price"])
         df["rsi_prom_3"]=df["rsi"]*0.5+df["rsi"].shift(1)*0.25+df["rsi"].shift(2)*0.25
         print(df)
