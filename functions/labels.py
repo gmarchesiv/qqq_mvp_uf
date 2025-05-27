@@ -10,9 +10,9 @@ import joblib
 from database.repository.repository import writeLabel      
 
 def generar_label(params, vars,app):
-    generar_garch(params, vars)
-    generar_hour_back(params, vars)
-    generar_rsi(params, vars)
+    generar_garch(params, vars,app)
+    generar_hour_back(params, vars,app)
+    generar_rsi(params, vars,app)
     generar_d_pico(params, vars,app)
 
 
