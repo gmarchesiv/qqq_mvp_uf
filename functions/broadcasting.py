@@ -40,8 +40,8 @@ def broadcasting_Aliniar(vars):
                     vars.call_open = data["call_open"]
                     vars.put_open = data["put_open"]
 
-                    vars.flag_Call_R2 = data["flag_r2c"]
-                    vars.flag_Put_R2 = data["flag_r2p"]
+                    vars.flag_Call_R2 = data["flag_Call_R2"]
+                    vars.flag_Put_R2 = data["flag_Put_R2"]
                      
 
 
