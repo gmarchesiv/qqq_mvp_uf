@@ -177,7 +177,7 @@ def saveJson(vars, app, params, estado):
         # LABEL
         ###############################################
         "flag_minuto_label": vars.flag_minuto_label,
-        "label": vars.label,
+        "label": int(vars.label),
         "retorno_lista":[float(x) for x in vars.retorno_lista],
         "retorno": vars.retorno,
         "signo": vars.signo,

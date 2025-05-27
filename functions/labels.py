@@ -100,6 +100,6 @@ def clusterizar(params, vars,app):
     labels = km.predict(X_s)
     df_final["LABELS"] = labels
     df_final.reset_index(drop=True,inplace=True)
-    vars.label=df_final["LABELS"] [0]
-    print(vars.label)
+    vars.label=df_final["LABELS"][0]
+    print(type(vars.label))
     writeLabel(app, vars,params)
