@@ -368,10 +368,11 @@ def buy(params, app, vars, tipo, regla, ask, contract, symbol):
 
         timeNow = datetime.now(params.zone).time()
 
-        if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5)and vars.flag_minuto_label:
-            generar_label(params, vars,app)
-            vars.flag_minuto_label=False
-         
+        if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+            if vars.flag_minuto_label:
+                generar_label(params, vars,app)
+                vars.flag_minuto_label=False
+                time.sleep(0.5)
         else:
             vars.flag_minuto_label=True
 
