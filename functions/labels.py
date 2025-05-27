@@ -92,6 +92,7 @@ def clusterizar(params, vars,app):
             "D_PICO":[vars.d_pico]
         }
     )
+    print(df)
     X = df.copy()
     df_final = X.copy()
     # Usar en nuevos datos
@@ -100,4 +101,5 @@ def clusterizar(params, vars,app):
     df_final["LABELS"] = labels
     df_final.reset_index(drop=True,inplace=True)
     vars.label=df_final["LABELS"] [0]
+    print(vars.label)
     writeLabel(app, vars,params)
