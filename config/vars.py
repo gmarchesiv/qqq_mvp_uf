@@ -143,8 +143,8 @@ class variables:
         self.label = self.data.get("label", 0)
         self.retorno_lista = self.data.get("retorno_lista", [])
         self.retorno = self.data.get("retorno", 0)
-        self.signo  = self.data.get("signo", "")
-        self.varianza  = self.data.get("varianza", "")
+        self.signo  = self.data.get("signo", 0)
+        self.varianza  = self.data.get("varianza", 0)
 
 
         self.pico_etf=self.data.get("pico_etf", 540.81)
