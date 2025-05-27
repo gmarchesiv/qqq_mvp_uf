@@ -30,14 +30,14 @@ def generar_label(params, vars,app):
 
 def generar_garch(params, vars,app):
     vars.varianza=params.omega+(params.alpha+params.gamma*vars.signo)*  math.pow(vars.retorno-params.mu, 2) +params.beta*vars.varianza
-    print("a")
+    
     vars.garch=round(100* math.sqrt(  params.days_year*vars.varianza),4)
-    print("a2")
+   
     
     vars.signo=1 if (vars.retorno-params.mu)>0 else 0
-    print("a3")
+ 
     vars.retorno_lista.append(app.etfs[5]['price'])
-    print("a4")
+ 
     vars.retorno=app.etfs[5]['price'] / vars.retorno_lista[0] -1
     
 
