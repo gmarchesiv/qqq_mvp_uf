@@ -111,7 +111,7 @@ class parameters:
         # ==================================
         
         self.dcall_r1 = [0.04, 0.13]
-        self.docall_r1 = [0.03, 0.05]
+        self.docall_r1 = [0.03, 0.055]
         self.timeCall_r1 = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1 =0
         
@@ -144,7 +144,7 @@ class parameters:
         
         self.dcall_r1_fast = [0.11, 0.25]
         self.docall_r1_fast = [0.13, 0.15]
-        self.timeCall_r1_fast = [dt_time(9, 33), dt_time(10, 5)]
+        self.timeCall_r1_fast = [dt_time(9, 40), dt_time(10, 0)]
         self.labelCall_r1_fast =0
         
         # VENTA
@@ -160,7 +160,7 @@ class parameters:
         
         self.dcall_r1_i =[-0.20, 0.05]
         self.docall_r1_i = [0.13, 0.16]
-        self.timeCall_r1_i = [dt_time(9, 35), dt_time(10, 45)]
+        self.timeCall_r1_i = [dt_time(9, 35), dt_time(10, 0)]
         self.labelCall_r1_i=1
         
         # VENTA
@@ -174,7 +174,7 @@ class parameters:
         # =======  CALL - C       ==========  
         # ==================================
         
-        self.dcall_r1_c =[-0.14, 0.25]
+        self.dcall_r1_c =[-0.14, 0.03]
         self.docall_r1_c = [0.1, 0.12]
         self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
         self.labelCall_r1_c=0
