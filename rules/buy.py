@@ -303,7 +303,7 @@ def buy_Put(app, vars, params):
         (timeNow >= params.timePut_r1_i[0] and timeNow < params.timePut_r1_i[1])
         and (vars.dput >= params.dput_r1_i[0] and vars.dput < params.dput_r1_i[1])
         and (vars.doput >= params.doput_r1_i[0] and vars.doput < params.doput_r1_i[1])
-        and (vars.label==params.labelPut_r1_i )and vars.flag_Put_reset_r1_i
+        and (vars.label==params.labelPut_r1_i )and vars.flag_Put_reset_r1_i and vars.flag_Call_R2==False 
 
     ):
         flag_buy = buy(

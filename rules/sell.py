@@ -104,7 +104,26 @@ def sellCall(app, params, vars):
     if (
         vars.pico > params.umbral_no_perdida_c
         and vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
-        and vars.manifesto == False
+        and vars.manifesto == False and vars.tipo == "R2" 
+    ):
+        sell(
+            app,
+            vars,
+            params,
+            "C",
+            "PROTECCION",
+            app.options[1]["contract"],
+            app.options[1]["symbol"],
+        )
+
+        return
+    
+
+    # REGLA DE PROTECCION
+    if (
+        vars.pico > params.umbral_no_perdida_c
+        and vars.rentabilidad < params.perdida_maxima_c_abs
+        and vars.manifesto == False and vars.tipo != "R2" 
     ):
         sell(
             app,
@@ -521,7 +540,7 @@ def sellPut(app, params, vars):
     if (
         vars.pico > params.umbral_no_perdida_p
         and vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-        and vars.manifesto == False
+        and vars.manifesto == False and vars.tipo == "R2"
     ):
         sell(
             app,
@@ -535,6 +554,23 @@ def sellPut(app, params, vars):
 
         return
 
+    # REGLA PROTECCION
+    if (
+        vars.pico > params.umbral_no_perdida_p
+        and vars.rentabilidad < params.perdida_maxima_p_abs
+        and vars.manifesto == False and vars.tipo != "R2"
+    ):
+        sell(
+            app,
+            vars,
+            params,
+            "P",
+            "PROTECCION",
+            app.options[2]["contract"],
+            app.options[2]["symbol"],
+        )
+
+        return
     #########################################################
     ####################      PUT  R1     ###################
     #########################################################
