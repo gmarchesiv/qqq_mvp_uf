@@ -941,6 +941,7 @@ def sell(app, vars, params, tipo, regla, contract, symbol):
     from rules.routine import calculations
     if vars.rentabilidad<0:
         vars.regla_broadcasting = regla
+        saveJson(vars, app, params, False)
         respuesta=verificar_regla(params)
         if respuesta==False: return
 
