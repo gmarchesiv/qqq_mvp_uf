@@ -7,6 +7,8 @@ import pandas_ta as ta
 import pandas as pd  
 import joblib
 
+from sklearn.cluster import KMeans
+
 from database.repository.repository import writeLabel      
 
 def generar_label(params, vars,app):
@@ -76,6 +78,10 @@ def generar_d_pico(params, vars,app):
 
 
 def clusterizar(params, vars,app):
+    import pandas as pd  
+    import joblib
+    from sklearn.cluster import KMeans
+    
     scaler = joblib.load('/usr/src/app/functions/scaler.joblib')
     km = joblib.load('/usr/src/app/functions/model.joblib')
 
