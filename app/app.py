@@ -134,7 +134,7 @@ def get_reset():
         if timeNow < dt_time(9, 0) or timeNow >= dt_time(16, 0):
 
             subprocess.run(
-                ["docker", "restart", "alpha_qqq_live-python_script-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
@@ -148,10 +148,10 @@ def get_hard_reset():
     try:
         subprocess.run(["docker", "restart", "ibkr_config-ibkr-1"], check=True)
         subprocess.run(
-                ["docker", "restart", "alpha_qqq_live-python_script-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
             )
         subprocess.run(
-                ["docker", "restart", "alpha_qqq_live-python_app-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_app-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
@@ -216,9 +216,7 @@ def post_broadCasting_aliniar():
 
         data["flag_Call_R2"] = body.get("flag_Call_R2", data.get("flag_Call_R2"))
         data["flag_Put_R2"] = body.get("flag_Put_R2", data.get("flag_Put_R2"))
-        data["flag_R2_desicion"] = body.get(
-            "flag_R2_desicion", data.get("flag_R2_desicion")
-        )
+  
 
         data["aliniar"] = True
 
