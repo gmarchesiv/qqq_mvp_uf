@@ -101,8 +101,7 @@ def clusterizar(params, vars,app):
     X_s = scaler.transform(X)
     labels = km.predict(X_s)
     df_final["LABELS"] = labels
-    print(df_final )
-    print(df_final["LABELS"][0])
+ 
     df_final.reset_index(drop=True,inplace=True)
     vars.label=df_final["LABELS"][0]
   
