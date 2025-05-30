@@ -29,19 +29,19 @@ def generar_label(params, vars,app):
 
 
 def generar_garch(params, vars,app):
-    vars.varianza=params.omega+(params.alpha+params.gamma*vars.signo)*  math.pow(vars.retorno-params.mu, 2) +params.beta*vars.varianza
+    vars.varianza=params.omega+(params.alpha+params.gamma*vars.signo)*  math.pow(vars.retorno-vars.mu, 2) +params.beta*vars.varianza
     
     vars.garch=round(100* math.sqrt(  params.days_year*vars.varianza),4)
    
     
-    vars.signo=1 if (vars.retorno-params.mu)>0 else 0
+    vars.signo=1 if (vars.retorno-vars.mu)>0 else 0
  
     vars.retorno_lista.append(app.etfs[5]['price'])
  
     vars.retorno=app.etfs[5]['price'] / vars.retorno_lista[0] -1
     
-
- 
+    vars.mu= ((vars.mu*vars.mu_conteo) + vars.retorno)/(vars.mu_conteo+1)
+    vars.mu_conteo=vars.mu_conteo+1
 
 def generar_hour_back(params, vars,app):
     vars.ret_1H_back.append(app.etfs[5]['price'])
@@ -101,7 +101,10 @@ def clusterizar(params, vars,app):
     X_s = scaler.transform(X)
     labels = km.predict(X_s)
     df_final["LABELS"] = labels
+    print(df_final )
+    print(df_final["LABELS"][0])
     df_final.reset_index(drop=True,inplace=True)
     vars.label=df_final["LABELS"][0]
+  
  
     writeLabel(app, vars,params)
