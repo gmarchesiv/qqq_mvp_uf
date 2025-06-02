@@ -15,7 +15,6 @@ def generar_label(params, vars,app):
    
     generar_garch(params, vars,app)
    
-    generar_hour_back(params, vars,app)
     
     generar_rsi(params, vars,app)
   
@@ -25,6 +24,9 @@ def generar_label(params, vars,app):
 
 
     clusterizar(params, vars,app)
+
+    generar_hour_back(params, vars,app)
+    
     
     pass
 
