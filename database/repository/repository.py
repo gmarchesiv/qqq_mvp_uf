@@ -93,7 +93,7 @@ def writeDayTrade(app, vars, params):
     Session = sessionmaker(bind=engine)
     session = Session()
     try:
-
+        
         datetime_now = datetime.now(params.zone)
         new_data = dayTrade(
             date=datetime_now,
@@ -122,6 +122,8 @@ def writeDayTrade(app, vars, params):
             pico=vars.pico,
             caida=vars.caida,
             rule=vars.regla,
+            cAskBid_prom = vars.promedio_call,
+            pAskBid_prom = vars.promedio_put
         )
 
         session.add(new_data)

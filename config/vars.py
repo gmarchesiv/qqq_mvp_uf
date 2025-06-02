@@ -177,3 +177,7 @@ class variables:
 
         self.mu=self.data.get("mu", 0.000622019)
         self.mu_conteo=self.data.get("mu_conteo", 358123)
+
+
+        self.promedio_call=self.data.get("promedio_call",0)
+        self.promedio_put=self.data.get("promedio_put",0)
