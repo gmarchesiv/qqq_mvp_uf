@@ -86,25 +86,25 @@ def buy_Call(app, vars, params):
     ###################    CALL R1 FAST   ###################
     #########################################################
 
-    elif (
-        (timeNow >= params.timeCall_r1_fast[0] and timeNow < params.timeCall_r1_fast[1])
-        and (vars.dcall >= params.dcall_r1_fast[0] and vars.dcall < params.dcall_r1_fast[1])
-        and (vars.docall >= params.docall_r1_fast[0] and vars.docall <= params.docall_r1_fast[1])
-        and  (vars.label==params.labelCall_r1_fast ) 
-    ):
-        flag_buy = buy(
-            params,
-            app,
-            vars,
-            "C",
-            "R1-FAST",
-            vars.cask,
-            app.options[1]["contract"],
-            app.options[1]["symbol"],
-        )
+    # elif (
+    #     (timeNow >= params.timeCall_r1_fast[0] and timeNow < params.timeCall_r1_fast[1])
+    #     and (vars.dcall >= params.dcall_r1_fast[0] and vars.dcall < params.dcall_r1_fast[1])
+    #     and (vars.docall >= params.docall_r1_fast[0] and vars.docall <= params.docall_r1_fast[1])
+    #     and  (vars.label==params.labelCall_r1_fast ) 
+    # ):
+    #     flag_buy = buy(
+    #         params,
+    #         app,
+    #         vars,
+    #         "C",
+    #         "R1-FAST",
+    #         vars.cask,
+    #         app.options[1]["contract"],
+    #         app.options[1]["symbol"],
+    #     )
 
-        if flag_buy == False:
-            return
+    #     if flag_buy == False:
+    #         return
     #########################################################
     ####################      CALL R1  E  ###################
     #########################################################
@@ -227,26 +227,26 @@ def buy_Put(app, vars, params):
     #########################################################
     ####################       PUT R1     ###################
     #########################################################
-    # elif (
-    #     (timeNow >= params.timePut_r1[0] and timeNow < params.timePut_r1[1])
-    #     and (vars.dput >= params.dput_r1[0] and vars.dput < params.dput_r1[1])
-    #     and (vars.doput >= params.doput_r1[0] and vars.doput < params.doput_r1[1])
-    #     and (vars.label==params.labelPut_r1 )and vars.flag_Put_reset_r1
+    elif (
+        (timeNow >= params.timePut_r1[0] and timeNow < params.timePut_r1[1])
+        and (vars.dput >= params.dput_r1[0] and vars.dput < params.dput_r1[1])
+        and (vars.doput >= params.doput_r1[0] and vars.doput < params.doput_r1[1])
+        and (vars.label==params.labelPut_r1 ) #and vars.flag_Put_reset_r1
 
-    # ):
-    #     flag_buy = buy(
-    #         params,
-    #         app,
-    #         vars,
-    #         "P",
-    #         "R1",
-    #         vars.pask,
-    #         app.options[2]["contract"],
-    #         app.options[2]["symbol"],
-    #     )
+    ):
+        flag_buy = buy(
+            params,
+            app,
+            vars,
+            "P",
+            "R1",
+            vars.pask,
+            app.options[2]["contract"],
+            app.options[2]["symbol"],
+        )
 
-    #     if flag_buy == False:
-    #         return
+        if flag_buy == False:
+            return
         
     #########################################################
     ####################       PUT R1 E   ###################

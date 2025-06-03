@@ -112,7 +112,7 @@ class parameters:
         # ==================================
         
         self.dcall_r1 = [0.04, 0.13]
-        self.docall_r1 = [0.03, 0.055]
+        self.docall_r1 = [0.03, 0.065]
         self.timeCall_r1 = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1 =0
         
@@ -175,7 +175,7 @@ class parameters:
         # =======  CALL - C       ==========  
         # ==================================
         
-        self.dcall_r1_c =[-0.14, 0.03]
+        self.dcall_r1_c =[-0.17, 0.25]
         self.docall_r1_c = [0.1, 0.12]
         self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
         self.labelCall_r1_c=0
@@ -238,8 +238,8 @@ class parameters:
         # COMPRA
         
         self.dput_r1 = [-0.28, 0.21]
-        self.doput_r1 = [0.045, 0.06]
-        self.timePut_r1 = [dt_time(9, 50), dt_time(10, 5)]
+        self.doput_r1 = [0.05, 0.065]
+        self.timePut_r1 = [dt_time(10, 0), dt_time(10, 20)]
         self.labelPut_r1=1
 
         # VENTA
@@ -254,7 +254,7 @@ class parameters:
         # ==================================
         
         self.dput_r1_i =[-0.25, 0.03]
-        self.doput_r1_i = [0.14, 0.16]
+        self.doput_r1_i = [0.105, 0.115]
         self.timePut_r1_i = [dt_time(9, 35), dt_time(10,0)]
         self.labelPut_r1_i=0
         
@@ -272,7 +272,7 @@ class parameters:
         
         self.dput_r1_e = [-0.25, 0.3]
         self.doput_r1_e = [0.05, 0.09]
-        self.timePut_r1_e = [dt_time(10, 5), dt_time(10,35)]
+        self.timePut_r1_e = [dt_time(10, 15), dt_time(10,35)]
         self.labelPut_r1_e=1
 
         # VENTA
@@ -289,7 +289,7 @@ class parameters:
         # COMPRA
         
         self.dput_r1_fast = [-0.02, 0.2]
-        self.doput_r1_fast = [0.105, 0.115]
+        self.doput_r1_fast = [0.09, 0.11]
         self.timePut_r1_fast = [dt_time(9, 45), dt_time(9, 55)]
         self.labelPut_r1_fast=1
 
