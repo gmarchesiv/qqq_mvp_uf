@@ -1,36 +1,36 @@
 {
     "red": [
         {
-            "ip": "10.8.0.21:8002",
+            "ip": "10.8.0.21:8000",
             "user": "Augusto Vidaurre"
         },
  
         {
-            "ip": "10.8.0.23:8002",
+            "ip": "10.8.0.23:8000",
             "user": "Gerardo Yupari"
         },
         {
-            "ip": "10.8.0.24:8002",
+            "ip": "10.8.0.24:8000",
             "user": "Giancarlo Marchesi"
         },
         {
-            "ip": "10.8.0.25:8002",
+            "ip": "10.8.0.25:8000",
             "user": "Guillermo Berastain"
         },
         {
-            "ip": "10.8.0.26:8002",
+            "ip": "10.8.0.26:8000",
             "user": "Javier Briceño"
         },
         {
-            "ip": "10.8.0.27:8002",
+            "ip": "10.8.0.27:8000",
             "user": "Juan Carlos Mandujano"
         },
         {
-            "ip": "10.8.0.28:8002",
+            "ip": "10.8.0.28:8000",
             "user": "Orlando Marchesi"
         },
         {
-            "ip": "10.8.0.20:8002",
+            "ip": "10.8.0.20:8000",
             "user": "Andres Sotomayor"
         }
     ]
