@@ -127,9 +127,9 @@ class parameters:
         # =========== CALL - R1-E ========== 
         # ==================================
         
-        self.dcall_r1_e = [-0.12, 0.14]
-        self.docall_r1_e = [0.1, 0.14]
-        self.timeCall_r1_e = [dt_time(10, 5), dt_time(11, 0)]
+        self.dcall_r1_e = [-0.08, 0.2]
+        self.docall_r1_e = [0.05, 0.065]
+        self.timeCall_r1_e = [dt_time(10, 20), dt_time(10, 40)]
         self.labelCall_r1_e =0
         
         # VENTA
@@ -175,9 +175,9 @@ class parameters:
         # =======  CALL - C       ==========  
         # ==================================
         
-        self.dcall_r1_c =[-0.17, 0.25]
-        self.docall_r1_c = [0.1, 0.12]
-        self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
+        self.dcall_r1_c =[-0.2, 0.25]
+        self.docall_r1_c = [0.05, 0.08]
+        self.timeCall_r1_c = [dt_time(11, 10), dt_time(12, 40)]
         self.labelCall_r1_c=0
         # VENTA
         self.sl_cr1_c =-0.05  # STOP LOSS
