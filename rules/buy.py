@@ -120,7 +120,7 @@ def buy_Call(app, vars, params):
             app,
             vars,
             "C",
-            "R1",
+            "R1-E",
             vars.cask,
             app.options[1]["contract"],
             app.options[1]["symbol"],
