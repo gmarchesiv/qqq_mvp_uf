@@ -105,7 +105,7 @@ def saveJson(vars, app, params, estado):
         "flag_Call_R2": vars.flag_Call_R2,
         "flag_Put_R2": vars.flag_Put_R2,
         "flag_Call_reset_r1": vars.flag_Call_reset_r1,
-        "flag_Put_reset_r1_i": vars.flag_Put_reset_r1_i,
+ 
         "flag_Put_reset_r1 ": vars.flag_Put_reset_r1,
         "flag_Call_reset_r1_e ": vars.flag_Call_reset_r1_e,
         
