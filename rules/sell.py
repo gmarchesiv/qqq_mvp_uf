@@ -83,7 +83,13 @@ def sellCall(app, params, vars):
 
     vars.caida = vars.rentabilidad - vars.pico
 
-   
+    if vars.askbid_call > params.max_askbid_venta_abs or vars.cbid <= 0 or vars.askbid_call<0 :
+        proteccion_askbid_flag=False
+        for hora in params.proteccion_ask_bid:
+            if (timeNow >= hora[0] and timeNow<= hora[1]):
+                proteccion_askbid_flag=True
+        if proteccion_askbid_flag:
+            return
     
     if timeNow >= params.fd:
         vars.venta_intentos=params.intentos
@@ -118,8 +124,26 @@ def sellCall(app, params, vars):
         )
 
         return
-    
-    # TODO ME QUEDE AQUI
+
+
+    # REGLA DE PROTECCION
+    if (
+        vars.pico > params.umbral_no_perdida_c_r2
+        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
+        and vars.manifesto == False and  vars.tipo == "R2"
+    ):
+        sell(
+            app,
+            vars,
+            params,
+            "C",
+            "PROTECCION",
+            app.options[1]["contract"],
+            app.options[1]["symbol"],
+        )
+
+        return
+   
     # REGLA DE PROTECCION
     if (
         vars.pico > params.umbral_no_perdida_c
@@ -270,65 +294,8 @@ def sellCall(app, params, vars):
                 )
 
                 return
-            
-    
-    #########################################################
-    ################      CALL  R1  FAST   ##################
-    #########################################################
-    elif vars.tipo == "R1-FAST":  
 
-        # MANIFIESTA
-        if vars.manifesto:
-            # DIAMANTE
-            for y in range(vars.ugs_n, len(params.diamante_cr1_fast)):
-                if round(vars.pico, 3) > params.diamante_cr1_fast[y]:
-                    vars.ugs_n = y
-                    if vars.ugs_n != vars.ugs_n_ant:
-                        vars.minutos = 0
-                        vars.ugs_n_ant = vars.ugs_n
-                else:
-                    break
-            # MAXIMA RENTABILIDAD
-            if vars.rentabilidad <= (vars.pico - params.resta_cr1_fast[vars.ugs_n]):
-
-                name = f"T{vars.ugs_n}"
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    name,
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-                return
-
-            else:
-                pass
-
-        # AUN NO MANIFIESTA
-        else:
-
-            # vars.manifesto
-            if vars.rentabilidad >= params.umbral_manifestacion_cR1_fast:
-                vars.manifesto = True
-                vars.minutos = 0
-
-            # STOP LOSS
-            elif vars.rentabilidad <= params.sl_cr1_fast:
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "C",
-                    "SL",
-                    app.options[1]["contract"],
-                    app.options[1]["symbol"],
-                )
-
-                return
-    #########################################################
+     #########################################################
     ################      CALL    R2    ##################
     #########################################################
     elif vars.tipo == "R2":
@@ -384,8 +351,7 @@ def sellCall(app, params, vars):
                 )
 
                 return
-
-
+       
     #########################################################
     ################      CALL  R1  INV    ##################
     #########################################################
@@ -480,30 +446,52 @@ def sellCall(app, params, vars):
                 )
 
                 return
-            
     #########################################################
-    ################      CALL  R2  E      ##################
+    ################      CALL  R1  FAST   ##################
     #########################################################
-    elif vars.tipo == "R2-E":
+    elif vars.tipo == "R1-FAST":  
 
-        # MANIFESTO
-        if vars.pico >= params.target_cR2_e:
-            name = "TARGET"
-            sell(
-                app,
-                vars,
-                params,
-                "C",
-                name,
-                app.options[1]["contract"],
-                app.options[1]["symbol"],
-            )
+        # MANIFIESTA
+        if vars.manifesto:
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr1_fast)):
+                if round(vars.pico, 3) > params.diamante_cr1_fast[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr1_fast[vars.ugs_n]):
 
-            return
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    name,
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
 
+                return
 
-        elif vars.rentabilidad <= params.sl_cr2:
-            sell(
+            else:
+                pass
+
+        # AUN NO MANIFIESTA
+        else:
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR1_fast:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr1_fast:
+                sell(
                     app,
                     vars,
                     params,
@@ -513,11 +501,71 @@ def sellCall(app, params, vars):
                     app.options[1]["symbol"],
                 )
 
-            return
+                return
+    
 
+    
 
+    
+            
+    #########################################################
+    ################      CALL  R3   ##################
+    #########################################################
+    elif vars.tipo == "R3":  
+
+        # MANIFIESTA
+        if vars.manifesto:
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_cr3)):
+                if round(vars.pico, 3) > params.diamante_cr3[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+            # MAXIMA RENTABILIDAD
+            if vars.rentabilidad <= (vars.pico - params.resta_cr3[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    name,
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        # AUN NO MANIFIESTA
         else:
-            pass
+
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_cR3:
+                vars.manifesto = True
+                vars.minutos = 0
+
+            # STOP LOSS
+            elif vars.rentabilidad <= params.sl_cr3:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "SL",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
+    
+
     vars.regla_broadcasting=""
 
 def sellPut(app, params, vars):
@@ -539,6 +587,14 @@ def sellPut(app, params, vars):
 
     vars.caida = vars.rentabilidad - vars.pico
 
+
+    if vars.askbid_put > params.max_askbid_venta_abs or vars.pbid <= 0 or vars.askbid_put<0 :
+        proteccion_askbid_flag=False
+        for hora in params.proteccion_ask_bid:
+            if (timeNow >= hora[0] and timeNow<= hora[1]):
+                proteccion_askbid_flag=True
+        if proteccion_askbid_flag:
+            return
     # # FIN DE DIA DE TRADE
  
     
@@ -556,11 +612,11 @@ def sellPut(app, params, vars):
 
         return
 
-    # REGLA PROTECCION
+    # REGLA DE PROTECCION
     if (
-        vars.pico > params.umbral_no_perdida_p
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-        and vars.manifesto == False and vars.tipo == "R2"
+        vars.pico > params.umbral_no_perdida_p_r2
+        and vars.rentabilidad < (vars.pico - params.perdida_maxima_p_r2)
+        and vars.manifesto == False and  vars.tipo == "R2"
     ):
         sell(
             app,
@@ -573,12 +629,31 @@ def sellPut(app, params, vars):
         )
 
         return
+   
+    # REGLA DE PROTECCION
+    if (
+        vars.pico > params.umbral_no_perdida_p
+        and vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
+        and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
+    ):
+        sell(
+            app,
+            vars,
+            params,
+            "P",
+            "PROTECCION_D",
+            app.options[2]["contract"],
+            app.options[2]["symbol"],
+        )
 
-    # REGLA PROTECCION
+        return
+    
+
+    # REGLA DE PROTECCION
     if (
         vars.pico > params.umbral_no_perdida_p
         and vars.rentabilidad < params.perdida_maxima_p_abs
-        and vars.manifesto == False and vars.tipo != "R2"
+        and vars.manifesto == False and vars.tipo != "R2" 
     ):
         sell(
             app,
@@ -707,7 +782,65 @@ def sellPut(app, params, vars):
                 )
 
                 return
-            
+
+    #########################################################
+    ####################      PUT  R3     ###################
+    #########################################################
+    elif vars.tipo == "R1-I":
+        # MANIFIESTA
+        if vars.manifesto:
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr3)):
+                if round(vars.pico, 3) > params.diamante_pr3[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr3[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR3:
+                vars.manifesto = True
+                vars.minutos = 0
+
+ 
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr3:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return    
     #########################################################
     ####################      PUT  R1  E  ###################
     #########################################################
