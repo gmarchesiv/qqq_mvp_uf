@@ -100,10 +100,11 @@ def sellCall(app, params, vars):
         )
         return
 
+
     # REGLA DE PROTECCION
     if (
-        vars.pico > params.umbral_no_perdida_c
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
+        vars.pico > params.umbral_no_perdida_c_r2
+        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
         and vars.manifesto == False and vars.tipo == "R2" 
     ):
         sell(
@@ -112,6 +113,25 @@ def sellCall(app, params, vars):
             params,
             "C",
             "PROTECCION",
+            app.options[1]["contract"],
+            app.options[1]["symbol"],
+        )
+
+        return
+    
+    # TODO ME QUEDE AQUI
+    # REGLA DE PROTECCION
+    if (
+        vars.pico > params.umbral_no_perdida_c
+        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
+        and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
+    ):
+        sell(
+            app,
+            vars,
+            params,
+            "C",
+            "PROTECCION_D",
             app.options[1]["contract"],
             app.options[1]["symbol"],
         )
