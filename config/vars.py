@@ -67,6 +67,7 @@ class variables:
         self.flag_Call_reset_r1_c = self.data.get("flag_Call_reset_r1_c", False)
         self.flag_Put_reset_r1 = self.data.get("flag_Put_reset_r1", False)
         self.flag_Call_reset_r1_e = self.data.get("flag_Call_reset_r1_e", False)
+        self.flag_cambio_fast= self.data.get("flag_cambio_fast", False)
  
         ###############################################
         # VARIABLES DE RUTINA
@@ -141,6 +142,7 @@ class variables:
         ###############################################
         self.flag_minuto_label=self.data.get("flag_minuto_label", False)
         self.label = self.data.get("label", 0)
+        self.label_ant = self.data.get("label_ant", 0)
         self.retorno_lista = self.data.get("retorno_lista", [])
         self.retorno = self.data.get("retorno", 0)
         self.signo  = self.data.get("signo", 0)

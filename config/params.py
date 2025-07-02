@@ -206,17 +206,17 @@ class parameters:
         # =========== CALL - R1-FAST =======
         # ==================================
         
-        self.dcall_r1_fast =  [ 0.05 , 0.11]
-        self.docall_r1_fast =  [0.08, 0.09]
-        self.timeCall_r1_fast =  [dt_time(9, 45), dt_time(9, 55)]
+        self.dcall_r1_fast = [-0.02 ,0.2]
+        self.docall_r1_fast =  [0.04, 0.057]
+        self.timeCall_r1_fast = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1_fast =0
         
         # VENTA
         self.sl_cr1_fast =-0.05  # STOP LOSS
-        # self.min_desicion_cr1_fast   = 60
-        self.umbral_manifestacion_cR1_fast =0.029
-        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.0379  ] # DIAMANTE DE COMPRA
-        self.resta_cr1_fast  = [0.015, self.inf_n]# RETROCESO DEL DIAMANTE 
+        # min_desicion_cr1_fast   = 60
+        self.umbral_manifestacion_cR1_fast =0.02 
+        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.0379,0.07   ] # DIAMANTE DE COMPRA
+        self.resta_cr1_fast  = [0.015,0.01 ,self.inf_n]# RETROCESO DEL DIAMANTE 
     
         # ==================================
         # =========== CALL - R3 =======

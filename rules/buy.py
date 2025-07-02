@@ -165,7 +165,7 @@ def buy_Call(app, vars, params):
         (timeNow >= params.timeCall_r1_fast[0] and timeNow < params.timeCall_r1_fast[1])
         and (vars.dcall >= params.dcall_r1_fast[0] and vars.dcall < params.dcall_r1_fast[1])
         and (vars.docall >= params.docall_r1_fast[0] and vars.docall <= params.docall_r1_fast[1])
-        and  (vars.label==params.labelCall_r1_fast ) 
+        and  (vars.label==params.labelCall_r1_fast ) and  (vars.flag_cambio_fast and vars.label==vars.labelCall_r1_fast) and vars.flag_Call_R2==False
     ):
         flag_buy = buy(
             params,
@@ -471,6 +471,7 @@ def buy(params, app, vars, tipo, regla, ask, contract, symbol):
     return True
 
 def calculos_call(vars, params):
+    from datetime import time as dt_time
     #########################################################
     ###################      CALCULOS      ##################
     #########################################################
@@ -500,6 +501,16 @@ def calculos_call(vars, params):
         vars.flag_Call_reset_r1_c = True
     else:
         pass
+
+
+    timeNow = datetime.now(params.zone).time()
+
+    if vars.flag_cambio_fast==False  and \
+        vars.label==vars.labelCall_r1_fast  and  \
+       timeNow >= dt_time(9, 34) and  \
+        vars.label!=vars.label_ant:
+
+        vars.flag_cambio_fast=True
 
 
  

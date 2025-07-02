@@ -111,6 +111,7 @@ def clusterizar(params, vars,app):
     df_final["LABELS"] = labels
  
     df_final.reset_index(drop=True,inplace=True)
+    vars.label_ant=vars.label
     vars.label=df_final["LABELS"][0]
   
  

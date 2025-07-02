@@ -108,6 +108,7 @@ def saveJson(vars, app, params, estado):
         "flag_Call_reset_r1_c" :vars.flag_Call_reset_r1_c,
         "flag_Put_reset_r1 ": vars.flag_Put_reset_r1,
         "flag_Call_reset_r1_e ": vars.flag_Call_reset_r1_e,
+        "flag_cambio_fast ": vars.flag_cambio_fast,
         
         ###############################################
         # VARIABLES DE RUTINA
@@ -179,6 +180,7 @@ def saveJson(vars, app, params, estado):
         ###############################################
         "flag_minuto_label": vars.flag_minuto_label,
         "label": int(vars.label),
+        "label_ant": int(vars.label_ant),
         "retorno_lista":[float(x) for x in vars.retorno_lista],
         "retorno": vars.retorno,
         "signo": vars.signo,
