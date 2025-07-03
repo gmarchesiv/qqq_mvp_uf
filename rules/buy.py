@@ -506,7 +506,7 @@ def calculos_call(vars, params):
     timeNow = datetime.now(params.zone).time()
 
     if vars.flag_cambio_fast==False  and \
-        vars.label==vars.labelCall_r1_fast  and  \
+        vars.label==params.labelCall_r1_fast  and  \
        timeNow >= dt_time(9, 34) and  \
         vars.label!=vars.label_ant:
 
