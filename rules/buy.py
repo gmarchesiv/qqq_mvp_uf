@@ -287,7 +287,7 @@ def buy_Put(app, vars, params):
     elif (
         (timeNow >= params.timePut_r3[0] and timeNow < params.timePut_r3[1])
         and (vars.dput >= params.dput_r3[0] and vars.dput < params.dput_r3[1])
-        and (vars.doput >= params.doput_r3[0] and vars.doput < params.doput_3[1])
+        and (vars.doput >= params.doput_r3[0] and vars.doput < params.doput_r3[1])
         and (vars.label==params.labelPut_r3 )  and vars.flag_Put_R2==False
 
     ):
