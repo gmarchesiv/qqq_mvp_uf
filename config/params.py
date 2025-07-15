@@ -116,7 +116,7 @@ class parameters:
         # =========== CALL - R1 ============
         # ==================================
         
-        self.dcall_r1 = [0.09, 0.13]
+        self.dcall_r1 = [0.09, 0.135]
         self.docall_r1 = [0.03, 0.05]
         self.timeCall_r1 = [dt_time(9, 35), dt_time(10, 0)]
         self.labelCall_r1 =0
@@ -313,9 +313,9 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r1_fast = [ 0.08, 0.155]
-        self.doput_r1_fast = [0.08, 0.09]
-        self.timePut_r1_fast = [dt_time(9, 45), dt_time(9, 55)]
+        self.dput_r1_fast =  [ 0.0755, 0.155]
+        self.doput_r1_fast = [0.08, 0.0895]
+        self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 55)]
         self.labelPut_r1_fast=1
 
         # VENTA
