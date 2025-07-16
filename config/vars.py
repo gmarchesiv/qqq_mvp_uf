@@ -37,6 +37,8 @@ class variables:
         self.sendError = self.data.get("sendError", False)
         self.Error = self.data.get("Error", False)
         self.Error_buy = self.data.get("Error_buy", False)
+        self.flag_bloqueo_tiempo= self.data.get("flag_bloqueo_tiempo", False)
+
 
         ###############################################
         # VARIABLES DE TIEMPO
@@ -183,3 +185,4 @@ class variables:
 
         self.promedio_call=self.data.get("promedio_call",0)
         self.promedio_put=self.data.get("promedio_put",0)
+

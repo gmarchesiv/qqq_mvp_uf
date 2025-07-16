@@ -31,6 +31,7 @@ def clean_vars(vars):
     vars.venta_intentos=0
     vars.tipo=""
     vars.real_priceBuy =0
+    vars.flag_bloqueo_tiempo=False
 
 
 def clean_broadcasting(vars):
