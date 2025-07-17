@@ -206,7 +206,7 @@ class parameters:
         # =========== CALL - R1-FAST =======
         # ==================================
         
-        self.dcall_r1_fast = [-0.02 ,0.2]
+        self.dcall_r1_fast = [-0.02 ,0.08]
         self.docall_r1_fast =  [0.04, 0.057]
         self.timeCall_r1_fast = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1_fast =0
