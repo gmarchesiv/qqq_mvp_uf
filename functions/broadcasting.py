@@ -97,9 +97,9 @@ def broadcasting_buy(vars,params,app):
     # Lectura del Archivo
     file_name = "/usr/src/app/data/vars.json"
  
-
-    if os.path.exists(file_name):
-        try:
+    try:
+        if os.path.exists(file_name):
+        
             with open(file_name, "r") as json_file:
                 data = json.load(json_file)
     
@@ -139,7 +139,7 @@ def broadcasting_buy(vars,params,app):
                             return
                         vars.buy_broadcasting=False
                         return
-        except:pass
+    except:pass
                   
 async def send_request(session, url, data, user):
     try:
