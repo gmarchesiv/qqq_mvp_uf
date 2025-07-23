@@ -209,21 +209,45 @@ def buy_Call(app, vars, params):
 
 
     #########################################################
-    ####################      CALL R1  F  ###################
+    ####################      CALL R1  F1  ###################
     #########################################################
 
     elif (
-        (timeNow >= params.timecall_r1_f[0] and timeNow < params.timecall_r1_f[1])
-        and (vars.dcall >= params.dcall_r1_f[0] and vars.dcall < params.dcall_r1_f[1])
-        and (vars.docall >= params.docall_r1_f[0] and vars.docall <= params.docall_r1_f[1])
-        and  (vars.label==params.labelcall_r1_f ) 
+        (timeNow >= params.timecall_r1_f1[0] and timeNow < params.timecall_r1_f1[1])
+        and (vars.dcall >= params.dcall_r1_f1[0] and vars.dcall < params.dcall_r1_f1[1])
+        and (vars.docall >= params.docall_r1_f1[0] and vars.docall <= params.docall_r1_f1[1])
+        and  (vars.label==params.labelcall_r1_f1 ) 
     ):
         flag_buy = buy(
             params,
             app,
             vars,
             "C",
-            "F",
+            "F1",
+            vars.cask,
+            app.options[1]["contract"],
+            app.options[1]["symbol"],
+        )
+
+        if flag_buy == False:
+            return
+        
+    #########################################################
+    ####################      CALL R1  F2  ###################
+    #########################################################
+
+    elif (
+        (timeNow >= params.timecall_r1_f2[0] and timeNow < params.timecall_r1_f2[1])
+        and (vars.dcall >= params.dcall_r1_f2[0] and vars.dcall < params.dcall_r1_f2[1])
+        and (vars.docall >= params.docall_r1_f2[0] and vars.docall <= params.docall_r1_f2[1])
+        and  (vars.label==params.labelcall_r1_f2 ) 
+    ):
+        flag_buy = buy(
+            params,
+            app,
+            vars,
+            "C",
+            "F2",
             vars.cask,
             app.options[1]["contract"],
             app.options[1]["symbol"],

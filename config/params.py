@@ -235,26 +235,47 @@ class parameters:
         self.resta_cr3  = [  self.inf_n]# RETROCESO DEL DIAMANTE 
     
         # ==================================
-        # =========== CALL R1 F =============
+        # =========== CALL R1 F1 =============
         # ==================================
         # COMPRA
         
-        self.dcall_r1_f = [-0.22, 0.4]
-        self.docall_r1_f = [0.095, 0.11]
-        self.timecall_r1_f = [dt_time(12, 30), dt_time(12, 32)]
-        self.labelcall_r1_f=0
+        self.dcall_r1_f1 = [-0.22, -0.08]
+        self.docall_r1_f1 = [0.095, 0.11]
+        self.timecall_r1_f1 = [dt_time(12, 30), dt_time(12, 32)]
+        self.labelcall_r1_f1=0
 
         # VENTA
-        self.sl_cr1_f=-0.05  # STOP LOSS
+        self.sl_cr1_f1=-0.05  # STOP LOSS
+    
+
+        self.umbral_manifestacion_cR1_f1=0.0285
+        self.diamante_cr1_f1 = [
+        self.umbral_manifestacion_cR1_f1,
+        0.04
+        ]  # DIAMANTE DE COMPRA
+        self.resta_cr1_f1 = [0.0295, self.inf_n]   # RETROCESO DEL DIAMANTE
+
+        # ==================================
+        # =========== CALL R1 F2 =============
+        # ==================================
+        # COMPRA
+        
+        self.dcall_r1_f2 = [0.25, 0.35]
+        self.docall_r1_f2 = [0.095, 0.11]
+        self.timecall_r1_f2 = [dt_time(12, 30), dt_time(12, 32)]
+        self.labelcall_r1_f2=0
+
+        # VENTA
+        self.sl_cr1_f2=-0.05  # STOP LOSS
         # self.min_desicion_pr1_f  = 60
         # self.target_pR1_f =0.04
 
-        self.umbral_manifestacion_cR1_f=0.0285
-        self.diamante_cr1_f = [
-        self.umbral_manifestacion_cR1_f,
+        self.umbral_manifestacion_cR1_f2=0.0285
+        self.diamante_cr1_f2 = [
+        self.umbral_manifestacion_cR1_f2,
         0.04
         ]  # DIAMANTE DE COMPRA
-        self.resta_cr1_f = [0.0295, self.inf_n]   # RETROCESO DEL DIAMANTE
+        self.resta_cr1_f2 = [0.0295, self.inf_n]   # RETROCESO DEL DIAMANTE
         ##########################################
         #########################################################
         ####################      PUT         ###################
@@ -277,7 +298,7 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r1 = [-0.23, 0.13]
+        self.dput_r1 = [-0.23, -0.04]
         self.doput_r1 = [0.057, 0.065]
         self.timePut_r1 = [dt_time(10, 0), dt_time(10, 20)]
         self.labelPut_r1=1
@@ -393,7 +414,7 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r1_f = [0, 0.6]
+        self.dput_r1_f = [0, 0.2]
         self.doput_r1_f = [0.08, 0.115]
         self.timePut_r1_f = [dt_time(13, 30), dt_time(14, 10)]
         self.labelPut_r1_f=1
