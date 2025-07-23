@@ -146,7 +146,7 @@ def sellCall(app, params, vars):
    
     # REGLA DE PROTECCION
     if (
-        vars.pico > params.umbral_no_perdida_c
+        vars.pico < params.umbral_no_perdida_c
         and vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
         and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
     ):
@@ -687,7 +687,7 @@ def sellPut(app, params, vars):
    
     # REGLA DE PROTECCION
     if (
-        vars.pico > params.umbral_no_perdida_p
+        vars.pico < params.umbral_no_perdida_p
         and vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
         and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
     ):
