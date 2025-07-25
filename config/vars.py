@@ -74,8 +74,8 @@ class variables:
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
-        self.min_extras = self.data.get("min_extras", 0)
-        self.min_desicion = self.data.get("min_desicion", 0)
+        # self.min_extras = self.data.get("min_extras", 0)
+        # self.min_desicion = self.data.get("min_desicion", 0)
         self.ugs_n = self.data.get("ugs_n", 0)
         self.ugs_n_ant = self.data.get("ugs_n_ant", 0)
         self.pico = self.data.get("pico", 0)
@@ -91,8 +91,12 @@ class variables:
         self.doput = self.data.get("doput", 0)
         self.askbid_call = self.data.get("askbid_call", 0)
         self.askbid_put = self.data.get("askbid_put", 0)
+        
         self.askbid_call_prom = self.data.get("askbid_call_prom ", [])
         self.askbid_put_prom  = self.data.get("askbid_put_prom ",[])
+        self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=90)
+        self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=90)
+
         self.quantity = self.data.get("quantity", 0)
         self.rentabilidad = self.data.get("rentabilidad", 0)
         self.rentabilidad_ant = self.data.get("rentabilidad_ant", 0)
@@ -149,7 +153,7 @@ class variables:
         self.retorno = self.data.get("retorno", 0)
         self.signo  = self.data.get("signo", 0)
         self.varianza  = self.data.get("varianza", 0)
-
+        self.garch = self.data.get("garch", 0)
 
         self.pico_etf=self.data.get("pico_etf", 540.81)
         self.d_pico  = self.data.get("d_pico", 0)   
@@ -165,8 +169,7 @@ class variables:
 
         self.rsi=self.data.get("rsi",0)
         # DEQUES
-        self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=90)
-        self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=90)
+        
 
         self.retorno_lista =  deque(self.retorno_lista, maxlen=79)
 
