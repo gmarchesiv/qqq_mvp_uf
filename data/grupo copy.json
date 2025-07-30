@@ -4,7 +4,10 @@
             "ip": "10.8.0.21:8000",
             "user": "Augusto Vidaurre"
         },
- 
+     {
+            "ip": "10.8.0.22:8000",
+            "user": "Geraldo Arosemena"
+        },
         {
             "ip": "10.8.0.23:8000",
             "user": "Gerardo Yupari"
