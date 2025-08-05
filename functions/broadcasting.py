@@ -106,7 +106,8 @@ def broadcasting_sell_auto(vars,params,app,bc):
  
             if 'sell' in data:
                 if data["sell"] == True  :
-         
+
+                    params.max_askbid_venta_abs=data["max_askbid_venta_abs"]
                     if vars.call:
                         val = 1
                         tipo="C"
@@ -123,7 +124,7 @@ def broadcasting_sell_auto(vars,params,app,bc):
                     printStamp(f"-VENTA BROADCASTING POR : ALPHALYTICS - FORZADA")
 
                     from rules.sell import sell_forzada
-                    
+
                     venta=sell_forzada(
                             app,
                             vars,
