@@ -1420,3 +1420,5 @@ def sell_forzada(app, vars, params, tipo, regla, contract, symbol):
     vars.status = "SLEEP"
     read_sell(vars, tipo)
     return True
+
+

@@ -13,7 +13,7 @@ from functions.logs import printStamp
 import aiohttp
 import asyncio
 
-from rules.sell import sell_forzada
+
 
 
 # =======================
@@ -94,7 +94,7 @@ def broadcasting_sell(vars,params,app):
 
 
 def broadcasting_sell_auto(vars,params,app,bc):
-    from rules.sell import sell
+    
     # Lectura del Archivo
     file_name = "/usr/src/app/data/broadcasting.json"
  
@@ -121,7 +121,9 @@ def broadcasting_sell_auto(vars,params,app,bc):
                         printStamp("-ERROR VENTA BROADCASTING-")
                         return False
                     printStamp(f"-VENTA BROADCASTING POR : ALPHALYTICS - FORZADA")
-         
+
+                    from rules.sell import sell_forzada
+                    
                     venta=sell_forzada(
                             app,
                             vars,
