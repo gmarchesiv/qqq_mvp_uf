@@ -3,7 +3,7 @@
 ###################################################
  
 import time
- 
+import asyncio
 from datetime import datetime
  
 # config/
@@ -128,8 +128,7 @@ def main():
 
         wallet_config(app, params, vars)
 
-        sendStart(app, params)
-
+        asyncio.run(sendStart(app, params))
         printStamp(" - INICIO DE RUTINA - ")
         # # ====================
         # #  - Rutina -

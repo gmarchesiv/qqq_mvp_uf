@@ -41,14 +41,14 @@ def req_ETFs(app, etf):
             "contract": contract,
         }
 
-    loadData = True
+    # loadData = True
 
-    while loadData:
-        readyEtf = 0
+    # while loadData:
+    #     readyEtf = 0
 
-        for i in app.etfs:
-            if app.etfs[i]["price"] > 0:
-                readyEtf += 1
-        if readyEtf == len(app.etfs):
-            loadData = False
-        time.sleep(0.5)
+    #     for i in app.etfs:
+    #         if app.etfs[i]["price"] > 0:
+    #             readyEtf += 1
+    #     if readyEtf == len(app.etfs):
+    #         loadData = False
+    #     time.sleep(0.5)
