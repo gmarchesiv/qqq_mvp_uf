@@ -22,10 +22,10 @@ from functions.saveJson import saveJson
 
 # INICIO DE LAS REGLAS DE VENTA
 def sellOptions(app, vars, params):
-    if vars.minutos_trade <=params.tiempo_contulta and vars.venta_intentos >=params.intentos:
+    if vars.minutos_trade <=params.tiempo_contulta  :
 
         asyncio.run(comparar_precios(vars, params))
-    vars.venta_intentos+=1
+   
     if vars.call:
         sellCall(app, params, vars)
         return
@@ -36,31 +36,7 @@ def sellOptions(app, vars, params):
         return
 
 
-def sell_obligatoria(app, vars, params,tipo):
-    params.max_askbid_venta_abs=params.max_askbid_venta_forzada
-    if tipo == "C":
-        val = 1
-        if vars.askbid_call > params.max_askbid_venta_abs or vars.cbid <= 0:
-            return False
-    elif tipo == "P":
-        val = 2
-        if vars.askbid_put > params.max_askbid_venta_abs or vars.pbid <= 0:
-            return False
-    else:
-        print("-ERROR SELL OBLIGATORIO-")
-        return
-    vars.venta_intentos=params.intentos
-    sell(
-            app,
-            vars,
-            params,
-           tipo,
-            "FORZADO",
-            app.options[val]["contract"],
-            app.options[val]["symbol"],
-        )
-    return
-
+ 
 
 def sellCall(app, params, vars):
 
@@ -92,7 +68,7 @@ def sellCall(app, params, vars):
             return
     
     if timeNow >= params.fd:
-        vars.venta_intentos=params.intentos
+       
       
         name = "FD"
         sell(
@@ -713,7 +689,7 @@ def sellPut(app, params, vars):
  
     
     if timeNow >= params.fd:
-        vars.venta_intentos=params.intentos
+      
         sell(
             app,
             vars,
@@ -1305,9 +1281,11 @@ def sell(app, vars, params, tipo, regla, contract, symbol):
  
     if vars.rentabilidad<0:
         vars.regla_broadcasting = regla
-        saveJson(vars, app, params, False)
-        respuesta=verificar_regla(params)
-        if respuesta==False: return
+        if vars.venta_intentos>0:
+            vars.venta_intentos+=1
+            return
+        
+ 
  
     if vars.sell_broadcasting ==False:
         asyncio.run(send_sell(app, vars, params, tipo,regla))
