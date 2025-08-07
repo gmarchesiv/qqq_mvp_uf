@@ -40,7 +40,7 @@ def data_susciption(app, params, vars):
     req_Options(app, params, vars, params.etf)
     # printStamp(" - FIN de Cargando Data de Opciones - ")
 
-    printStamp(" - Esperando flujo de datos - ")
+    printStamp(" - Esperando Datos - ")
 
     while True:
         ready  = 0
@@ -59,7 +59,7 @@ def data_susciption(app, params, vars):
 
         time.sleep(0.5)
 
-    printStamp(" - fin de Esperando flujo de datos - ")
+    printStamp(" - Datos Recibidos - ")
 
 
 

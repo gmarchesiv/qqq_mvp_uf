@@ -34,7 +34,7 @@ def req_ETFs(app, etf):
 
     for i, contract in enumerate(contracts, start=5):
         app.reqMktData(i, contract, "", False, False, [])
-        time.sleep(2)
+        # time.sleep(2)
         app.etfs[i] = {
             "symbol": contract.symbol,
             "price": 0,
