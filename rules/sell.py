@@ -49,6 +49,19 @@ def sellCall(app, params, vars):
         return
     if vars.cbid <= 0:
         return
+    
+    ###############################################
+    # sell(
+    #         app,
+    #         vars,
+    #         params,
+    #         "C",
+    #         "FORZADO",
+    #         app.options[1]["contract"],
+    #         app.options[1]["symbol"],
+    #     )
+    # return
+    ###############################################
     vars.rentabilidad = vars.cbid / vars.priceBuy - 1
 
     read_rentabilidad(vars)
@@ -669,6 +682,20 @@ def sellPut(app, params, vars):
         return
     if vars.pbid <= 0:
         return
+    
+    ###############################################
+
+    # sell(
+    #         app,
+    #         vars,
+    #         params,
+    #         "P",
+    #         "FORZADO",
+    #         app.options[2]["contract"],
+    #         app.options[2]["symbol"],
+    #     )
+    # return
+    ###############################################
     vars.rentabilidad = vars.pbid / vars.priceBuy - 1
     read_rentabilidad(vars)
     # CALCULAR RENTABILIDAD vars.pico

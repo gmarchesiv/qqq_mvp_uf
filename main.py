@@ -128,7 +128,7 @@ def main():
 
         wallet_config(app, params, vars)
 
-        asyncio.run(sendStart(app, params))
+        # asyncio.run(sendStart(app, params))
         printStamp(" - INICIO DE RUTINA - ")
         # # ====================
         # #  - Rutina -
