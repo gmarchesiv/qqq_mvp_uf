@@ -35,6 +35,15 @@ class broadcasting:
         # self.flag_Call_R2 = self.data.get("flag_Call_R2", False)
         # self.flag_Put_R2= self.data.get("flag_Put_R2", False)
         
- 
+        file_name = "/usr/src/app/data/broadcasting.json"
+        with open(file_name, "r") as file:
+            datos = json.load(file)
+     
+        
+            datos["sell"] = self.sell
+            datos["max_askbid_venta_abs"] = self.max_askbid_venta_abs
+
+        with open(file_name, "w") as file:
+            json.dump(datos, file, indent=4)
  
 
