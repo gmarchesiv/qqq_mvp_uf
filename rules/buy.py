@@ -442,7 +442,32 @@ def buy_Put(app, vars, params):
 
         if flag_buy == False:
             return
-        
+
+
+    #########################################################
+    ####################       PUT R1 I 2 ###################
+    #########################################################
+    elif (not (timeNow >= params.proteccion_compra[0] and timeNow < params.proteccion_compra[1]) and 
+                        not (timeNow >= params.proteccion_compra_2[0] and timeNow < params.proteccion_compra_2[1]) )and(
+        (timeNow >= params.timePut_r1_i_2[0] and timeNow < params.timePut_r1_i_2[1])
+        and (vars.dput >= params.dput_r1_i_2[0] and vars.dput < params.dput_r1_i_2[1])
+        and (vars.doput >= params.doput_r1_i_2[0] and vars.doput < params.doput_r1_i_2[1])
+        and (vars.label==params.labelPut_r1_i_2 ) 
+
+    ):
+        flag_buy = buy(
+            params,
+            app,
+            vars,
+            "P",
+            "R1-I2",
+            vars.pask,
+            app.options[2]["contract"],
+            app.options[2]["symbol"],
+        )
+
+        if flag_buy == False:
+            return
     #########################################################
     ####################       PUT R1 F   ###################
     #########################################################

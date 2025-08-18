@@ -336,6 +336,21 @@ class parameters:
         self.target_pR1_i=0.08
 
         # ==================================
+        # =======   PUT - R1-INV 2==========  
+        # ==================================
+        
+        self.dput_r1_i_2 =[-0.29, -0.089]
+        self.doput_r1_i_2 = [0.095, 0.105]
+        self.timePut_r1_i_2 = [dt_time(10,30), dt_time(11,10)]
+        self.labelPut_r1_i_2=0
+        
+        # VENTA
+        self.sl_pr1_i_2=-0.045  # STOP LOSS
+        # self.min_desicion_pr1_i  = 60
+        self.umbral_manifestacion_pR1_i_2=0.023
+        self.diamante_pr1_i_2 = [self.umbral_manifestacion_pR1_i_2 ,0.0295 ]# DIAMANTE DE COMPRA
+        self.resta_pr1_i_2 =  [0.04 , self.inf_n ] # RETROCESO DEL DIAMANTE 
+        # ==================================
         # =======   PUT - R1-E ==========  
         # ==================================
         

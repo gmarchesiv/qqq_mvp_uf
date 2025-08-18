@@ -916,7 +916,64 @@ def sellPut(app, params, vars):
                 )
 
                 return
+    #########################################################
+    ####################      PUT  R1  I 2 ##################
+    #########################################################
+    elif vars.tipo == "R1-I2":
+        # MANIFIESTA
+        if vars.manifesto:
 
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_i_2)):
+                if round(vars.pico, 3) > params.diamante_pr1_i_2[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_i_2[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
+
+            else:
+                pass
+
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_i_2:
+                vars.manifesto = True
+                vars.minutos = 0
+
+ 
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_i_2:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],
+                )
+
+                return
     #########################################################
     ####################      PUT  R3     ###################
     #########################################################
