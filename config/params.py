@@ -176,7 +176,7 @@ class parameters:
         # =======  CALL - C       ==========  
         # ==================================
         
-        self.dcall_r1_c =[-0.17,-0.1]
+        self.dcall_r1_c =[-0.17,-0.04]
         self.docall_r1_c = [0.1, 0.11]
         self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
         self.labelCall_r1_c=0
