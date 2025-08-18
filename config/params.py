@@ -199,7 +199,8 @@ class parameters:
         self.umbral_cr2=0.2
         # VENTA
         # umbral_manifestacion_cR2 =  0.05  # UMBRAL DE MANIFESTACION
-        
+        self.min_desicion__cR2   = 60
+        self.target_min_desicion__cR2 =0.01      
         self.sl_cr2 = -0.05   # STOP LOSS
         self.umbral_manifestacion_cR2=0.0285
         self.diamante_cr2 = [self.umbral_manifestacion_cR2  ,0.032, 0.078,0.11 ] # DIAMANTE DE COMPRA

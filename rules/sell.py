@@ -343,6 +343,19 @@ def sellCall(app, params, vars):
                 vars.manifesto = True
                 vars.minutos = 0
 
+            # NMT
+            elif vars.minutos >= (params.min_desicion__cR2+1)and vars.rentabilidad >= params.target_min_desicion__cR2:
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "C",
+                    "NMT",
+                    app.options[1]["contract"],
+                    app.options[1]["symbol"],
+                )
+
+                return
             # STOP LOSS
             elif vars.rentabilidad <= params.sl_cr2:
                 sell(

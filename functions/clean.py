@@ -2,6 +2,7 @@ import json
 
 
 def clean_vars(vars):
+    vars.minutos = 0
     vars.compra = True
     vars.call=False
     vars.call=False
