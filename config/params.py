@@ -385,7 +385,7 @@ class parameters:
         # self.min_desicion_pr1_fast  = 60
         self.umbral_manifestacion_pR1_fast=0.029
         self.diamante_pr1_fast = [self.umbral_manifestacion_pR1_fast, 0.0379 ,0.08] # DIAMANTE DE COMPRA
-        self.resta_pr1_fast = [0.015,0.01 ,self.inf_n ] # RETROCESO DEL DIAMANTE 
+        self.resta_pr1_fast = [0.01 ,0.01 ,self.inf_n ] # RETROCESO DEL DIAMANTE 
     
         
         # ==================================

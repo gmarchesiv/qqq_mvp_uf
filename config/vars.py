@@ -70,7 +70,8 @@ class variables:
         self.flag_Put_reset_r1 = self.data.get("flag_Put_reset_r1", False)
         self.flag_Call_reset_r1_e = self.data.get("flag_Call_reset_r1_e", False)
         self.flag_cambio_fast= self.data.get("flag_cambio_fast", False)
- 
+        self.flag_Call_reset_r2 = self.data.get("flag_Call_reset_r2", False)
+        
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################

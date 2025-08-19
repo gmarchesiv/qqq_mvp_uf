@@ -110,7 +110,7 @@ def saveJson(vars, app, params, estado):
         "flag_Put_reset_r1 ": vars.flag_Put_reset_r1,
         "flag_Call_reset_r1_e ": vars.flag_Call_reset_r1_e,
         "flag_cambio_fast ": vars.flag_cambio_fast,
-        
+        "flag_Call_reset_r2":vars.flag_Call_reset_r2,
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
@@ -162,7 +162,7 @@ def saveJson(vars, app, params, estado):
         "buy_regla_broadcasting": vars.buy_regla_broadcasting,
         "user_broadcasting": vars.user_broadcasting,
         "regla_broadcasting":vars.regla_broadcasting,
-     
+
         "conexion": True,
         "venta_intentos":vars.venta_intentos,
         ###############################################
