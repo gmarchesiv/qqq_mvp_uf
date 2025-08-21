@@ -696,8 +696,8 @@ def sellCall(app, params, vars):
                 )
 
                 return
-
-        
+    else:pass
+    vars.venta_intentos=0
     vars.regla_broadcasting=""
 
 def sellPut(app, params, vars):
@@ -977,7 +977,7 @@ def sellPut(app, params, vars):
     #########################################################
     ####################      PUT  R3     ###################
     #########################################################
-    elif vars.tipo == "R1-I":
+    elif vars.tipo == "R3":
         # MANIFIESTA
         if vars.manifesto:
 
@@ -1374,6 +1374,7 @@ def sellPut(app, params, vars):
                 )
 
                 return
+    vars.venta_intentos=0
     vars.regla_broadcasting=""
 
 
@@ -1381,13 +1382,14 @@ def sell(app, vars, params, tipo, regla, contract, symbol):
     from rules.routine import calculations
  
     if vars.rentabilidad<0:
-        vars.regla_broadcasting = regla
-        if vars.venta_intentos>0:
+        
+        if vars.venta_intentos>=params.intentos:
+            pass   
+        else:
             vars.venta_intentos+=1
             return
-        
  
- 
+    vars.regla_broadcasting = regla
     if vars.sell_broadcasting ==False:
         asyncio.run(send_sell(app, vars, params, tipo,regla))
   

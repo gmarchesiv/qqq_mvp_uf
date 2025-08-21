@@ -208,6 +208,14 @@ def saveJson(vars, app, params, estado):
         json.dump(datos, json_file, indent=4)
 
 
+    try:
+        with open(file_name, "r") as json_file:
+            data = json.load(json_file)
+            return
+
+    except:
+        vars = variables()
+
 def save_rentabilidad(vars):
     file_name = "/usr/src/app/data/vars.json"
     with open(file_name, "r") as f:

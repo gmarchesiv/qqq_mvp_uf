@@ -94,7 +94,7 @@ class parameters:
         self.frecuencia_muestra =[i for i in range(0, 60, 2)]
         self.frecuencia_accion = [i for i in range(0, 60, 2)]
  
-        self.intentos=4
+        self.intentos=1
         self.tiempo_contulta=5
         self.proteccion_ask_bid=[[dt_time(9, 45,0), dt_time(9, 45,18)],[dt_time(10, 0,0), dt_time(10,0,18 )]]
 
@@ -121,7 +121,7 @@ class parameters:
         # =========== CALL - R1 ============
         # ==================================
         
-        self.dcall_r1 = [0.09, 0.135]
+        self.dcall_r1 = [0.09, 0.133]
         self.docall_r1 = [0.03, 0.05]
         self.timeCall_r1 = [dt_time(9, 35), dt_time(10, 0)]
         self.labelCall_r1 =0
@@ -142,9 +142,9 @@ class parameters:
         # =========== CALL - R1-E ==========  
         # ==================================
         
-        self.dcall_r1_e = [-0.07, 0.07]
+        self.dcall_r1_e =  [-0.155, 0.077 ]
         self.docall_r1_e = [0.059, 0.065]
-        self.timeCall_r1_e = [dt_time(10,14), dt_time(10, 30)]
+        self.timeCall_r1_e = [dt_time(10,14), dt_time(10, 16)]
         self.labelCall_r1_e =0
         
         # VENTA
@@ -160,7 +160,7 @@ class parameters:
         # =======  CALL - R1 -INV ==========  
         # ==================================
         
-        self.dcall_r1_i =[-0.14, 0]
+        self.dcall_r1_i =[-0.23, 0]
         self.docall_r1_i = [0.1, 0.107]
         self.timeCall_r1_i = [dt_time(9, 35), dt_time(9,45)]
         self.labelCall_r1_i=1
@@ -196,7 +196,7 @@ class parameters:
         self.docall_r2 = [0.032, 0.055]  
         self.timeCall_r2 = [dt_time(9, 35), dt_time(10, 45)]
         self.labelCall_r2=0
-        self.umbral_cr2=0.2
+        self.umbral_cr2=0.225
         # VENTA
         # umbral_manifestacion_cR2 =  0.05  # UMBRAL DE MANIFESTACION
         self.min_desicion__cR2   = 60
@@ -350,6 +350,25 @@ class parameters:
         self.umbral_manifestacion_pR1_i_2=0.023
         self.diamante_pr1_i_2 = [self.umbral_manifestacion_pR1_i_2 ,0.0295 ]# DIAMANTE DE COMPRA
         self.resta_pr1_i_2 =  [0.04 , self.inf_n ] # RETROCESO DEL DIAMANTE 
+
+
+        # ==================================
+        # =======   PUT - R1-INV 3==========  
+        # ==================================
+        
+        self.dput_r1_i_3 =[0.053, 0.1]
+        self.doput_r1_i_3 = [0.1, 0.11]
+        self.timePut_r1_i_3 = [dt_time(9,50), dt_time(10,5)]
+        self.labelPut_r1_i_3=0
+        
+        # VENTA
+        self.sl_pr1_i_3=-0.045  # STOP LOSS
+        # min_desicion_pr1_i_3  = 60
+        self.umbral_manifestacion_pR1_i_3=0.023
+        self.diamante_pr1_i_3 = [self.umbral_manifestacion_pR1_i_3 ,0.0295 ]# DIAMANTE DE COMPRA
+        self.resta_pr1_i_3 =  [0.04 , self.inf_n ] # RETROCESO DEL DIAMANTE 
+
+
         # ==================================
         # =======   PUT - R1-E ==========  
         # ==================================
@@ -383,11 +402,27 @@ class parameters:
         # VENTA
         self.sl_pr1_fast=-0.045  # STOP LOSS
         # self.min_desicion_pr1_fast  = 60
-        self.umbral_manifestacion_pR1_fast=0.029
+        self.umbral_manifestacion_pR1_fast=0.028
         self.diamante_pr1_fast = [self.umbral_manifestacion_pR1_fast, 0.0379 ,0.08] # DIAMANTE DE COMPRA
         self.resta_pr1_fast = [0.01 ,0.01 ,self.inf_n ] # RETROCESO DEL DIAMANTE 
     
+        # ==================================
+        # =========== PUT Label================
+        # ==================================
+        # COMPRA
         
+        self.dput_r1_label = [ -0.06, 0.1]
+        self.doput_r1_label = [0.054, 0.066]
+        self.timePut_r1_label = [dt_time(10, 5), dt_time(10, 35)]
+        self.labelPut_r1_label=1
+
+        # VENTA
+        self.sl_pr1_label=-0.045  # STOP LOSS
+        # min_desicion_pr1_label  = 60
+        self.umbral_manifestacion_pR1_label=0.028
+        self.diamante_pr1_label= [self.umbral_manifestacion_pR1_label, 0.0379 ,0.08] # DIAMANTE DE COMPRA
+        self.resta_pr1_label = [0.01,0.01 ,self.inf_n ] # RETROCESO DEL DIAMANTE
+
         # ==================================
         # =========== PUT R2 ===============
         # ==================================
