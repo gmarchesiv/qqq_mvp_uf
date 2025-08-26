@@ -20,6 +20,8 @@ from functions.saveJson import saveJson
 
 # INICIO DE LAS REGLAS DE COMPRA
 def buyOptions(app, vars, params):
+    
+
     vars.promedio_call = sum(vars.askbid_call_prom) / len(vars.askbid_call_prom) if len(vars.askbid_call_prom)!=0 else 0
     if vars.askbid_call < params.max_askbid_compra_abs and vars.cask > 0 and vars.promedio_call < params.max_askbid_compra_prom :
         calculos_call(vars, params)
@@ -93,7 +95,7 @@ def buy_Call(app, vars, params):
         (timeNow >= params.timeCall_r1_e[0] and timeNow < params.timeCall_r1_e[1])
         and (vars.dcall >= params.dcall_r1_e[0] and vars.dcall < params.dcall_r1_e[1])
         and (vars.docall >= params.docall_r1_e[0] and vars.docall <= params.docall_r1_e[1])
-        and  (vars.label==params.labelCall_r1_e )  and vars.flag_Call_reset_r1_e
+        and  (vars.label==params.labelCall_r1_e )  and vars.flag_Call_reset_r1_e and not vars.flag_bloqueo_r1_e
     ):
         flag_buy = buy(
             params,
@@ -109,24 +111,23 @@ def buy_Call(app, vars, params):
         if flag_buy == False:
             return
         
-
     #########################################################
-    ####################      CALL R1  I  ###################
+    ####################      CALL R1  E2  ###################
     #########################################################
 
     elif (not (timeNow >= params.proteccion_compra[0] and timeNow < params.proteccion_compra[1]) and 
                         not (timeNow >= params.proteccion_compra_2[0] and timeNow < params.proteccion_compra_2[1]) )and(
-        (timeNow >= params.timeCall_r1_i[0] and timeNow < params.timeCall_r1_i[1])
-        and (vars.dcall >= params.dcall_r1_i[0] and vars.dcall < params.dcall_r1_i[1])
-        and (vars.docall >= params.docall_r1_i[0] and vars.docall <= params.docall_r1_i[1])
-        and  (vars.label==params.labelCall_r1_i ) 
+        (timeNow >= params.timeCall_r1_e2[0] and timeNow < params.timeCall_r1_e2[1])
+        and (vars.dcall >= params.dcall_r1_e2[0] and vars.dcall < params.dcall_r1_e2[1])
+        and (vars.docall >= params.docall_r1_e2[0] and vars.docall <= params.docall_r1_e2[1])
+        and  (vars.label==params.labelCall_r1_e2 )  and vars.flag_Call_reset_r1_e2 and not vars.flag_bloqueo_r1_e
     ):
         flag_buy = buy(
             params,
             app,
             vars,
             "C",
-            "R1-I",
+            "R1-E2",
             vars.cask,
             app.options[1]["contract"],
             app.options[1]["symbol"],
@@ -134,6 +135,31 @@ def buy_Call(app, vars, params):
 
         if flag_buy == False:
             return
+
+    #########################################################
+    ####################      CALL R1  I  ###################
+    #########################################################
+
+    # elif (not (timeNow >= params.proteccion_compra[0] and timeNow < params.proteccion_compra[1]) and 
+    #                     not (timeNow >= params.proteccion_compra_2[0] and timeNow < params.proteccion_compra_2[1]) )and(
+    #     (timeNow >= params.timeCall_r1_i[0] and timeNow < params.timeCall_r1_i[1])
+    #     and (vars.dcall >= params.dcall_r1_i[0] and vars.dcall < params.dcall_r1_i[1])
+    #     and (vars.docall >= params.docall_r1_i[0] and vars.docall <= params.docall_r1_i[1])
+    #     and  (vars.label==params.labelCall_r1_i ) 
+    # ):
+    #     flag_buy = buy(
+    #         params,
+    #         app,
+    #         vars,
+    #         "C",
+    #         "R1-I",
+    #         vars.cask,
+    #         app.options[1]["contract"],
+    #         app.options[1]["symbol"],
+    #     )
+
+    #     if flag_buy == False:
+    #         return
     
     
     
@@ -592,8 +618,13 @@ def calculos_call(vars, params):
     #########################################################
     ###################      CALCULOS      ##################
     #########################################################
+    timeNow = datetime.now(params.zone).time()
 
-  
+    if (timeNow < params.bloqueo_cr1_e_hora and (vars.docall>params.bloqueo_cr1_e_docall or
+        vars.doput>params.bloqueo_cr1_e_doput
+        )):
+
+        vars.flag_bloqueo_r1_e=True
 
     # RESET CALL R1
     if vars.docall>= params.docall_r1[1]:
@@ -627,8 +658,15 @@ def calculos_call(vars, params):
         vars.flag_Call_reset_r2 = True
     else:
         pass
+    # RESET CALL R2
+    if vars.docall >= params.docall_r1_e2[1]:
+        vars.flag_Call_reset_r1_e2 = False
+    elif vars.docall < params.docall_r1_e2[0]:
+        vars.flag_Call_reset_r1_e2 = True
+    else:
+        pass
 
-    timeNow = datetime.now(params.zone).time()
+    
 
     if vars.flag_cambio_fast==False  and \
         vars.label==params.labelCall_r1_fast  and  \
