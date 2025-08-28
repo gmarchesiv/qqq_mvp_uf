@@ -72,7 +72,7 @@ class parameters:
         self.rangos_strikes = [[2, 2.5] ]
         # self.rangos_strikes = [[2, 2.3], [2.15, 2.55], [2.4, 3]]
         self.diff_days_exp = 30
-        self.days_max = [30, 45]
+        self.days_max = [37, 52]
 
 
 
