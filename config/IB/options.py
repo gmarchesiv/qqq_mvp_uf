@@ -331,7 +331,7 @@ def list_checkExpirations(app, etf, params, exchange):
             fecha_actual + timedelta(days=params.days_max[0])
         ) and expiry_date <= (fecha_actual + timedelta(days=params.days_max[1])):
             lista_exp.append(expiry_date.strftime(format_str))
-            # return lista_exp
+            return lista_exp
     return lista_exp
 
 

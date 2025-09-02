@@ -194,32 +194,188 @@ def saveTransaction(app, params, vars):
                     writeWallet(app)
 
 
+# # REGISTRO DE STRIKES
+# def registro_strike(app, vars, params):
+
+#     # PEDIMOS LA CADENA DE OPCIONES
+#     app.request_option_chain(app.etfs[5]["symbol"])
+
+#     # PEDIMOS EL EXPERI QUE NOS TOCA
+#     valor_aleatorio_exchange = random.randint(
+#         0, len(params.exchange) - 1
+#     )  # SELECCION DEL EXCEHANGE
+
+#     vars.exchange = params.exchange[valor_aleatorio_exchange]  # SELECCION DEL EXCEHANGE
+
+#     list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
+
+#     # TOMAMOS ALEATORIAMENTE UNO
+
+#     # valor_aleatorio = random.randint(0, len(list_exp) - 1)
+#     valor_aleatorio = 0
+#     vars.dic_strike = {}
+#     vars.dic_strike = dic_checkStrike(
+#         app, list_exp, app.etfs[5]["symbol"], "C", vars.exchange
+#     )
+
+#     printStamp(f"EXPs: {list_exp}")
+#     exp_escogido = list_exp[valor_aleatorio]
+
+#     printStamp(f"EXP: {exp_escogido}")
+
+#     vars.strikes = {}
+
+#     precio = app.etfs[5]["price"]
+#     printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+
+#     strikes_dic = {}
+#     n = 0
+#     for exp in vars.dic_strike:
+
+#         call = int(precio * ((100 + params.rangos_strikes[n][1]) / 100))
+#         put = int(precio * ((100 - params.rangos_strikes[n][1]) / 100))
+
+#         call_inf = int(precio * ((100 + params.rangos_strikes[n][0]) / 100))
+#         put_inf = int(precio * ((100 - params.rangos_strikes[n][0]) / 100))
+
+#         printStamp(f"{exp} - RANGOS --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
+
+#         strikes_dic[exp] = {"call": [], "put": []}
+
+#         put_list = [
+#             float(x) for x in vars.dic_strike[exp] if put <= float(x) <= put_inf
+#         ]
+#         call_list = [
+#             float(x) for x in vars.dic_strike[exp] if call_inf <= float(x) <= call
+#         ]
+
+#         if len(call_list) > 2:
+#             call_list = call_list[:2]
+#         if len(put_list) > 2:
+#             put_list = put_list[-2:]
+#         if len(call_list) == 0:
+#             suma = 1
+#             while True:
+#                 call_list = [
+#                     float(x)
+#                     for x in vars.dic_strike[exp]
+#                     if (call_inf) <= float(x) <= (call + suma)
+#                 ]
+#                 if len(call_list) != 0:
+#                     break
+#                 else:
+#                     suma += 1
+
+#         if len(put_list) == 0:
+#             resta = 1
+#             while True:
+#                 put_list = [
+#                     float(x)
+#                     for x in vars.dic_strike[exp]
+#                     if (put - resta) <= float(x) <= (put_inf)
+#                 ]
+#                 if len(put_list) != 0:
+#                     break
+#                 else:
+#                     resta += 1
+#         printStamp(f"{exp} - CALL : {call_list}  ")
+#         printStamp(f"{exp} - PUT : {put_list}  ")
+
+#         strikes_dic[exp]["put"] = put_list
+#         strikes_dic[exp]["call"] = call_list
+
+#         break
+#         # n += 1
+#         # if len(strikes_dic[exp]["put"]) == 0 or len(strikes_dic[exp]["call"]) == 0:
+#         #     del strikes_dic[exp]
+#     vars.dic_exp_strike = strikes_dic
+
+#     printStamp(f"RANGOS SELECCIONADOS --> {vars.dic_exp_strike}")
+#     exp = exp_escogido
+
+#     # ESCOGEMOS VALORES ALEATORIOS
+
+#     call_list = vars.dic_exp_strike[exp]["call"]
+#     # valor_aleatorio = random.randint(0, len(call_list) - 1)
+
+#     call_strike =  min(call_list)
+#     # call_strike = float(call_list[valor_aleatorio])
+
+#     put_list = vars.dic_exp_strike[exp]["put"]
+#     # valor_aleatorio = random.randint(0, len(put_list) - 1)
+
+#     put_strike = max(put_list)
+
+#     app.cancelMarketData(1)
+#     time.sleep(1)
+#     del app.options[1]
+
+#     app.cancelMarketData(2)
+#     time.sleep(1)
+#     del app.options[2]
+
+#     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+#     while True:
+#         timeNow = datetime.now(params.zone).time()
+#         if dt_time(16, 30) < timeNow:
+#             break
+#         readyOpt = 0
+
+#         if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
+#             readyOpt += 1
+#         else:
+#             printStamp(f"{app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
+
+#         if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
+#             readyOpt += 1
+            
+#         else:
+#             printStamp(f"{app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+
+#         if readyOpt == 2:
+#             break
+
+#         time.sleep(0.5)
+
+#     # if dt_time(16, 30) < timeNow:
+#     #     return
+#     vars.exp = exp
+#     vars.strike_p = put_strike
+#     vars.strike_c = call_strike
+#     vars.put_close = app.options[2]["BID"]
+#     vars.call_close = app.options[1]["BID"]
+
+#     printStamp(
+#         f"GUARDADO: {vars.exp} | PUT-STRIKE: {vars.strike_p} PUT-CLOSE: {vars.put_close} | CALL-STRIKE: {vars.strike_c} CALL-CLOSE: {vars.call_close}  "
+#     )
+#     timeNow = datetime.now(params.zone).time()
+#     vars.hora_inicio = str(timeNow)
+
+
+
+
+
 # REGISTRO DE STRIKES
 def registro_strike(app, vars, params):
 
     # PEDIMOS LA CADENA DE OPCIONES
     app.request_option_chain(app.etfs[5]["symbol"])
 
-    # PEDIMOS EL EXPERI QUE NOS TOCA
-    valor_aleatorio_exchange = random.randint(
-        0, len(params.exchange) - 1
-    )  # SELECCION DEL EXCEHANGE
-
-    vars.exchange = params.exchange[valor_aleatorio_exchange]  # SELECCION DEL EXCEHANGE
+ 
+    vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
 
     list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
 
     # TOMAMOS ALEATORIAMENTE UNO
-
-    # valor_aleatorio = random.randint(0, len(list_exp) - 1)
-    valor_aleatorio = 0
+ 
+    # valor_aleatorio = 0
     vars.dic_strike = {}
     vars.dic_strike = dic_checkStrike(
         app, list_exp, app.etfs[5]["symbol"], "C", vars.exchange
     )
 
-    printStamp(f"EXPs: {list_exp}")
-    exp_escogido = list_exp[valor_aleatorio]
+    # printStamp(f"EXPs: {list_exp}")
+    exp_escogido = list_exp[0]
 
     printStamp(f"EXP: {exp_escogido}")
 
@@ -248,63 +404,13 @@ def registro_strike(app, vars, params):
         call_list = [
             float(x) for x in vars.dic_strike[exp] if call_inf <= float(x) <= call
         ]
+        # Ordenar listas
+        put_list.sort()
+        call_list.sort()
+        put_strike = put_list[-1]  
+        call_strike = call_list[0]  
 
-        if len(call_list) > 2:
-            call_list = call_list[:2]
-        if len(put_list) > 2:
-            put_list = put_list[-2:]
-        if len(call_list) == 0:
-            suma = 1
-            while True:
-                call_list = [
-                    float(x)
-                    for x in vars.dic_strike[exp]
-                    if (call_inf) <= float(x) <= (call + suma)
-                ]
-                if len(call_list) != 0:
-                    break
-                else:
-                    suma += 1
-
-        if len(put_list) == 0:
-            resta = 1
-            while True:
-                put_list = [
-                    float(x)
-                    for x in vars.dic_strike[exp]
-                    if (put - resta) <= float(x) <= (put_inf)
-                ]
-                if len(put_list) != 0:
-                    break
-                else:
-                    resta += 1
-        printStamp(f"{exp} - CALL : {call_list}  ")
-        printStamp(f"{exp} - PUT : {put_list}  ")
-
-        strikes_dic[exp]["put"] = put_list
-        strikes_dic[exp]["call"] = call_list
-
-        break
-        # n += 1
-        # if len(strikes_dic[exp]["put"]) == 0 or len(strikes_dic[exp]["call"]) == 0:
-        #     del strikes_dic[exp]
-    vars.dic_exp_strike = strikes_dic
-
-    printStamp(f"RANGOS SELECCIONADOS --> {vars.dic_exp_strike}")
-    exp = exp_escogido
-
-    # ESCOGEMOS VALORES ALEATORIOS
-
-    call_list = vars.dic_exp_strike[exp]["call"]
-    # valor_aleatorio = random.randint(0, len(call_list) - 1)
-
-    call_strike =  min(call_list)
-    # call_strike = float(call_list[valor_aleatorio])
-
-    put_list = vars.dic_exp_strike[exp]["put"]
-    # valor_aleatorio = random.randint(0, len(put_list) - 1)
-
-    put_strike = max(put_list)
+  
 
     app.cancelMarketData(1)
     time.sleep(1)
@@ -324,16 +430,18 @@ def registro_strike(app, vars, params):
         if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
             readyOpt += 1
         else:
-            printStamp(f"{app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
+            printStamp(f"CALL: {app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
+
         if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
             readyOpt += 1
-            printStamp(f"{app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+            
         else:
-            print((app.options[1]["ASK"] / app.options[1]["BID"] - 1))
+            printStamp(f"PUT: {app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+            
         if readyOpt == 2:
             break
 
-        time.sleep(0.5)
+        time.sleep(1)
 
     # if dt_time(16, 30) < timeNow:
     #     return
