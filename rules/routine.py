@@ -410,7 +410,7 @@ def registro_strike(app, vars, params):
         put_strike = put_list[-1]  
         call_strike = call_list[0]  
 
-  
+    printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
     app.cancelMarketData(1)
     time.sleep(1)
@@ -421,6 +421,7 @@ def registro_strike(app, vars, params):
     del app.options[2]
 
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+    printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
         if dt_time(16, 30) < timeNow:
@@ -430,18 +431,20 @@ def registro_strike(app, vars, params):
         if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
             readyOpt += 1
         else:
-            printStamp(f"CALL: {app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
+            if int(timeNow.second) in params.frecuencia_accion:
+                printStamp(f"CALL: {app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
 
         if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
             readyOpt += 1
             
         else:
-            printStamp(f"PUT: {app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+            if int(timeNow.second) in params.frecuencia_accion:
+                printStamp(f"PUT: {app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
             
         if readyOpt == 2:
             break
 
-        time.sleep(1)
+        time.sleep(0.5)
 
     # if dt_time(16, 30) < timeNow:
     #     return
