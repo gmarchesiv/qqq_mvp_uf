@@ -94,7 +94,7 @@ def main():
             return
 
         # ESPERAR HASTA INICIAR EL DIA
-        countdown(params.zone)
+        # countdown(params.zone)
 
         writeRegister(params.name, params.zone)
 
