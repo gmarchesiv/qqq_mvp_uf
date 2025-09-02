@@ -218,6 +218,7 @@ def registro_strike(app, vars, params):
         app, list_exp, app.etfs[5]["symbol"], "C", vars.exchange
     )
 
+    printStamp(f"EXPs: {list_exp}")
     exp_escogido = list_exp[valor_aleatorio]
 
     printStamp(f"EXP: {exp_escogido}")
