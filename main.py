@@ -72,9 +72,9 @@ def main():
         # PRUEBA DE CONEXION A IBKR AL ARRANQUE
         timeNow = datetime.now(params.zone).time()
 
-        if timeNow < params.rutina[0] or timeNow >= params.rutina[1]:
-            test_ibkr_connection(params)
-            return
+        # if timeNow < params.rutina[0] or timeNow >= params.rutina[1]:
+        #     test_ibkr_connection(params)
+        #     return
 
         # ====================
         #  - Feriados -

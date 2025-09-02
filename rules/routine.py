@@ -323,8 +323,13 @@ def registro_strike(app, vars, params):
 
         if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
             readyOpt += 1
+        else:
+            printStamp(f"{app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
         if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
             readyOpt += 1
+            printStamp(f"{app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+        else:
+            print((app.options[1]["ASK"] / app.options[1]["BID"] - 1))
         if readyOpt == 2:
             break
 
