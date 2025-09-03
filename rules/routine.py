@@ -422,19 +422,21 @@ def registro_strike(app, vars, params):
         if dt_time(16, 30) < timeNow:
             break
         readyOpt = 0
-
+        if int(timeNow.second) in params.frecuencia_accion:
+            printStamp(f"CALL-BID: {app.options[1]['BID'] }")
+            printStamp(f"PUT-BID: {app.options[2]['BID'] }")
         if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
             readyOpt += 1
-        else:
-            if int(timeNow.second) in params.frecuencia_accion:
-                printStamp(f"CALL: {app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
+        # else:
+        #     if int(timeNow.second) in params.frecuencia_accion:
+        #         printStamp(f"CALL: {app.options[1]['BID'] } ,{(app.options[1]['ASK'] / app.options[1]['BID'] - 1)} ")
 
         if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
             readyOpt += 1
             
-        else:
-            if int(timeNow.second) in params.frecuencia_accion:
-                printStamp(f"PUT: {app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
+        # else:
+        #     if int(timeNow.second) in params.frecuencia_accion:
+        #         printStamp(f"PUT: {app.options[2]['BID'] } ,{(app.options[2]['ASK'] / app.options[2]['BID'] - 1)} ")
             
         if readyOpt == 2:
             break
