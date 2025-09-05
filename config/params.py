@@ -213,7 +213,7 @@ class parameters:
         # COMPRA
         self.dcall_r2 = [0.27, 0.425]
         self.docall_r2 = [0.032, 0.055]  
-        self.timeCall_r2 = [dt_time(9, 35), dt_time(10, 45)]
+        self.timeCall_r2 = [dt_time(9, 35), dt_time(10, 10)]
         self.labelCall_r2=0
         self.umbral_cr2=0.225
         # VENTA
