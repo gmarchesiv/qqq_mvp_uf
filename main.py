@@ -177,8 +177,8 @@ def main():
                         # ================================
                         #  -COMPRA-
                         # ================================
-                        if vars.compra:
-                            buyOptions(app, vars, params)
+                        # if vars.compra:
+                        #     buyOptions(app, vars, params)
                         pass
                     
                     # ================================
