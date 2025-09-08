@@ -172,8 +172,8 @@ def main():
                         # ================================
                         #  -VENTA-
                         # ================================
-                        if vars.call or vars.put:
-                            sellOptions(app, vars, params)
+                        # if vars.call or vars.put:
+                        #     sellOptions(app, vars, params)
                         # ================================
                         #  -COMPRA-
                         # ================================
