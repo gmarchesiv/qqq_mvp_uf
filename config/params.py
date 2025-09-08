@@ -109,7 +109,7 @@ class parameters:
         # ==================================
         # =========== CALL PROTECCION ======  
         # ==================================
-        self.umbral_no_perdida_c = 0.015
+        self.umbral_no_perdida_c = 0.016
         
         self.perdida_maxima_c = 0.045
     
@@ -168,7 +168,7 @@ class parameters:
         self.labelCall_r1_e2 =0
         
         # VENTA
-        self.sl_cr1_e2=-0.05  # STOP LOSS
+        self.sl_cr1_e2=-0.04  # STOP LOSS
         # min_desicion_cr1_e2  = 60
         self.umbral_manifestacion_cR1_e2= 0.0255
         self.diamante_cr1_e2 = [self.umbral_manifestacion_cR1_e2,0.0379, 0.07 ] # DIAMANTE DE COMPRA
@@ -222,8 +222,8 @@ class parameters:
         self.target_min_desicion_cR2 =0.01
         self.sl_cr2 = -0.05  # STOP LOSS
         self.umbral_manifestacion_cR2=0.025
-        self.diamante_cr2 = [self.umbral_manifestacion_cR2  ,0.032 , 0.078,0.11 ] # DIAMANTE DE COMPRA
-        self.resta_cr2= [0.0225,0.01,0.02,self.inf_n] # RETROCESO DEL DIAMANTE 
+        self.diamante_cr2 = [self.umbral_manifestacion_cR2  ,0.035 ] # DIAMANTE DE COMPRA
+        self.resta_cr2= [0.0225,0.005] # RETROCESO DEL DIAMANTE 
         # self.target_cR2=0.11
 
 
@@ -240,8 +240,8 @@ class parameters:
         self.sl_cr1_fast =-0.045  # STOP LOSS
         # min_desicion_cr1_fast   = 60
         self.umbral_manifestacion_cR1_fast =0.02 
-        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.028,0.07   ] # DIAMANTE DE COMPRA
-        self.resta_cr1_fast  = [0.015,0.005 ,self.inf_n]# RETROCESO DEL DIAMANTE 
+        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.028   ] # DIAMANTE DE COMPRA
+        self.resta_cr1_fast  = [0.015,0.005  ]# RETROCESO DEL DIAMANTE 
     
         # ==================================
         # =========== CALL - R3 =======
@@ -253,7 +253,7 @@ class parameters:
         self.labelCall_r3=0
         
         # VENTA
-        self.sl_cr3 =-0.035  # STOP LOSS
+        self.sl_cr3 =-0.046  # STOP LOSS
         
         self.umbral_manifestacion_cR3 =0.023
         self.diamante_cr3  = [  self.umbral_manifestacion_cR3, 0.031  ] # DIAMANTE DE COMPRA
@@ -352,8 +352,8 @@ class parameters:
         self.sl_pr1_i=-0.048  # STOP LOSS
         # min_desicion_pr1_i  = 60
         self.umbral_manifestacion_pR1_i=0.023
-        self.diamante_pr1_i = [self.umbral_manifestacion_pR1_i ,0.0379,0.078] # DIAMANTE DE COMPRA
-        self.resta_pr1_i = [0.045, 0.01 ,self.inf_n ] # RETROCESO DEL DIAMANTE 
+        self.diamante_pr1_i = [self.umbral_manifestacion_pR1_i ,0.0379,0.07] # DIAMANTE DE COMPRA
+        self.resta_pr1_i = [0.045, 0.01 ,0.005 ] # RETROCESO DEL DIAMANTE 
         # self.target_pR1_i=0.08
 
 
@@ -481,7 +481,7 @@ class parameters:
         
         # VENTA
         
-        self.sl_pr2_e = -0.04  # STOP LOSS
+        self.sl_pr2_e = -0.045  # STOP LOSS
         self.target_pR2_e=0.026
 
 
