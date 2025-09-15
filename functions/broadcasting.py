@@ -250,7 +250,7 @@ async def fetch_price(session, url,user):
 
 async def comparar_precios(vars, params):
     async with aiohttp.ClientSession() as session:
-        tasks = [fetch_price(session, f"http://{user['ip']}/get-price",user["user"]) for user in params.users if user["rama"] == False]
+        tasks = [fetch_price(session, f"http://{user['ip']}/get-price",user["user"]) for user in params.users if user["rama"] == True]
         prices = await asyncio.gather(*tasks)
     
     # # Filtrar valores None
