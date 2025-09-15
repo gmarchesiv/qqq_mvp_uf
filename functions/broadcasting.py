@@ -233,7 +233,7 @@ async def send_sell(app, vars, params, tipo, regla):
 
 async def fetch_price(session, url,user):
     try:
-        async with session.get(url, timeout=2) as response:
+        async with session.get(url, timeout=5) as response:
             if response.status == 200:
                 data = await response.json()
                 price = data.get("priceBuy", 9999)
