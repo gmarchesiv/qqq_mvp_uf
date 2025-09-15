@@ -240,8 +240,10 @@ async def fetch_price(session, url,user):
                 printStamp(f"{user} : {price} $")
                 return price if price > 0 else None
     except Exception as e:
-        print("URL: ",url)
-        print("DATA: ",data)
+        
+        # print("URL: ",url)
+        printStamp(f"Error obteniendo datos de {url}: {str(e)}")
+  
         pass
         # printStamp(f"Error obteniendo datos de {url}: {str(e)}")
     return None
@@ -264,7 +266,7 @@ async def comparar_precios(vars, params):
     # printStamp(f"Mi Precio Real: {vars.real_priceBuy} $")
     # printStamp(f"Mi Precio actualizado: {vars.priceBuy} $")
  
-    # print("===============================================")
+    print("===============================================")
     # return vars.priceBuy
 
 def verificar_regla(params):
