@@ -134,7 +134,7 @@ class parameters:
         # self.target_cR1=0.04
         self.umbral_manifestacion_cR1 = 0 
         self.diamante_cr1 = [self.umbral_manifestacion_cR1  ,0.04  ] # DIAMANTE DE COMPRA
-        self.resta_cr1  = [ 0.034  , self.inf_n] # RETROCESO DEL DIAMANTE 
+        self.resta_cr1  = [ 0.038  , self.inf_n] # RETROCESO DEL DIAMANTE 
 
 
 
