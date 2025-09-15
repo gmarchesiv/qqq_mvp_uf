@@ -195,7 +195,7 @@ def broadcasting_buy(vars,params,app):
                   
 async def send_request(session, url, data, user):
     try:
-        async with session.post(url, json=data, timeout=5) as response:
+        async with session.post(url, json=data, timeout=2) as response:
             if response.status == 200:
                 printStamp(f"Orden enviada a {user['user']} exitosamente")
                 print(await response.json())
@@ -203,8 +203,6 @@ async def send_request(session, url, data, user):
                 printStamp(f"Error al enviar los datos a {user['user']}: {response.status}")
                 print(await response.json())
     except Exception as e:
-        print("URL: ",url)
-        print("DATA: ",data)
         printStamp(f"Error en la conexión con {user['user']}: {str(e)}")
 
 async def send_buy(app, vars, params, tipo, regla):
@@ -233,41 +231,37 @@ async def send_sell(app, vars, params, tipo, regla):
 
 async def fetch_price(session, url,user):
     try:
-        async with session.get(url, timeout=5) as response:
+        async with session.get(url, timeout=2) as response:
             if response.status == 200:
                 data = await response.json()
                 price = data.get("priceBuy", 9999)
                 printStamp(f"{user} : {price} $")
                 return price if price > 0 else None
     except Exception as e:
-        
-        # print("URL: ",url)
-        printStamp(f"Error obteniendo datos de {url}: {str(e)}")
-  
         pass
         # printStamp(f"Error obteniendo datos de {url}: {str(e)}")
     return None
 
 async def comparar_precios(vars, params):
     async with aiohttp.ClientSession() as session:
-        tasks = [fetch_price(session, f"http://{user['ip']}/get-price",user["user"]) for user in params.users if user["rama"] == True]
+        tasks = [fetch_price(session, f"http://{user['ip']}/get-price",user["user"]) for user in params.users if user["rama"] == False]
         prices = await asyncio.gather(*tasks)
     
-    # # Filtrar valores None
-    # valid_prices = [price for price in prices if price is not None]
+    # Filtrar valores None
+    valid_prices = [price for price in prices if price is not None]
     
-    # # Agregar el valor anterior de vars.priceBuy si existe
-    # if vars.priceBuy is not None:
-    #     valid_prices.append(vars.priceBuy)
+    # Agregar el valor anterior de vars.priceBuy si existe
+    if vars.priceBuy is not None:
+        valid_prices.append(vars.priceBuy)
     
-    # # Obtener el precio más bajo
-    # vars.priceBuy = min(valid_prices) if valid_prices else vars.priceBuy
+    # Obtener el precio más bajo
+    vars.priceBuy = min(valid_prices) if valid_prices else vars.priceBuy
  
-    # printStamp(f"Mi Precio Real: {vars.real_priceBuy} $")
-    # printStamp(f"Mi Precio actualizado: {vars.priceBuy} $")
+    printStamp(f"Mi Precio Real: {vars.real_priceBuy} $")
+    printStamp(f"Mi Precio actualizado: {vars.priceBuy} $")
  
     print("===============================================")
-    # return vars.priceBuy
+    return vars.priceBuy
 
 def verificar_regla(params):
     reglas = set()

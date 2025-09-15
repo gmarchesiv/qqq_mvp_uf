@@ -152,12 +152,12 @@ def main():
                     # ==================================
                     #  -        BROADCASTING           -
                     # ==================================
-                    # if vars.call or vars.put:
-                    #     broadcasting_sell(vars,params,app)
+                    if vars.call or vars.put:
+                        broadcasting_sell(vars,params,app)
             
-                    #     broadcasting_sell_auto(vars,params,app,bc)
-                    # if vars.compra:
-                    #     broadcasting_buy(vars,params,app)
+                        broadcasting_sell_auto(vars,params,app,bc)
+                    if vars.compra:
+                        broadcasting_buy(vars,params,app)
                     pass
                     # ==================================
                     #  - Notificacion de Transacciones -
@@ -169,12 +169,11 @@ def main():
                     calculations(app, vars, params)  # CALCULOS DE RUTINA
                     readIBData(app, vars)  # LOGS DE LOS CALCULOS
                     if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
-                        asyncio.run(comparar_precios(vars, params))
                         # ================================
                         #  -VENTA-
                         # ================================
                         # if vars.call or vars.put:
-                            # sellOptions(app, vars, params)
+                        #     sellOptions(app, vars, params)
                         # ================================
                         #  -COMPRA-
                         # ================================
