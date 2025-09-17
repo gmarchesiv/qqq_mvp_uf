@@ -72,7 +72,7 @@ class parameters:
         self.rangos_strikes = [[2,3.5] ] #escoge siempre el mas pegado al primero
         # self.rangos_strikes = [[2, 2.3], [2.15, 2.55], [2.4, 3]]
         self.diff_days_exp = 37
-        self.days_max = [25, 33]
+        self.days_max = [20, 33]
 
 
 
