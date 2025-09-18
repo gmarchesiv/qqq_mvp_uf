@@ -402,7 +402,7 @@ def sellCall(app, params, vars):
                 vars.minutos = 0
 
             # NMT
-            elif vars.minutos >= (params.min_desicion__cR2+1)and vars.rentabilidad >= params.target_min_desicion__cR2:
+            elif vars.minutos >= (params.min_desicion_cR2+1)and vars.rentabilidad >= params.target_min_desicion__cR2:
                 sell(
                     app,
                     vars,

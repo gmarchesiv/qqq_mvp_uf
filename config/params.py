@@ -219,6 +219,8 @@ class parameters:
         # VENTA
         # self.umbral_manifestacion_cR2 =  0.05  # UMBRAL DE MANIFESTACION
         self.min_desicion_cR2   = 60
+ 
+        
         self.target_min_desicion_cR2 =0.01
         self.sl_cr2 = -0.05  # STOP LOSS
         self.umbral_manifestacion_cR2=0.025
