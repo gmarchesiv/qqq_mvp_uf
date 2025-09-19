@@ -216,7 +216,8 @@ def saveJson(vars, app, params, estado):
             return
 
     except:
-        vars = variables()
+        from config.vars import variables
+        vars = variables(debug_mode=False)
 
 def save_rentabilidad(vars):
     file_name = "/usr/src/app/data/vars.json"

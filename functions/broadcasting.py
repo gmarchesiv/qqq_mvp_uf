@@ -85,6 +85,7 @@ def broadcasting_sell(vars,params,app):
                             vars.sell_regla_broadcasting,
                             app.options[val]["contract"],
                             app.options[val]["symbol"],
+                            debug_mode=False
                         )
                     if venta:
                         vars.sell_broadcasting =False
@@ -185,6 +186,8 @@ def broadcasting_buy(vars,params,app):
                             precio,
                             app.options[val]["contract"],
                             app.options[val]["symbol"],
+                        
+                            debug_mode=False
                         )
 
                         if flag_buy == False:

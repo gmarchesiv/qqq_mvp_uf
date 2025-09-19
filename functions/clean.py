@@ -22,8 +22,10 @@ def clean_vars(vars):
     vars.flag_Call_reset_r1_c=False
     vars.flag_cambio_fast=False
     vars.flag_Call_reset_r2 = False
+    vars.flag_Put_reset_r1_label = False
     vars.flag_bloqueo_r1_e=False
     vars.flag_Call_reset_r1_e2 = False
+    vars.flag_cambio_R1_label= False
     vars.rule = True
 
     vars.accion_mensaje = 0

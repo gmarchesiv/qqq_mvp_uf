@@ -21,18 +21,18 @@ from functions.saveJson import saveJson
 
 
 # INICIO DE LAS REGLAS DE VENTA
-def sellOptions(app, vars, params):
-    if vars.minutos_trade <=params.tiempo_contulta  :
+def sellOptions(app, vars, params, debug_mode ):
+    if vars.minutos_trade <=params.tiempo_contulta  and debug_mode==False:
 
         asyncio.run(comparar_precios(vars, params))
    
     if vars.call:
         # sell_obligatoria(app, vars, params,"C")
-        sellCall(app, params, vars)
+        sellCall(app, params, vars,debug_mode)
         return
     elif vars.put:
         # sell_obligatoria(app, vars, params,"P")
-        sellPut(app, params, vars)
+        sellPut(app, params, vars,debug_mode)
         return
     else:
         return
@@ -65,14 +65,19 @@ def sell_obligatoria(app, vars, params,tipo):
 
  
 
-def sellCall(app, params, vars):
-
-    timeNow = datetime.now(params.zone).time()
+def sellCall(app, params, vars,debug_mode):
+    if debug_mode:
+        timeNow=vars.df["HORA"][vars.i]
+    else:
+        timeNow = datetime.now(params.zone).time()
 
     # CALCULAR RENTABILIDAD
     if vars.askbid_call > params.max_askbid_venta_abs:
         vars.rentabilidad = vars.cbid / vars.priceBuy - 1
-        read_rentabilidad(vars)
+        if debug_mode==False:
+            read_rentabilidad(vars)
+        else:
+            vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
         return
     if vars.cbid <= 0:
         return
@@ -80,7 +85,10 @@ def sellCall(app, params, vars):
  
     vars.rentabilidad = vars.cbid / vars.priceBuy - 1
 
-    read_rentabilidad(vars)
+    if debug_mode==False:
+        read_rentabilidad(vars)
+    else:
+        vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
 
     # CALCULAR RENTABILIDAD vars.pico
     if vars.pico < vars.rentabilidad:
@@ -107,7 +115,7 @@ def sellCall(app, params, vars):
             "C",
             name,
             app.options[1]["contract"],
-            app.options[1]["symbol"],
+            app.options[1]["symbol"],debug_mode
         )
         return
 
@@ -125,7 +133,7 @@ def sellCall(app, params, vars):
             "C",
             "PROTECCION",
             app.options[1]["contract"],
-            app.options[1]["symbol"],
+            app.options[1]["symbol"],debug_mode
         )
 
         return
@@ -144,7 +152,7 @@ def sellCall(app, params, vars):
             "C",
             "PROTECCION",
             app.options[1]["contract"],
-            app.options[1]["symbol"],
+            app.options[1]["symbol"],debug_mode
         )
 
         return
@@ -162,7 +170,7 @@ def sellCall(app, params, vars):
             "C",
             "PROTECCION_D",
             app.options[1]["contract"],
-            app.options[1]["symbol"],
+            app.options[1]["symbol"],debug_mode
         )
 
         return
@@ -181,7 +189,7 @@ def sellCall(app, params, vars):
             "C",
             "PROTECCION",
             app.options[1]["contract"],
-            app.options[1]["symbol"],
+            app.options[1]["symbol"],debug_mode
         )
 
         return
@@ -213,7 +221,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -238,7 +246,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -270,7 +278,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -295,7 +303,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -328,7 +336,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -353,7 +361,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -385,7 +393,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -402,7 +410,7 @@ def sellCall(app, params, vars):
                 vars.minutos = 0
 
             # NMT
-            elif vars.minutos >= (params.min_desicion_cR2+1)and vars.rentabilidad >= params.target_min_desicion__cR2:
+            elif vars.minutos >= (params.min_desicion_cR2+1)and vars.rentabilidad >= params.target_min_desicion_cR2:
                 sell(
                     app,
                     vars,
@@ -410,7 +418,7 @@ def sellCall(app, params, vars):
                     "C",
                     "NMT",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -423,7 +431,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -443,7 +451,7 @@ def sellCall(app, params, vars):
                 "C",
                 name,
                 app.options[1]["contract"],
-                app.options[1]["symbol"],
+                app.options[1]["symbol"],debug_mode
             )
 
             return
@@ -457,7 +465,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
             return
@@ -493,7 +501,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -518,7 +526,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -549,7 +557,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -574,7 +582,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -611,7 +619,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -636,7 +644,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -668,7 +676,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -693,7 +701,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -725,7 +733,7 @@ def sellCall(app, params, vars):
                     "C",
                     name,
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -750,7 +758,7 @@ def sellCall(app, params, vars):
                     "C",
                     "SL",
                     app.options[1]["contract"],
-                    app.options[1]["symbol"],
+                    app.options[1]["symbol"],debug_mode
                 )
 
                 return
@@ -758,21 +766,30 @@ def sellCall(app, params, vars):
     vars.venta_intentos=0
     vars.regla_broadcasting=""
 
-def sellPut(app, params, vars):
+def sellPut(app, params, vars,debug_mode):
 
-    timeNow = datetime.now(params.zone).time()
+    if debug_mode:
+        timeNow=vars.df["HORA"][vars.i]
+    else:
+        timeNow = datetime.now(params.zone).time()
 
     # CALCULAR RENTABILIDAD
     if vars.askbid_put > params.max_askbid_venta_abs:
         vars.rentabilidad = vars.pbid / vars.priceBuy - 1
-        read_rentabilidad(vars)
+        if debug_mode==False:
+            read_rentabilidad(vars)
+        else:
+            vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
         return
     if vars.pbid <= 0:
         return
     
  
     vars.rentabilidad = vars.pbid / vars.priceBuy - 1
-    read_rentabilidad(vars)
+    if debug_mode==False:
+        read_rentabilidad(vars)
+    else:
+        vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
     # CALCULAR RENTABILIDAD vars.pico
     if vars.pico < vars.rentabilidad:
         vars.pico = vars.rentabilidad
@@ -799,7 +816,7 @@ def sellPut(app, params, vars):
             "P",
             "FD",
             app.options[2]["contract"],
-            app.options[2]["symbol"],
+            app.options[2]["symbol"],debug_mode
         )
 
         return
@@ -817,7 +834,7 @@ def sellPut(app, params, vars):
             "P",
             "PROTECCION",
             app.options[2]["contract"],
-            app.options[2]["symbol"],
+            app.options[2]["symbol"],debug_mode
         )
 
         return
@@ -835,7 +852,7 @@ def sellPut(app, params, vars):
             "P",
             "PROTECCION_D",
             app.options[2]["contract"],
-            app.options[2]["symbol"],
+            app.options[2]["symbol"],debug_mode
         )
 
         return
@@ -854,7 +871,7 @@ def sellPut(app, params, vars):
             "P",
             "PROTECCION",
             app.options[2]["contract"],
-            app.options[2]["symbol"],
+            app.options[2]["symbol"],debug_mode
         )
 
         return
@@ -886,7 +903,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -912,7 +929,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -944,7 +961,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -970,7 +987,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1002,7 +1019,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1028,10 +1045,129 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
+    #########################################################
+    ####################      PUT  R1  I 3 ##################
+    #########################################################
+    elif vars.tipo == "R1-I3":
+        # MANIFIESTA
+        if vars.manifesto:
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_i_3)):
+                if round(vars.pico, 3) > params.diamante_pr1_i_3[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_i_3[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],debug_mode
+                )
+
+                return
+
+            else:
+                pass
+
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_i_3:
+                vars.manifesto = True
+                vars.minutos = 0
+
+ 
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_i_3:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],debug_mode
+                )
+
+                return
+    
+
+    #########################################################
+    ####################      PUT  LABEL   ##################
+    #########################################################
+    elif vars.tipo == "R1-LABEL":
+        # MANIFIESTA
+        if vars.manifesto:
+
+            # DIAMANTE
+            for y in range(vars.ugs_n, len(params.diamante_pr1_label)):
+                if round(vars.pico, 3) > params.diamante_pr1_label[y]:
+                    vars.ugs_n = y
+                    if vars.ugs_n != vars.ugs_n_ant:
+                        vars.minutos = 0
+                        vars.ugs_n_ant = vars.ugs_n
+                else:
+                    break
+
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - params.resta_pr1_label[vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    name,
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],debug_mode
+                )
+
+                return
+
+            else:
+                pass
+
+        else:
+            # vars.manifesto
+            if vars.rentabilidad >= params.umbral_manifestacion_pR1_label:
+                vars.manifesto = True
+                vars.minutos = 0
+
+ 
+
+            # SL
+            elif vars.rentabilidad <= params.sl_pr1_label:
+
+                sell(
+                    app,
+                    vars,
+                    params,
+                    "P",
+                    "SL",
+                    app.options[2]["contract"],
+                    app.options[2]["symbol"],debug_mode
+                )
+
+                return
+    
     #########################################################
     ####################      PUT  R3     ###################
     #########################################################
@@ -1060,7 +1196,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1086,7 +1222,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return    
@@ -1118,7 +1254,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1144,7 +1280,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1177,7 +1313,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1203,7 +1339,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1236,7 +1372,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1251,18 +1387,18 @@ def sellPut(app, params, vars):
                 vars.minutos = 0
 
             # FIN DE ESPERA
-            elif vars.minutos >= params.min_desicion_pr2:
-                sell(
-                    app,
-                    vars,
-                    params,
-                    "P",
-                    "NMT",
-                    app.options[2]["contract"],
-                    app.options[2]["symbol"],
-                )
+            # elif vars.minutos >= params.min_desicion_pr2:
+            #     sell(
+            #         app,
+            #         vars,
+            #         params,
+            #         "P",
+            #         "NMT",
+            #         app.options[2]["contract"],
+            #         app.options[2]["symbol"],debug_mode
+            #     )
 
-                return
+            #     return
  
 
             # SL
@@ -1275,7 +1411,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1293,7 +1429,7 @@ def sellPut(app, params, vars):
                     "P",
                     "TARGET",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
             return
@@ -1306,7 +1442,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
             return
@@ -1343,7 +1479,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1369,7 +1505,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1402,7 +1538,7 @@ def sellPut(app, params, vars):
                     "P",
                     name,
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1428,7 +1564,7 @@ def sellPut(app, params, vars):
                     "P",
                     "SL",
                     app.options[2]["contract"],
-                    app.options[2]["symbol"],
+                    app.options[2]["symbol"],debug_mode
                 )
 
                 return
@@ -1436,72 +1572,90 @@ def sellPut(app, params, vars):
     vars.regla_broadcasting=""
 
 
-def sell(app, vars, params, tipo, regla, contract, symbol):
-    from rules.routine import calculations
- 
-    if vars.rentabilidad<0:
+def sell(app, vars, params, tipo, regla, contract, symbol,debug_mode):
+    if debug_mode:
+        # SET DE VARIABLES
+        vars.regla = regla
+        vars.regla_ant = vars.regla
+        if tipo == "C":
+            vars.call = False
+        elif tipo == "P":
+            vars.put = False
+
+        vars.status = "SLEEP"
+        vars.df.loc[vars.i, "REGLA"]=regla
         
-        if vars.venta_intentos>=params.intentos:
-            pass   
-        else:
-            vars.venta_intentos+=1
-            return
  
-    vars.regla_broadcasting = regla
-    if vars.sell_broadcasting ==False:
-        asyncio.run(send_sell(app, vars, params, tipo,regla))
-  
-    # LECTURA PREVIA
-    readIBData_action(app, vars, tipo, regla)
+        # read_sell(vars, tipo)
+        return True
 
-    # ENVIO DE ORDEN DE VENTA
-    flag = sellOptionContract(params, app, vars, tipo, contract, symbol)
-    if flag == False:
-        printStamp("-NO SE PUDO CONCRETAR LA VENTA-")
-        return False
 
-    # ESPERA DE LA ORDEN DE VENTA
-    app.statusIB = False
-    app.Error = False
+    else:
+        from rules.routine import calculations
+    
+        if vars.rentabilidad<0:
+            
+            if vars.venta_intentos>=params.intentos:
+                pass   
+            else:
+                vars.venta_intentos+=1
+                return
+    
+        vars.regla_broadcasting = regla
+        if vars.sell_broadcasting ==False:
+            asyncio.run(send_sell(app, vars, params, tipo,regla))
+    
+        # LECTURA PREVIA
+        readIBData_action(app, vars, tipo, regla)
 
-    printStamp("-wait Status-")
+        # ENVIO DE ORDEN DE VENTA
+        flag = sellOptionContract(params, app, vars, tipo, contract, symbol)
+        if flag == False:
+            printStamp("-NO SE PUDO CONCRETAR LA VENTA-")
+            return False
 
-    while app.statusIB == False:
+        # ESPERA DE LA ORDEN DE VENTA
+        app.statusIB = False
+        app.Error = False
 
-        timeNow = datetime.now(params.zone).time()
-        if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
-            if vars.flag_minuto_label:
-                generar_label(params, vars,app)
-                vars.flag_minuto_label=False
-                time.sleep(0.5)
-        else:
-            vars.flag_minuto_label=True
-        if int(timeNow.second) in params.frecuencia_muestra:
-            calculations(app, vars, params)
-            # ESPERANDO Y REGISTRANDO
-            vars.status = "SELLING"
-            saveJson(vars, app, params, False)
-            writeDayTrade(app, vars, params)
+        printStamp("-wait Status-")
 
+        while app.statusIB == False:
+
+            timeNow = datetime.now(params.zone).time()
+            if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+                if vars.flag_minuto_label:
+                    generar_label(params, vars,app)
+                    vars.flag_minuto_label=False
+                    time.sleep(0.5)
+            else:
+                vars.flag_minuto_label=True
+            if int(timeNow.second) in params.frecuencia_muestra:
+                calculations(app, vars, params)
+                # ESPERANDO Y REGISTRANDO
+                vars.status = "SELLING"
+                saveJson(vars, app, params, False)
+                writeDayTrade(app, vars, params)
+
+            if app.Error:
+                break
+            time.sleep(1)
         if app.Error:
-            break
-        time.sleep(1)
-    if app.Error:
-        printStamp(f"-VENTA NO PROCESADA-")
-        sendError(params, "VENTA NO PROCESADA")
-        return False
+            printStamp(f"-VENTA NO PROCESADA-")
+            sendError(params, "VENTA NO PROCESADA")
+            return False
 
-    # SET DE VARIABLES
-    vars.regla = regla
-    vars.regla_ant = vars.regla
-    if tipo == "C":
-        vars.call = False
-    elif tipo == "P":
-        vars.put = False
+        # SET DE VARIABLES
+        vars.regla = regla
+        vars.regla_ant = vars.regla
+        if tipo == "C":
+            vars.call = False
+        elif tipo == "P":
+            vars.put = False
 
-    vars.status = "SLEEP"
-    read_sell(vars, tipo)
-    return True
+        vars.status = "SLEEP"
+        read_sell(vars, tipo)
+        return True
 
 
 

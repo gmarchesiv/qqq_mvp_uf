@@ -10,22 +10,27 @@ from collections import deque
 #                  VARIABLES
 ###############################################
 class variables:
-    def __init__(self):
+    def __init__(self,debug_mode ):
         ###############################################
         # LECTURA DEL ARCHIVO DE VARIABLES
         ###############################################
 
-        file_name = "/usr/src/app/data/vars.json"
+        if debug_mode ==False:
+            file_name = "/usr/src/app/data/vars.json"
 
-        if os.path.exists(file_name):
-            # Leer el archivo JSON
-            with open(file_name, "r") as json_file:
-                self.data = json.load(json_file)
-                printStamp(" - Lectura de archivo de variables - ")
+            if os.path.exists(file_name):
+                # Leer el archivo JSON
+                with open(file_name, "r") as json_file:
+                    self.data = json.load(json_file)
+                    printStamp(" - Lectura de archivo de variables - ")
+            else:
+                
+                printStamp(" - No se encuentra archivo de variables - ")
+                exit()
+                
+
         else:
-            printStamp(" - No se encuentra archivo de variables - ")
-            exit()
-
+            self.data={}
         ###############################################
         # VARIABLES DE APP
         ###############################################
@@ -73,6 +78,8 @@ class variables:
         self.flag_Call_reset_r2 = self.data.get("flag_Call_reset_r2", False)
         self.flag_bloqueo_r1_e = self.data.get("flag_bloqueo_r1_e", False)
         self.flag_Call_reset_r1_e2 = self.data.get("flag_Call_reset_r1_e2", False)
+        self.flag_cambio_R1_label=False
+        
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
@@ -96,8 +103,8 @@ class variables:
         
         self.askbid_call_prom = self.data.get("askbid_call_prom ", [])
         self.askbid_put_prom  = self.data.get("askbid_put_prom ",[])
-        self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=90)
-        self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=90)
+        self.askbid_call_prom=deque(self.askbid_call_prom, maxlen=89)
+        self.askbid_put_prom=deque(self.askbid_put_prom, maxlen=89)
 
         self.quantity = self.data.get("quantity", 0)
         self.rentabilidad = self.data.get("rentabilidad", 0)

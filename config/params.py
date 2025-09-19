@@ -13,7 +13,7 @@ from functions.logs import printStamp
 #                  PARAMETROS
 ###############################################
 class parameters:
-    def __init__(self):
+    def __init__(self,debug_mode):
         ###############################################
         #               PARAMETROS -  GENERALES
         ###############################################
@@ -48,17 +48,18 @@ class parameters:
         #               PARAMETROS -  BoradCasting
         ###############################################
 
-        file_name = "/usr/src/app/data/grupo.json"
+        if debug_mode == False :
+            file_name = "/usr/src/app/data/grupo.json"
 
-        if os.path.exists(file_name):
-            # Leer el archivo JSON
-            with open(file_name, "r") as json_file:
-                self.data = json.load(json_file)
-                printStamp(" - Lectura de archivo de Grupos - ")
-        else:
-            printStamp(" - No se encuentra archivo de Grupos - ")
-            exit()
-        self.users = self.data["red"]
+            if os.path.exists(file_name):
+                # Leer el archivo JSON
+                with open(file_name, "r") as json_file:
+                    self.data = json.load(json_file)
+                    printStamp(" - Lectura de archivo de Grupos - ")
+            else:
+                printStamp(" - No se encuentra archivo de Grupos - ")
+                exit()
+            self.users = self.data["red"]
 
         ###############################################
         #               PARAMETROS -  RUTINA
@@ -101,7 +102,7 @@ class parameters:
 
         self.proteccion_compra=[ dt_time(9, 44,0), dt_time(9, 45,30) ]
         self.proteccion_compra_2=[ dt_time(9, 59,0), dt_time(10, 0,15) ]
-        self.proteccion_compra_call_r1=[ dt_time(9, 43,0), dt_time(9, 45,30)  ]
+        self.proteccion_compra_call_r1=[ dt_time(9, 44,0), dt_time(9, 46,0)  ]
         ##########################################
         #########################################################
         ####################      CALL        ###################
@@ -179,11 +180,12 @@ class parameters:
         # =======  CALL - R1 -INV ==========  
         # ==================================
         
-        self.dcall_r1_i =[-0.23, 0]
-        self.docall_r1_i = [0.1, 0.105]
-        self.timeCall_r1_i = [dt_time(9, 35), dt_time(9,45)]
+        self.dcall_r1_i =[-0.37, 0]
+        self.docall_r1_i =[0.1, 0.105]
+        self.timeCall_r1_i = [dt_time(9, 35), dt_time(9,55)]
         self.labelCall_r1_i=1
         self.dcall_r1_i_dput=0.26
+        
         # VENTA
         
         self.sl_cr1_i = -0.048  # STOP LOSS
@@ -213,7 +215,7 @@ class parameters:
         # COMPRA
         self.dcall_r2 = [0.27, 0.425]
         self.docall_r2 = [0.032, 0.055]  
-        self.timeCall_r2 = [dt_time(9, 35), dt_time(10, 10)]
+        self.timeCall_r2 = [dt_time(9, 35), dt_time(10, 45)]
         self.labelCall_r2=0
         self.umbral_cr2=0.225
         # VENTA
@@ -257,7 +259,7 @@ class parameters:
         # VENTA
         self.sl_cr3 =-0.046  # STOP LOSS
         
-        self.umbral_manifestacion_cR3 =0.023
+        self.umbral_manifestacion_cR3 =0.024
         self.diamante_cr3  = [  self.umbral_manifestacion_cR3, 0.031  ] # DIAMANTE DE COMPRA
         self.resta_cr3  = [  0.02,self.inf_n]# RETROCESO DEL DIAMANTE 
     
@@ -305,7 +307,7 @@ class parameters:
         ]  # DIAMANTE DE COMPRA
         self.resta_cr1_f2 = [0.0295, self.inf_n]   # RETROCESO DEL DIAMANTE
 
-        ##########################################
+     
         #########################################################
         ####################      PUT         ###################
         #########################################################

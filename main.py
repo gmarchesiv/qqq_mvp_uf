@@ -18,6 +18,7 @@ from config.broadcasting import broadcasting
 from database.repository.repository import writeRegister
 
 # funtions/
+
 from functions.broadcasting import *
 from functions.clean import clean_broadcasting, clean_vars
 from functions.events import countdown, isTradingDay
@@ -59,11 +60,11 @@ def main():
         # ================================
 
         # VARIABLES
-        vars = variables()
-        bc = broadcasting()
+        vars = variables(debug_mode=False)
+        bc = broadcasting(debug_mode=False)
 
         # PARAMETROS
-        params = parameters()
+        params = parameters(debug_mode=False)
 
         # ====================
         #  - TEST CONNECTION -
@@ -173,12 +174,12 @@ def main():
                         #  -VENTA-
                         # ================================
                         if vars.call or vars.put:
-                            sellOptions(app, vars, params)
+                            sellOptions(app, vars, params, debug_mode=False)
                         # ================================
                         #  -COMPRA-
                         # ================================
                         if vars.compra:
-                            buyOptions(app, vars, params)
+                            buyOptions(app, vars, params, debug_mode=False)
                         pass
                     
                     # ================================
@@ -208,7 +209,7 @@ def main():
                     if int(timeNow.second) in params.frecuencia_accion:
                         calculations(app, vars, params)
                         readIBData(app, vars)
-                        sellOptions(app, vars, params)
+                        sellOptions(app, vars, params, debug_mode=False)
                         registration(app, vars, params)
                         time.sleep(0.5)
                     time.sleep(0.5)
@@ -305,4 +306,6 @@ if __name__ == "__main__":
     # ###########################
     # #### INICIO DEL CODIGO ####
     # ###########################
+    
     main()
+   
