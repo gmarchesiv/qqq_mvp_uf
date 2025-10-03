@@ -71,7 +71,10 @@ class parameters:
 
         self.rangos_strikes = [[2,3.5] ] #escoge siempre el mas pegado al primero
         # self.rangos_strikes = [[2, 2.3], [2.15, 2.55], [2.4, 3]]
-        self.diff_days_exp = 37
+        
+        self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
+
+
         self.days_max = [20, 33]
 
 
@@ -81,7 +84,8 @@ class parameters:
 
         self.max_askbid_venta_abs = 0.0275
         self.max_askbid_compra_abs = 0.0185
-
+        self.max_askbid_open = 0.03
+        self.max_askbid_hora_open =  dt_time(9, 33)
         self.umbral_askbid=0.08
         # self.askbid_len_lista=91
 
