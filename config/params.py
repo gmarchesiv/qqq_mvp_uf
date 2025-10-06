@@ -87,6 +87,8 @@ class parameters:
         self.max_askbid_compra_abs = 0.0185
         self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
         self.umbral_askbid=0.08
+        self.max_askbid_open = 0.03
+        self.max_askbid_hora_open =  dt_time(9, 33)
         # self.askbid_len_lista=91
 
         self.max_askbid_venta_forzada = 0.04
