@@ -135,13 +135,13 @@ class variables:
 
         self.strike_c_2 = self.data.get("strike_c_2", 0)
         self.strike_p_2 = self.data.get("strike_p_2", 0)
-
+        self.exp_2 = self.data.get("exp_2", "")
 
         self.dif_exp = self.data.get("dif_exp", 0)
         self.dic_strike = self.data.get("dic_strike", 0)
 
         self.exp = self.data.get("exp", "")
-        self.exp_2 = self.data.get("exp_2", "")
+        
 
 
         self.rentabilidad_final = 0
@@ -151,6 +151,10 @@ class variables:
         self.cbid = 0
         self.pask = 0
         self.pbid = 0
+        self.cask_2 = 0
+        self.cbid_2 = 0
+        self.pask_2 = 0
+        self.pbid_2 = 0
         self.regla_ant = ""
         self.trade_hour = ""
         self.accion_mensaje = self.data.get("accion_mensaje", 0)
