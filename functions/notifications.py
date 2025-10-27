@@ -29,7 +29,7 @@ def sendStart(app, params):
 - INICIO DE RUTINA -
 USER: {params.name}
 ETF:{params.etf}
-TRADING MODE: {params.typeIB} 
+TRADING MODE: Extracción
 ======================
 """
     try:

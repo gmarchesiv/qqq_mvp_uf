@@ -39,6 +39,7 @@ from rules.routine import (
     data_susciption,
     registration,
     registro_strike,
+    registro_strike_2,
     saveTransaction 
 )
 # from rules.sell import sell_obligatoria, sellOptions
@@ -62,7 +63,7 @@ def main():
 
         # VARIABLES
         vars = variables(debug_mode=False)
-        bc = broadcasting(debug_mode=False)
+ 
 
         # PARAMETROS
         params = parameters(debug_mode=False)
@@ -120,10 +121,7 @@ def main():
             clean_vars(vars)
             data_option_open(app,   vars,params)
             generar_label(params, vars,app)
-
-            timeNow = datetime.now(params.zone).time()
-            if (timeNow.hour >= 9 and timeNow.minute >= 33):
-               vars.flag_bloqueo_tiempo=True
+ 
         else:
             load_app_vars(app, vars)
 
@@ -148,43 +146,11 @@ def main():
                         time.sleep(0.5)
                 else:
                     vars.flag_minuto_label=True
-           
-                if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
-                    # ==================================
-                    #  -        BROADCASTING           -
-                    # ==================================
-                    if vars.call or vars.put:
-                        broadcasting_sell(vars,params,app)
             
-                        broadcasting_sell_auto(vars,params,app,bc)
-                    if vars.compra:
-                        broadcasting_buy(vars,params,app)
-                    pass
-                    # ==================================
-                    #  - Notificacion de Transacciones -
-                    # ==================================
-
-                saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
-
                 if int(timeNow.second) in params.frecuencia_accion:
                     calculations(app, vars, params)  # CALCULOS DE RUTINA
                     readIBData(app, vars)  # LOGS DE LOS CALCULOS
-                    if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
-                        # ================================
-                        #  -VENTA-
-                        # ================================
-                        if vars.call or vars.put:
-                            sellOptions(app, vars, params, debug_mode=False)
-                        # ================================
-                        #  -COMPRA-
-                        # ================================
-                        if vars.compra:
-                            buyOptions(app, vars, params, debug_mode=False)
-                        pass
-                    
-                    # ================================
-                    #  - Registro -
-                    # ================================
+                  
 
                     registration(app, vars, params)
 
@@ -195,24 +161,7 @@ def main():
 
             if params.fd < timeNow:
                 
-                
-                while (vars.call or vars.put):
-                    timeNow = datetime.now(params.zone).time()
-                    if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
-                        if vars.flag_minuto_label:
-                            generar_label(params, vars,app)
-                            vars.flag_minuto_label=False
-                            time.sleep(0.5)
-                    else:
-                        vars.flag_minuto_label=True
-           
-                    if int(timeNow.second) in params.frecuencia_accion:
-                        calculations(app, vars, params)
-                        readIBData(app, vars)
-                        sellOptions(app, vars, params, debug_mode=False)
-                        registration(app, vars, params)
-                        time.sleep(0.5)
-                    time.sleep(0.5)
+               
                 calculations(app, vars, params)
                 readIBData(app, vars)
                 registration(app, vars, params)
@@ -239,6 +188,7 @@ def main():
             if params.fin_rutina < timeNow:
                 printStamp(" - Registrando Nuevo Strike - ")
                 registro_strike(app, vars, params)
+                registro_strike_2(app, vars, params)
                 clean_broadcasting(vars)
                 vars.status = "OFF"
                 saveJson(vars, app, params, True)

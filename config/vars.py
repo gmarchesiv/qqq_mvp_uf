@@ -60,6 +60,12 @@ class variables:
         self.call_open = self.data.get("call_open", 0)
         self.put_open = self.data.get("put_open", 0)
 
+
+        self.call_close_2 = self.data.get("call_close_2", 0)
+        self.put_close_2 = self.data.get("put_close_2", 0)
+        self.call_open_2 = self.data.get("call_open_2", 0)
+        self.put_open_2 = self.data.get("put_open_2", 0)
+
         ###############################################
         # VARIABLES DE FLAGS
         ###############################################
@@ -100,6 +106,14 @@ class variables:
         self.doput = self.data.get("doput", 0)
         self.askbid_call = self.data.get("askbid_call", 0)
         self.askbid_put = self.data.get("askbid_put", 0)
+
+        self.dcall_2 = self.data.get("dcall_2", 0)
+        self.dput_2 = self.data.get("dput_2", 0)
+        self.docall_2 = self.data.get("docall_2", 0)
+        self.doput_2 = self.data.get("doput_2", 0)
+        self.askbid_call_2 = self.data.get("askbid_call_2", 0)
+        self.askbid_put_2 = self.data.get("askbid_put_2", 0)
+
         
         self.askbid_call_prom = self.data.get("askbid_call_prom ", [])
         self.askbid_put_prom  = self.data.get("askbid_put_prom ",[])
@@ -118,9 +132,18 @@ class variables:
         self.strikes = self.data.get("strikes", {})
         self.strike_c = self.data.get("strike_c", 0)
         self.strike_p = self.data.get("strike_p", 0)
+
+        self.strike_c_2 = self.data.get("strike_c_2", 0)
+        self.strike_p_2 = self.data.get("strike_p_2", 0)
+
+
         self.dif_exp = self.data.get("dif_exp", 0)
         self.dic_strike = self.data.get("dic_strike", 0)
+
         self.exp = self.data.get("exp", "")
+        self.exp_2 = self.data.get("exp_2", "")
+
+
         self.rentabilidad_final = 0
         self.dic_exp_strike = self.data.get("dic_exp_strike", {})
         self.rule = self.data.get("rule", True)
