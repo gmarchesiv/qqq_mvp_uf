@@ -300,7 +300,7 @@ def registro_strike(app, vars, params):
     app.cancelMarketData(2)
     time.sleep(1)
     del app.options[2]
-    app.options={}
+    # app.options={}
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
