@@ -163,7 +163,7 @@ def calculations(app, vars, params):
     timeNow = datetime.now(params.zone).time()
 
  
-
+    
     # DATOS
     vars.cask = app.options[1]["ASK"]
     vars.cbid = app.options[1]["BID"]
