@@ -283,7 +283,7 @@ def snapshot(app, etf, strike, exp, exchange):
         create_contract_OPT(etf, "OPT", exchange, "USD", strike[1], exp, "C"),
         create_contract_OPT(etf, "OPT", exchange, "USD", strike[0], exp, "P"),
     ]
-
+    print(app.options)
     for i, contract in enumerate(contracts, start=(len(app.options) + 1)):
 
         app.reqMktData(i, contract, "", False, False, [])
