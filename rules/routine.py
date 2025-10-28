@@ -60,7 +60,7 @@ def data_option_open(app,   vars,params):
             vars.flag_bloqueo_tiempo =True
             break
         time.sleep(0.5)
-
+    print("FIN1")
     vars.call_open_2 = -1
     vars.put_open_2 = -1
 
