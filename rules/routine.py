@@ -398,7 +398,7 @@ def registro_strike_2(app, vars, params):
     time.sleep(1)
     del app.options[4]
     time.sleep(1)
-    print("LLEGUE HASTA AQUI")
+    # print("LLEGUE HASTA AQUI")
     snapshot_2(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
