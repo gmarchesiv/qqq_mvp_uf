@@ -396,7 +396,7 @@ def registro_strike_2(app, vars, params):
     app.cancelMarketData(4)
     time.sleep(1)
     del app.options[4]
-
+    time.sleep(1)
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
@@ -408,10 +408,10 @@ def registro_strike_2(app, vars, params):
             print("===============================================")
             printStamp(f"CASK: {app.options[3]['ASK'] } | CBID: {app.options[3]['BID'] }")
             printStamp(f"PASK: {app.options[4]['ASK'] } | PBID: {app.options[4]['BID'] }")
-        if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[3]["ASK"] / app.options[3]["BID"] - 1):
+        if app.options[3]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[3]["ASK"] / app.options[3]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[4]["ASK"] / app.options[4]["BID"] - 1):
+        if app.options[4]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[4]["ASK"] / app.options[4]["BID"] - 1):
             readyOpt += 1
             
    
