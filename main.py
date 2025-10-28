@@ -55,7 +55,7 @@ from rules.sell import sellOptions
 # ====================
 def main():
 
-    # try:
+    try:
 
         # ================================
         #  - Variables y Parametros -
@@ -210,44 +210,44 @@ def main():
         return
 
     # ----- ERROR POR INTERRUPCION MANUAL -----
-    # except KeyboardInterrupt:
-    #     try:
-    #         # Corte de conexión con IB
-    #         try:
-    #             vars.status = "ERROR"
-    #             saveJson(vars, app, params, False)
-    #         except:
-    #             pass
-    #         app.stop()
-    #         api_thread.join()
-    #         printStamp(" - Desconexión completada - ")
-    #     except:
-    #         pass
-    #     return
+    except KeyboardInterrupt:
+        try:
+            # Corte de conexión con IB
+            try:
+                vars.status = "ERROR"
+                saveJson(vars, app, params, False)
+            except:
+                pass
+            app.stop()
+            api_thread.join()
+            printStamp(" - Desconexión completada - ")
+        except:
+            pass
+        return
 
-    # # ----- ERROR DE CODIGO -----
-    # except Exception as e:
-    #     printStamp(f"Ha ocurrido un error: {e}")
-    #     printStamp(f"Tipo de error: {type(e).__name__}")
+    # ----- ERROR DE CODIGO -----
+    except Exception as e:
+        printStamp(f"Ha ocurrido un error: {e}")
+        printStamp(f"Tipo de error: {type(e).__name__}")
 
-    #     # Si la excepción tiene atributos adicionales, como args
-    #     if hasattr(e, "args"):
-    #         printStamp(f"Argumentos del error: {e.args}")
-    #     # Corte de conexión con IB
-    #     try:
-    #         try:
-    #             vars.status = "ERROR"
-    #             saveJson(vars, app, params, False)
-    #             error=f"{e}"
-    #             # sendError(params, error)
-    #         except:
-    #             pass
-    #         app.stop()
-    #         api_thread.join()
-    #         printStamp(" - Desconexión completada - ")
-    #     except:
-    #         pass
-    #     return
+        # Si la excepción tiene atributos adicionales, como args
+        if hasattr(e, "args"):
+            printStamp(f"Argumentos del error: {e.args}")
+        # Corte de conexión con IB
+        try:
+            try:
+                vars.status = "ERROR"
+                saveJson(vars, app, params, False)
+                error=f"{e}"
+                # sendError(params, error)
+            except:
+                pass
+            app.stop()
+            api_thread.join()
+            printStamp(" - Desconexión completada - ")
+        except:
+            pass
+        return
 
 
 # ====================
