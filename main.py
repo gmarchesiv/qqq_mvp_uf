@@ -134,43 +134,43 @@ def main():
         # #  - Rutina -
         # # ====================
 
-        while True:
+        # while True:
 
-            timeNow = datetime.now(params.zone).time()
-            # MIENTRAS NO SEA FIN DE DIA
-            if params.fd >= timeNow:
-                if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
-                    if vars.flag_minuto_label:
-                        generar_label(params, vars,app)
-                        vars.flag_minuto_label=False
-                        time.sleep(0.5)
-                        calculations(app, vars, params)
-                        readIBData(app, vars) 
-                else:
-                    vars.flag_minuto_label=True
+        #     timeNow = datetime.now(params.zone).time()
+        #     # MIENTRAS NO SEA FIN DE DIA
+        #     if params.fd >= timeNow:
+        #         if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+        #             if vars.flag_minuto_label:
+        #                 generar_label(params, vars,app)
+        #                 vars.flag_minuto_label=False
+        #                 time.sleep(0.5)
+        #                 calculations(app, vars, params)
+        #                 readIBData(app, vars) 
+        #         else:
+        #             vars.flag_minuto_label=True
             
-                if int(timeNow.second) in params.frecuencia_accion:
-                    calculations(app, vars, params)  # CALCULOS DE RUTINA
-                    # readIBData(app, vars)  # LOGS DE LOS CALCULOS
+        #         if int(timeNow.second) in params.frecuencia_accion:
+        #             calculations(app, vars, params)  # CALCULOS DE RUTINA
+        #             # readIBData(app, vars)  # LOGS DE LOS CALCULOS
                   
 
-                    registration(app, vars, params)
+        #             registration(app, vars, params)
 
-                    time.sleep(0.5)
-            # ================================
-            #  - Fin de Dia -
-            # ================================
+        #             time.sleep(0.5)
+        #     # ================================
+        #     #  - Fin de Dia -
+        #     # ================================
 
-            if params.fd < timeNow:
+        #     if params.fd < timeNow:
                 
                
-                calculations(app, vars, params)
-                readIBData(app, vars)
-                registration(app, vars, params)
-                vars.status = "FD"
-                break
+        #         calculations(app, vars, params)
+        #         readIBData(app, vars)
+        #         registration(app, vars, params)
+        #         vars.status = "FD"
+        #         break
 
-            time.sleep(0.5)
+        #     time.sleep(0.5)
 
         # ================================
         #  - Registro de Datos de final del dia -
@@ -239,7 +239,7 @@ def main():
                 vars.status = "ERROR"
                 saveJson(vars, app, params, False)
                 error=f"{e}"
-                sendError(params, error)
+                # sendError(params, error)
             except:
                 pass
             app.stop()
