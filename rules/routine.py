@@ -11,6 +11,7 @@ from config.IB.options import (
     list_checkExpirations_2,
     req_Options,
     snapshot,
+    snapshot_2,
 )
 from config.IB.wallet import wallet_cash, wallet_load
 from database.repository.repository import writeDayTrade, writeTransactions, writeWallet
@@ -299,7 +300,7 @@ def registro_strike(app, vars, params):
     app.cancelMarketData(2)
     time.sleep(1)
     del app.options[2]
-
+    app.options={}
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
@@ -398,7 +399,7 @@ def registro_strike_2(app, vars, params):
     del app.options[4]
     time.sleep(1)
     print("LLEGUE HASTA AQUI")
-    snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+    snapshot_2(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
