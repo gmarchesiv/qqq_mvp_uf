@@ -114,6 +114,20 @@ def data_susciption(app, params, vars):
 
         time.sleep(0.5)
 
+    while True:
+        ready  = 0
+  
+        if app.options[3]["ASK"] > 0 and app.options[3]["BID"] > 0:
+            ready += 1
+
+        if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
+            ready += 1
+ 
+        if ready == 2:
+            break
+
+        time.sleep(0.5)
+
     printStamp(" - Datos Recibidos - ")
 
 
