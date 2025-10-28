@@ -389,13 +389,13 @@ def registro_strike_2(app, vars, params):
  
     printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
-    app.cancelMarketData(1)
+    app.cancelMarketData(3)
     time.sleep(1)
-    del app.options[1]
+    del app.options[3]
 
-    app.cancelMarketData(2)
+    app.cancelMarketData(4)
     time.sleep(1)
-    del app.options[2]
+    del app.options[4]
 
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
