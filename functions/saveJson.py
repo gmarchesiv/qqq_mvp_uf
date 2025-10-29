@@ -216,7 +216,7 @@ def saveJson(vars, app, params, estado):
             return
 
     except:
-        from config.vars import variables
+        from config.vars.vars import variables
         vars = variables(debug_mode=False)
 
 def save_rentabilidad(vars):

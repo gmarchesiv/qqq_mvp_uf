@@ -14,6 +14,13 @@ from functions.logs import printStamp
 ###############################################
 class parameters:
     def __init__(self,debug_mode):
+
+        #---------------------------------------------------
+        '''
+        Cargamos los parametros del modelo a memoria.
+        '''
+        #---------------------------------------------------
+
         ###############################################
         #               PARAMETROS -  GENERALES
         ###############################################
@@ -21,20 +28,18 @@ class parameters:
         self.etf = "QQQ"
         self.exchange = ["CBOE"]
         self.zone = pytz.timezone("America/New_York")
-        self.fin_rutina = dt_time(15, 55)
 
         ###############################################
         #               PARAMETROS -  DEL ENV
         ###############################################
 
         load_dotenv()
-
         self.name = os.getenv("NAMEIB")
         self.tele = os.getenv("TELEID")
         self.token = os.getenv("TOKENBOT")
         self.typeIB = os.getenv("TYPEIB")
         self.cuenta = os.getenv("CUENTA")
-
+ 
         ###############################################
         #               PARAMETROS -  conexión IBKR
         ###############################################
@@ -69,46 +74,42 @@ class parameters:
         self.inf = 999
         self.inf_n = -9
  
-
+        # SELECCION DE STRIKES 
         self.rangos_strikes = [[2, 2.5] ]
-        # self.rangos_strikes = [[2, 2.3], [2.15, 2.55], [2.4, 3]]
-        self.diff_days_exp = 30
-        self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
+        self.days_min_exp = 30  # DIAS para el exp minimo de busqueda
 
 
-        self.days_max = [30, 45]
-
-
-
+        # PARAMETROS DE ASKBID DE ACCIONES
         self.max_askbid_venta_prom = 0.03
         self.max_askbid_compra_prom = 0.028
-
         self.max_askbid_venta_abs = 0.0275
         self.max_askbid_compra_abs = 0.0185
-        self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
-        self.umbral_askbid=0.08
-        self.max_askbid_open = 0.03
-        self.max_askbid_hora_open =  dt_time(9, 33)
-        # self.askbid_len_lista=91
-
         self.max_askbid_venta_forzada = 0.04
 
-        self.slippage=1.06
-        self.fd = dt_time(15, 30)
+        # PARAMETROS LIMITES DE OPEN ASKBID
+        self.max_askbid_open = 0.03
+        self.max_askbid_hora_open =  dt_time(9, 33)
+        self.umbral_askbid=0.08
 
+        # PARAMETROS DE COMPRA VENTA SLIPPAGE
+        self.slippage=1.06
+
+        #PARAMETROS DE TIEMPO DE RUTINA Y MUESTRAS
+        self.fin_rutina = dt_time(15, 55)
+        self.fd =  dt_time(15, 30)
         self.rutina = [dt_time(7, 0), dt_time(16, 0)]
-        self.frecuencia_muestra =[i for i in range(0, 60, 2)]
-        self.frecuencia_accion = [i for i in range(0, 60, 2)]
- 
+        self.frecuencia_accion =[i for i in range(0, 60, 2)]
+        
+        #PARAMETROS DE VENTA 
         self.intentos=1
         self.tiempo_contulta=5
+
+        #PARAMETROS DE PROTECCION
         self.proteccion_ask_bid=[[dt_time(9, 45,0), dt_time(9, 45,18)],[dt_time(10, 0,0), dt_time(10,0,18 )]]
-
-
         self.proteccion_compra=[ dt_time(9, 44,0), dt_time(9, 45,30) ]
         self.proteccion_compra_2=[ dt_time(9, 59,0), dt_time(10, 0,15) ]
-        self.proteccion_compra_call_r1=[ dt_time(9, 44,0), dt_time(9, 46,0)  ]
-        ##########################################
+        self.proteccion_compra_call_r1=[ dt_time(9, 44,0), dt_time(9, 46)  ]
+        
         #########################################################
         ####################      CALL        ###################
         #########################################################

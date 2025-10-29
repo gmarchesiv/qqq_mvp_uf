@@ -17,37 +17,32 @@ from functions.logs import printStamp
 
 
 # Logica de Peticion de Data de opciones
-def req_Options(app, params, vars, etf):
+def req_Options(app, vars, etf):
+
+    #---------------------------------------------------
+    '''
+    Suscripcion de datos de contratos de opciones de 
+    tipo CALL y PUT.
+    '''
+    #---------------------------------------------------
 
     requestContract(app, etf, vars.strike_c, vars.exp, "C", vars.exchange)
-    # while True:
-    #     readyOpt = 0
-    #     if app.options[id]["ASK"] > 0:
-    #         readyOpt += 1
-    #     if app.options[id]["BID"] > 0:
-    #         readyOpt += 1
-    #     if readyOpt == 2:
-    #         break
-
-    #     time.sleep(0.5)
-
+  
     requestContract(app, etf, vars.strike_p, vars.exp, "P", vars.exchange)
-    # while True:
-    #     readyOpt = 0
-    #     if app.options[id]["ASK"] > 0:
-    #         readyOpt += 1
-    #     if app.options[id]["BID"] > 0:
-    #         readyOpt += 1
-    #     if readyOpt == 2:
-    #         break
-
-    #     time.sleep(0.5)
+    
 
 
 # Creacion de contratos de Opciones
 def create_contract_OPT(
     symbol, secType, exchange, currency, strike, expirations, typeOpt
 ):
+    
+    #---------------------------------------------------
+    '''
+    Genera la estructura del contrato de Opciones.
+    '''
+    #---------------------------------------------------
+
 
     contract = Contract()
     contract.symbol = symbol  # Símbolo del subyacente
@@ -62,52 +57,23 @@ def create_contract_OPT(
     contract.strike = strike  # Precio de ejercicio
 
     return contract
-
-
-# revision de fechas de expiracion
-def checkExpirations(app, etf, params, vars, add):
-    name = f"{vars.exchange}_{etf}"
-    # print(app.option_chains[name])
-    listExpire = list(app.option_chains[name]["expirations"])
-    fecha_actual = datetime.now()
-
-    format_str = "%Y%m%d"
-    listExpire_dates = [datetime.strptime(date, format_str) for date in listExpire]
-
-    # Ordenar la lista en orden descendente
-    listExpire_dates.sort(reverse=False)
-
-    for expiry_date in listExpire_dates:
-        if expiry_date >= fecha_actual + timedelta(days=(params.diff_days_exp + add)):
-            fecha_seleccionada = expiry_date
-
-            vars.dif_exp = (
-                expiry_date - (fecha_actual + timedelta(days=params.diff_days_exp))
-            ).days
-            break
-
-    return fecha_seleccionada.strftime(format_str)
-
-
+ 
 # Funcion que busca el strike mas proximo
 def strikeNear(numero, lista):
     return min(lista, key=lambda x: abs(x - numero))
 
-
-# revision del strike disponible
-# def checkStrike(app, exp, etf, tipo, exchange):
-
-#     contract = create_contract_OPT(etf, "OPT", exchange, "USD", "", exp, tipo)
-
-#     app.listStrikes = []
-#     app.reqContractDetails(10, contract)
-#     time.sleep(10)
-
-#     app.listStrikes.sort()
-
-
+ 
 # peticion de data de un contrato
 def requestContract(app, etf, strikes, expirations, tipo, exchange):
+
+    #---------------------------------------------------
+    '''
+    Suscripcion de datos de contratos de opciones, 
+    genera un id y un diccionario para poder ser llamado,
+    este cuenta con informacion del contrato( precios,
+    id, tipo , exp).
+    '''
+    #---------------------------------------------------
 
     contracts = [
         create_contract_OPT(etf, "OPT", exchange, "USD", strikes, expirations, tipo)
@@ -135,7 +101,6 @@ def requestContract(app, etf, strikes, expirations, tipo, exchange):
             "tipo": contract.right,
         }
     return i
-
 
 # ==================================
 #  - Funciones de Compra y Venta -
