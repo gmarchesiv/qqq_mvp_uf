@@ -4,10 +4,10 @@ from flask_cors import CORS
 import sqlite3
 from datetime import datetime, timedelta
 
-
+from datetime import time as dt_time
 import subprocess
 import os
-from datetime import time as dt_time
+
 import pytz
 
 # Modificar el PATH para incluir el directorio donde está el binario de Docker
@@ -35,7 +35,8 @@ CORS(
         r"/get-regla": origin,
     },
 )
- 
+
+
 def get_db_connection():
     conn = sqlite3.connect("/usr/src/dataBase.db")
     conn.row_factory = sqlite3.Row
@@ -44,10 +45,19 @@ def get_db_connection():
 
 @app.route("/get-data", methods=["GET"])
 def get_json():
-    file_name = "/usr/src/vars.json"
+    
     try:
+        file_name = "/usr/src/vars.json"
         with open(file_name, "r") as f:
-            data = json.load(f)
+            data_vars = json.load(f)
+        file_name = "/usr/src/app.json"
+        with open(file_name, "r") as f:
+            data_app = json.load(f)
+        file_name = "/usr/src/label.json"
+        with open(file_name, "r") as f:
+            data_label = json.load(f)
+
+        data = {**data_vars, **data_app,**data_label}
         return jsonify(data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -136,12 +146,13 @@ def get_reset():
         if timeNow < dt_time(9, 0) or timeNow >= dt_time(16, 0):
 
             subprocess.run(
-                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
+                ["docker", "restart", "spy_mvp_uf-python_script-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": str(e)}, 500
+
 
 @app.route("/hard_reset", methods=["GET"])
 def get_hard_reset():
@@ -151,10 +162,10 @@ def get_hard_reset():
         subprocess.run(["docker", "restart", "portainer_agent"], check=True)
         subprocess.run(["docker", "restart", "ibkr_config-ibkr-1"], check=True)
         subprocess.run(
-                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
+                ["docker", "restart", "spy_mvp_uf-python_script-1"], check=True
             )
         subprocess.run(
-                ["docker", "restart", "qqq_mvp_uf-python_app-1"], check=True
+                ["docker", "restart", "spy_mvp_uf-python_app-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
@@ -200,7 +211,7 @@ def get_conection():
 
 @app.route("/broadCasting-aliniar", methods=["POST"])
 def post_broadCasting_aliniar():
-    file_name = "/usr/src/vars.json"
+    file_name = "/usr/src/broadcasting.json"
     try:
         # Obtener el body de la solicitud
         body = request.json
@@ -216,10 +227,8 @@ def post_broadCasting_aliniar():
 
         data["call_open"] = body.get("call_open", data.get("call_open"))
         data["put_open"] = body.get("put_open", data.get("put_open"))
-
         data["flag_Call_R2"] = body.get("flag_Call_R2", data.get("flag_Call_R2"))
         data["flag_Put_R2"] = body.get("flag_Put_R2", data.get("flag_Put_R2"))
-  
 
         data["aliniar"] = True
 
@@ -244,10 +253,8 @@ def post_broadCasting_strike():
         # Leer los datos existentes en el archivo JSON
         with open(file_name, "r") as f:
             data = json.load(f)
-
-        # Actualizar los datos con los valores del body
         data["exp"] = body.get("exp", data.get("exp"))
-
+        # Actualizar los datos con los valores del body
         data["strike_c"] = body.get("strike_c", data.get("strike_c"))
         data["strike_p"] = body.get("strike_p", data.get("strike_p"))
 
@@ -267,7 +274,7 @@ def post_broadCasting_strike():
 
 @app.route("/broadCasting-sell", methods=["POST"])
 def post_broadCasting_sell():
-    file_name = "/usr/src/vars.json"
+    file_name = "/usr/src/broadcasting.json"
     try:
         # Obtener el body de la solicitud
         body = request.json
@@ -277,17 +284,13 @@ def post_broadCasting_sell():
             data = json.load(f)
 
         # Actualizar los datos con los valores del body
-        data["sell_tipo_broadcasting"] = body.get(
-            "sell_tipo_broadcasting", data.get("sell_tipo_broadcasting")
+        data["sell_tipo"] = body.get(
+            "sell_tipo", data.get("sell_tipo")
         )
-        data["sell_regla_broadcasting"] = body.get(
-            "sell_regla_broadcasting", data.get("sell_regla_broadcasting")
+        data["sell_regla"] = body.get(
+            "sell_regla", data.get("sell_regla")
         )
-        data["user_broadcasting"] = body.get(
-            "user_broadcasting", data.get("user_broadcasting")
-        )
- 
-        data["sell_broadcasting"] = True
+        data["sell"] = True
 
         # Guardar los datos actualizados de nuevo en el archivo
         with open(file_name, "w") as file:
@@ -298,7 +301,6 @@ def post_broadCasting_sell():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 @app.route("/broadCasting-sell-auto", methods=["POST"])
 def post_broadCasting_sell_auto():
@@ -339,16 +341,13 @@ def post_broadCasting_buy():
             data = json.load(f)
 
         # Actualizar los datos con los valores del body
-        data["buy_tipo_broadcasting"] = body.get(
-            "buy_tipo_broadcasting", data.get("buy_tipo_broadcasting")
+        data["buy_tipo"] = body.get(
+            "buy_tipo", data.get("buy_tipo")
         )
-        data["buy_regla_broadcasting"] = body.get(
-            "buy_regla_broadcasting", data.get("buy_regla_broadcasting")
+        data["buy_regla"] = body.get(
+            "buy_regla", data.get("buy_regla")
         )
-        data["user_broadcasting"] = body.get(
-            "user_broadcasting", data.get("user_broadcasting")
-        )
-        data["buy_broadcasting"] = True
+        data["buy"] = True
 
         # Guardar los datos actualizados de nuevo en el archivo
         with open(file_name, "w") as file:
@@ -359,8 +358,6 @@ def post_broadCasting_buy():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
 
 @app.route("/get-price", methods=["GET"])
 def get_price():
@@ -397,7 +394,7 @@ def get_regla():
             status = bool(data.get("call") or data.get("put"))
  
             respuesta={
-                "regla_broadcasting": data["regla_broadcasting"],
+                "sell_regla": data["sell_regla"],
                 "rentabilidad": data["rentabilidad"],
                 "status":status
        
@@ -406,8 +403,5 @@ def get_regla():
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": str(e)}, 500
 
-
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8001)

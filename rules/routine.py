@@ -2,6 +2,7 @@
 ################### LIBRERIAS  ####################
 ###################################################
  
+import asyncio
 import random
 from config.IB.etf import req_ETFs
 from config.IB.options import (
@@ -23,12 +24,11 @@ import random
 
 import time
 
-from functions.saveJson import saveJson
+from functions.saveVars import saveApp, saveVars
 
 # ====================
 #  - Funciones -
 # ====================
-
 # GUARDAR OPEN DE OPCIONES
 def data_option_open(app,   vars,params):
 
@@ -59,6 +59,7 @@ def data_option_open(app,   vars,params):
             vars.flag_bloqueo_tiempo =True
             break
         time.sleep(0.5)
+        
 
 # REALIZA LA SUSCIPCION DE DATOS
 def data_susciption(app, params, vars):
@@ -99,9 +100,14 @@ def data_susciption(app, params, vars):
     printStamp(" - Datos Recibidos - ")
 
 
-
 # ACTUALIZA LOS STATUS
-def update_status(app, vars,params):
+def update_status(app, vars,varsApp, params):
+    #---------------------------------------------------
+    '''
+    Actualiza la etiqueta de status en el dashboard
+    segun sea el caso.
+    '''
+    #---------------------------------------------------
     if app.alerta:
         vars.status = "DESCONEXION"
     else:
@@ -114,8 +120,7 @@ def update_status(app, vars,params):
 
         elif vars.call == False and vars.put == False and vars.compra == False:
             vars.status = "SLEEP"
-
-        elif  vars.flag_bloqueo_tiempo :
+        elif  varsApp.flag_bloqueo_tiempo :
             vars.status = "BLOQUEO T."
         elif  vars.bloqueo:
             vars.status = "BLOQUEO"
@@ -127,26 +132,37 @@ def update_status(app, vars,params):
 
 
 # ACTUALIZACION Y y REGISTRO DE JSON Y DB
-def registration(app, vars, params):
+def registration(app, vars,varsApp, varsLb,params):
+    #---------------------------------------------------
+    '''
+    Registra y actualiza estados de la maquina.
+    '''
+    #---------------------------------------------------
+
     wallet_load(app, params)
-    update_status(app, vars,params)
-    saveJson(vars, app, params, False)
-    writeDayTrade(app, vars, params)
+    update_status(app, vars,varsApp, params)
+    
+    saveVars(vars, app, params, False)
+    asyncio.run(saveApp(varsApp, app,  params  ))
+    writeDayTrade(app, vars,varsLb, params)
     vars.regla = ""
     if vars.call == False and vars.put == False:
         vars.pico = 0
         vars.caida = 0
         vars.rentabilidad = 0
-
-
 # Calculos
 
 
-def calculations(app, vars, params):
+def calculations(app, vars,varsBc, params):
 
-    # ================================
-    #  -CALCULOS-
-    # ================================
+    #---------------------------------------------------
+    '''
+    Extrae una muestra de los precios actuales de los 
+    ETFs y opciones , tambien puede alinear en caso 
+    detecte entrada de datos y realiza algunas 
+    operaciones de rutina.
+    '''
+    #---------------------------------------------------
     timeNow = datetime.now(params.zone).time()
 
     if int(timeNow.second) == 0:
@@ -187,8 +203,19 @@ def calculations(app, vars, params):
  
 
 
+
 # GUARDADO DE TRANSACCIONES
 def saveTransaction(app, params, vars):
+
+    #---------------------------------------------------
+    '''
+    Verifica si hubo un cambio de el diccionario de 
+    transacciones para poder enviar notificacion y
+    guardar los datos reales de la transaccion como
+    son el precio real.
+    '''
+    #---------------------------------------------------
+
     for idreq in app.execution_details:
 
         if (
@@ -294,7 +321,7 @@ def registro_strike(app, vars, params):
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
-        if dt_time(16, 30) < timeNow:
+        if dt_time(15, 59) < timeNow:
             break
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:

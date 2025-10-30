@@ -24,6 +24,12 @@ def sendTelegram(params, msg):
 
 
 def sendStart(app, params):
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Inicio de sesión.
+    '''
+    #---------------------------------------------------
+ 
     msg = f"""
 ======================
 - INICIO DE RUTINA -
@@ -33,13 +39,20 @@ TRADING MODE: {params.typeIB}
 ======================
 """
     try:
-         
+      
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendStart-")
 
 
 def sendEnd(app, params):
+
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Fin de sesión.
+    '''
+    #---------------------------------------------------
+
     msg = f"""
 ======================
 - FIN DE RUTINA -
@@ -49,13 +62,19 @@ TOTAL CASH : $ {app.wallet["TotalCashValue"]}
 ======================
 """
     try:
-       
+        
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendEnd-")
 
 
 def sendBuy(app, params, detail, vars):
+
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Compra de opciones.
+    '''
+    #---------------------------------------------------
 
     msg = f"""
 ======================
@@ -69,13 +88,21 @@ REGLA : {vars.regla_ant}
 ======================
 """
     try:
-        
+  
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendBuy-")
 
 
 def sendSell(app, params, detail, vars):
+
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Venta de opciones.
+    '''
+    #---------------------------------------------------
+
+
     msg = f"""
 ======================
 - Notificación -
@@ -88,13 +115,20 @@ REGLA : {vars.regla_ant}
 ======================
 """
     try:
-       
+        
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendSell-")
 
 
 def sendError(params, razon):
+
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Alerta de Error.
+    '''
+    #---------------------------------------------------
+
     msg = f"""
 ======================
 - Alerta de Error -
@@ -104,7 +138,7 @@ TIPO: {razon}
 ======================
 """
     try:
-    
+         
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendError-")

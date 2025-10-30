@@ -1,7 +1,7 @@
 import json
 
 
-def clean_vars(vars):
+def clean_vars(vars,varsApp):
     vars.minutos = 0
     vars.compra = True
     vars.call=False
@@ -15,17 +15,21 @@ def clean_vars(vars):
  
     vars.flag_Call_R2 = False
     vars.flag_Put_R2 = False
-    vars.flag_Call_reset_r1 = False
- 
-    vars.flag_Put_reset_r1 = False
-    vars.flag_Call_reset_r1_e = False
-    vars.flag_Call_reset_r1_c=False
-    vars.flag_cambio_fast=False
-    vars.flag_Call_reset_r2 = False
-    vars.flag_Put_reset_r1_label = False
-    vars.flag_bloqueo_r1_e=False
-    vars.flag_Call_reset_r1_e2 = False
+    
+    vars.flag_Call_reset_r2=False
+    vars.flag_Call_reset_r1=False
+    vars.flag_Call_reset_r1_e  =False
+    vars.flag_Call_reset_r1_e2= False
+    vars.flag_bloqueo_r1_e= False
+    vars.flag_cambio_fast= False
+    vars.flag_Put_reset_r3= False
     vars.flag_cambio_R1_label= False
+    vars.flag_Put_reset_r1_label= False
+    vars.flag_cambio_f= False
+    vars.flag_Call_reset_r1_c=False
+
+
+
     vars.rule = True
 
     vars.accion_mensaje = 0

@@ -73,15 +73,18 @@ class varsRutina:
 
         self.flag_Call_R2 = self.data.get("flag_Call_R2", False)
         self.flag_Put_R2 = self.data.get("flag_Put_R2", False)
-        self.flag_Call_reset_r1 = self.data.get("flag_Call_reset_r1", False)
-        self.flag_Call_reset_r1_c = self.data.get("flag_Call_reset_r1_c", False)
-        self.flag_Put_reset_r1 = self.data.get("flag_Put_reset_r1", False)
-        self.flag_Call_reset_r1_e = self.data.get("flag_Call_reset_r1_e", False)
-        self.flag_cambio_fast= self.data.get("flag_cambio_fast", False)
-        self.flag_Call_reset_r2 = self.data.get("flag_Call_reset_r2", False)
-        self.flag_bloqueo_r1_e = self.data.get("flag_bloqueo_r1_e", False)
-        self.flag_Call_reset_r1_e2 = self.data.get("flag_Call_reset_r1_e2", False)
-        self.flag_cambio_R1_label=False
+        self.flag_Call_reset_r2=self.data.get("flag_Call_reset_r2", False)
+        self.flag_Call_reset_r1= self.data.get("flag_Put_R2", False)
+        self.flag_Call_reset_r1_e  = self.data.get("flag_Put_R2", False)   
+        self.flag_Call_reset_r1_e2= self.data.get("flag_Put_R2", False)
+        self.flag_bloqueo_r1_e= self.data.get("flag_Put_R2", False)
+        self.flag_cambio_fast= self.data.get("flag_Put_R2", False)
+        self.flag_Put_reset_r3= self.data.get("flag_Put_R2", False)
+        self.flag_cambio_R1_label= self.data.get("flag_Put_R2", False)
+        self.flag_Put_reset_r1_label= self.data.get("flag_Put_R2", False)
+        self.flag_cambio_f= self.data.get("flag_Put_R2", False)
+        self.flag_Call_reset_r1_c=self.data.get("flag_Call_reset_r1_c", False)
+     
         
         ###############################################
         # VARIABLES DE RUTINA
@@ -101,6 +104,7 @@ class varsRutina:
         self.dput = self.data.get("dput", 0)
         self.docall = self.data.get("docall", 0)
         self.doput = self.data.get("doput", 0)
+        self.doput_ant = self.data.get("doput_ant", 0)
         self.askbid_call = self.data.get("askbid_call", 0)
         self.askbid_put = self.data.get("askbid_put", 0)
         
