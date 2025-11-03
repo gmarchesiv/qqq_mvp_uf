@@ -146,7 +146,7 @@ def get_reset():
         if timeNow < dt_time(9, 0) or timeNow >= dt_time(16, 0):
 
             subprocess.run(
-                ["docker", "restart", "spy_mvp_uf-python_script-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
@@ -162,10 +162,10 @@ def get_hard_reset():
         subprocess.run(["docker", "restart", "portainer_agent"], check=True)
         subprocess.run(["docker", "restart", "ibkr_config-ibkr-1"], check=True)
         subprocess.run(
-                ["docker", "restart", "spy_mvp_uf-python_script-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_script-1"], check=True
             )
         subprocess.run(
-                ["docker", "restart", "spy_mvp_uf-python_app-1"], check=True
+                ["docker", "restart", "qqq_mvp_uf-python_app-1"], check=True
             )
 
         return {"status": "success", "message": "Container restarted successfully"}, 200
