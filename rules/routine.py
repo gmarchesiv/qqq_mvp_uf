@@ -30,7 +30,6 @@ from functions.saveJson import saveJson
 # ====================
 #  - Funciones -
 # ====================
-
 # GUARDAR OPEN DE OPCIONES
 def data_option_open(app,   vars,params):
 
@@ -61,7 +60,8 @@ def data_option_open(app,   vars,params):
             vars.flag_bloqueo_tiempo =True
             break
         time.sleep(0.5)
-    print("FIN1")
+
+
     vars.call_open_2 = -1
     vars.put_open_2 = -1
 
@@ -74,7 +74,7 @@ def data_option_open(app,   vars,params):
         if vars.call_open_2==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
             vars.call_open_2 = app.options[3]["BID"]
 
-        if vars.put_open==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
+        if vars.put_open_2==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
             vars.put_open_2 = app.options[4]["BID"]
       
         if   params.max_askbid_hora_open <= timeNow:
