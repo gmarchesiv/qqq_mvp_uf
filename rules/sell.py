@@ -141,9 +141,8 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
  
     # REGLA DE PROTECCION
     if (
-        vars.pico > params.umbral_no_perdida_c_r2
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
-        and vars.manifesto == False and  vars.tipo == "R2"
+        vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
+        and vars.manifesto == False and   (vars.tipo == "R2" or vars.tipo == "R2-2")
     ):
         sell(
             app,varsBc,varsLb,vars,params,
@@ -153,10 +152,8 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         return
     
     # REGLA DE PROTECCION
-    if (
-        vars.pico < params.umbral_no_perdida_c
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
-        and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
+    if ( vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
+        and vars.manifesto == False and vars.pico>0 and (vars.tipo != "R2" and  vars.tipo != "R2-2" )
     ):
         sell(
             app,varsBc,varsLb,vars,params,
@@ -166,17 +163,17 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         return
         
     # REGLA DE PROTECCION
-    if (
-        vars.pico > params.umbral_no_perdida_c
-        and vars.rentabilidad < params.perdida_maxima_c_abs
-        and vars.manifesto == False and vars.tipo != "R2" 
-    ):
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "C",  "PROTECCION" ,debug_mode
-        )
+    # if (
+    #     vars.pico > params.umbral_no_perdida_c
+    #     and vars.rentabilidad < params.perdida_maxima_c_abs
+    #     and vars.manifesto == False and vars.tipo != "R2" 
+    # ):
+    #     sell(
+    #         app,varsBc,varsLb,vars,params,
+    #         "C",  "PROTECCION" ,debug_mode
+    #     )
 
-        return
+    #     return
     
         
 
@@ -189,7 +186,16 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         sl=params.sl_cr2
         manifestacion=params.umbral_manifestacion_cR2
         nmt=params.min_desicion_cR2
-    
+
+    #########################################################
+    ################      CALL    R2-2     ##################
+    #########################################################
+    elif vars.tipo == "R2-2": 
+        diamante=params.diamante_cr2_2
+        resta=params.resta_cr2_2
+        sl=params.sl_cr2_2
+        manifestacion=params.umbral_manifestacion_cR2_2
+        nmt=params.min_desicion_cR2
 
     #########################################################
     ################      CALL  R1         ##################
@@ -426,23 +432,22 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         return
 
     # REGLA PROTECCION
-    if (
-        vars.pico > params.umbral_no_perdida_p_r2
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_p_r2)
-        and vars.manifesto == False and  vars.tipo == "R2"
-    ):
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "P",  "PROTECCION" ,debug_mode
-        )
+    # if (
+    #     vars.pico > params.umbral_no_perdida_p_r2
+    #     and vars.rentabilidad < (vars.pico - params.perdida_maxima_p_r2)
+    #     and vars.manifesto == False and  vars.tipo == "R2"
+    # ):
+    #     sell(
+    #         app,varsBc,varsLb,vars,params,
+    #         "P",  "PROTECCION" ,debug_mode
+    #     )
 
-        return
+    #     return
 
     # REGLA PROTECCION
     if (
-        vars.pico < params.umbral_no_perdida_p
-        and vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-        and vars.manifesto == False and vars.pico>0 and  vars.tipo != "R2" 
+         vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
+        and vars.manifesto == False and vars.pico>0  
     ):
         sell(
             app,varsBc,varsLb,vars,params,
@@ -453,17 +458,17 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
 
     # REGLA PROTECCION
-    if (
-        vars.pico > params.umbral_no_perdida_p
-        and vars.rentabilidad < params.perdida_maxima_p_abs
-        and vars.manifesto == False and vars.tipo != "R2" 
-    ):
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "P",  "PROTECCION" ,debug_mode
-        )
+    # if (
+    #     vars.pico > params.umbral_no_perdida_p
+    #     and vars.rentabilidad < params.perdida_maxima_p_abs
+    #     and vars.manifesto == False and vars.tipo != "R2" 
+    # ):
+    #     sell(
+    #         app,varsBc,varsLb,vars,params,
+    #         "P",  "PROTECCION" ,debug_mode
+    #     )
 
-        return
+    #     return
 
     #########################################################
     ####################      PUT  R2         ###############
@@ -518,14 +523,22 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
     #########################################################
     ####################      PUT  R1  LABEL  ###############
     #########################################################
-    elif vars.tipo == "R1-LABEL": 
+    elif vars.tipo == "LABEL-I": 
         diamante=params.diamante_pr1_label
         resta=params.resta_pr1_label
         sl=params.sl_pr1_label
         manifestacion=params.umbral_manifestacion_pR1_label
         nmt=params.inf
 
-
+    #########################################################
+    ####################      PUT  R1  LABEL 2###############
+    #########################################################
+    elif vars.tipo == "LABEL-II": 
+        diamante=params.diamante_pr1_label_2
+        resta=params.resta_pr1_label_2
+        sl=params.sl_pr1_label_2
+        manifestacion=params.umbral_manifestacion_pR1_label_2
+        nmt=params.inf
     #########################################################
     ####################      PUT  R1     ###################
     #########################################################
