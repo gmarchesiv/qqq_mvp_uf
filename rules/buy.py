@@ -348,7 +348,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
 
 
     #########################################################
-    ###################    PUT R1 LABEL    ###################
+    ###################    PUT R1 LABEL 2  ###################
     #########################################################
     elif ( 
         (timeNow >= params.timePut_r1_label_2[0] and timeNow < params.timePut_r1_label_2[1])
@@ -691,8 +691,7 @@ def calculos_previos(vars,varsLb, params,debug_mode):
         ):
         vars.flag_cambio_f=True
 
-    if  ((timeNow >= params.timePut_r1_label[0] and
-          timeNow <= params.timePut_r1_label[1]) and 
+    if  (( timeNow <= params.timePut_r1_label_2[1]) and 
           ( varsLb.label!=vars.label_ant  and
             varsLb.label==params.labelPut_r1_label and 
             vars.flag_cambio_R1_label==False)) :

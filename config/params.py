@@ -123,7 +123,7 @@ class parameters:
         self.perdida_maxima_c_abs = -0.017
 
         self.umbral_no_perdida_c_r2 = 0.016
-        self.perdida_maxima_c_r2 = 0.04
+        self.perdida_maxima_c_r2 = 0.05
         # ==================================
         # =========== CALL - R1 ============
         # ==================================
@@ -419,7 +419,7 @@ class parameters:
         self.labelPut_r1_fast=1
 
         # VENTA
-        self.sl_pr1_fast=-0.045  # STOP LOSS
+        self.sl_pr1_fast=-0.03  # STOP LOSS
         # min_desicion_pr1_fast  = 60
         self.umbral_manifestacion_pR1_fast=0.019
         self.diamante_pr1_fast = [self.umbral_manifestacion_pR1_fast,0.028 ,0.04,0.07,0.09]  # DIAMANTE DE COMPRA
@@ -438,7 +438,7 @@ class parameters:
         # VENTA
         self.sl_pr1_label=-0.043  # STOP LOSS
         # min_desicion_pr1_label  = 60
-        self.umbral_manifestacion_pR1_label=0.018
+        self.umbral_manifestacion_pR1_label=0.0165
         self.diamante_pr1_label= [self.umbral_manifestacion_pR1_label,0.025 ,0.04,0.07,0.088]# DIAMANTE DE COMPRA
         self.resta_pr1_label =[0.012,0.01  ,0.008  ,0.005  ,self.inf_n ] # RETROCESO DEL DIAMANTE 
 
