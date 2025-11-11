@@ -100,7 +100,7 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         else:
             vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
         return
-    if vars.cbid <= 0:
+    if vars.cbid <= 0 or vars.askbid_call<0: 
         return
     
  
@@ -397,7 +397,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         else:
             vars.df.loc[vars.i, "RENT"]=vars.rentabilidad
         return
-    if vars.pbid <= 0:
+    if vars.pbid <= 0 or vars.askbid_put<0: 
         return
      
     vars.rentabilidad = vars.pbid / vars.priceBuy - 1
