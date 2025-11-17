@@ -77,12 +77,12 @@ def broadcasting_sell(varsBc,varsLb,vars,params,app):
                     print(type(e).__name__, ":", e)
                     varsBc = varsBroadcasting()
                     data = json.load(json_file)
-    
+                    
                 if 'sell' in data:
                     if data["sell"] == True or varsBc.sell == True:
                         varsBc.sell = True
                         varsBc.sell_regla =  data["sell_regla"]
-            
+                        varsBc.user = data["user"]
                         if vars.call:
                         
                             tipo="C"
