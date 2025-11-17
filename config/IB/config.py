@@ -232,8 +232,8 @@ class IBapi(EWrapper, EClient):
             self.execution_details[execution.orderId]["symbol"] = contract.symbol
             self.execution_details[execution.orderId]["execId"] = execution.execId
             self.execution_details[execution.orderId]["price"] = execution.price
-        except:
-            pass
+        except Exception as e:
+            print(type(e).__name__, ":", e)
 
     def commissionReport(self, commissionReport):
 
@@ -246,8 +246,8 @@ class IBapi(EWrapper, EClient):
                         "commission"
                     ] = commissionReport.commission
 
-        except:
-            pass
+        except Exception as e:
+            print(type(e).__name__, ":", e)
 
     # ================= IB WALLET =================
     def accountSummary(

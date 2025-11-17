@@ -35,7 +35,8 @@ def broadcasting_Aliniar(varsBc,vars):
         with open(file_name, "r") as json_file:
             try:
                 data = json.load(json_file)
-            except:
+            except Exception as e:
+                print(type(e).__name__, ":", e)
                 varsBc = varsBroadcasting()
                 data = json.load(json_file)
 
@@ -72,7 +73,8 @@ def broadcasting_sell(varsBc,varsLb,vars,params,app):
             with open(file_name, "r") as json_file:
                 try:
                     data = json.load(json_file)
-                except:
+                except Exception as e:
+                    print(type(e).__name__, ":", e)
                     varsBc = varsBroadcasting()
                     data = json.load(json_file)
     
@@ -105,7 +107,8 @@ def broadcasting_sell(varsBc,varsLb,vars,params,app):
                     
                         return
         
-    except:
+    except Exception as e:
+        print(type(e).__name__, ":", e)
         printStamp("-ERROR VENTA BROADCASTING EN TRY-")  
 
 def broadcasting_sell_auto(varsBc,varsLb,vars,params,app):
@@ -124,7 +127,8 @@ def broadcasting_sell_auto(varsBc,varsLb,vars,params,app):
         with open(file_name, "r") as json_file:
             try:
                 data = json.load(json_file)
-            except:
+            except Exception as e:
+                print(type(e).__name__, ":", e)
                 varsBc = varsBroadcasting()
                 data = json.load(json_file)
  
@@ -220,7 +224,8 @@ def broadcasting_buy(varsBc,varsLb,vars,params,app):
                                 json.dump(data, file, indent=4)
                             return
                         return
-    except:
+    except Exception as e:
+        print(type(e).__name__, ":", e)
         printStamp("-ERROR COMPRA BROADCASTING EN TRY-")             
 
 
