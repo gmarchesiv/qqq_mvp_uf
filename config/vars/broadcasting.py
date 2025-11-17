@@ -51,6 +51,7 @@ class varsBroadcasting:
         
             
                 datos["sell"] = self.sell
+                datos["buy"] = self.buy
                 datos["max_askbid_venta_abs"] = self.max_askbid_venta_abs
 
             with open(file_name, "w") as file:
