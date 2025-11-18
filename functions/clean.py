@@ -28,6 +28,16 @@ def clean_vars(vars,varsApp):
     vars.flag_cambio_f= False
     vars.flag_Call_reset_r1_c=False
 
+    vars.flag_Call_reset_r1_inv=False
+    vars.flag_Call_F_1=False
+    vars.flag_Call_F_2=False
+    vars.flag_Put_reset_R2=False
+    vars.flag_Put_reset_R2e=False
+    vars.flag_Put_reset_r2_fast=False
+    vars.flag_Put_reset_r1_fast=False
+    vars.flag_Put_reset_r1_label_2=False
+        
+
 
 
     vars.rule = True
