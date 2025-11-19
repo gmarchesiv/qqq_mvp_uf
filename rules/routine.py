@@ -119,8 +119,7 @@ def data_susciption(app, params, vars):
     # printStamp(" - FIN de Cargando Data de Opciones - ")
 
     printStamp(" - Esperando Datos - ")
-    print(app.etfs)
-    print(app.options)
+
     while True:
         ready  = 0
         if app.etfs[10]["price"] > 0:
