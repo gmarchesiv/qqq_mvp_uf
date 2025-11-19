@@ -58,6 +58,21 @@ def readIBData(app, vars):
     printStamp(f"ASK/BID-PUT : {round(vars.askbid_put_2*100,2)}%")
     # printStamp(f"A/B-PUT_PROM: {round(vars.promedio_put_2*100,2)}%")
 
+    print("-----------------------------------------------")
+
+    printStamp(f"{app.options[4]['symbol']}")
+    printStamp(f"ASK :{vars.cask_3 } | DCALL :{round(vars.dcall_3*100,2)}%")
+    printStamp(f"BID :{vars.cbid_3} | DOCALL :{round(vars.docall_3*100,2)}%")
+    printStamp(f"ASK/BID-CALL : {round(vars.askbid_call_3*100,2)}%")
+    # printStamp(f"A/B-CALL_PROM: {round(vars.promedio_call_3*100,2)}%")
+    print("-----------------------------------------------")
+
+    printStamp(f"{app.options[5]['symbol']}")
+    printStamp(f"ASK :{vars.pask_3} | DPUT :{round(vars.dput_3*100,2)}%")
+    printStamp(f"BID :{vars.pbid_3} | DOPUT :{round(vars.doput_3*100,2)}%")
+    printStamp(f"ASK/BID-PUT : {round(vars.askbid_put_3*100,2)}%")
+    # printStamp(f"A/B-PUT_PROM: {round(vars.promedio_put_3*100,2)}%")
+
  
 def read_rentabilidad(vars):
     print("===============================================")
