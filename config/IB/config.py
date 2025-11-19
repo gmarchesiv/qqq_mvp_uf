@@ -147,7 +147,7 @@ class IBapi(EWrapper, EClient):
     # ================= IB OPTIONS =================
 
     def tikerOption(self, contract, reqId):
-        tiker = self.reqContractDetails(reqId, contract)
+        self.tiker = self.reqContractDetails(reqId, contract)
         time.sleep(2)
         return self.tiker
 
