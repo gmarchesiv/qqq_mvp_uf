@@ -285,7 +285,7 @@ def main():
                 if int(timeNow.second) in params.frecuencia_accion:
                     
                     # saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
-                    # calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
+                    calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
                     # readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
 
                     # Se Bloquea en caso la configuracion de la wallet te indique
