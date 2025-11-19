@@ -40,8 +40,8 @@ def readIBData(app, vars,varsLb):
 
     print("===============================================")
  
-    printStamp(f"{app.etfs[5]['symbol']} : $ {app.etfs[5]['price']}")
-    printStamp(f"{app.etfs[6]['symbol']} :   {app.etfs[6]['price']}")
+    printStamp(f"{app.etfs[10]['symbol']} : $ {app.etfs[10]['price']}")
+    printStamp(f"{app.etfs[11]['symbol']} :   {app.etfs[11]['price']}")
     printStamp(f"LABEL:   {varsLb.label}")
 
     print("-----------------------------------------------")

@@ -220,8 +220,11 @@ def main():
             # GENERAR LABEL
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
-                    generar_label(params, varsLb,app)
-                    varsLb.flag_minuto_label=False
+                    generar_label(params, vars,app)
+                    vars.flag_minuto_label=False
+                    time.sleep(0.5)
+                    calculations(app, vars, params)
+                    readIBData(app, vars) 
 
             else:
                 varsLb.flag_minuto_label=True
@@ -252,14 +255,14 @@ def main():
                 '''
                 #---------------------------------------------------
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
-                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
                     
-                    if vars.call or vars.put:
-                        broadcasting_sell(varsBc,varsLb,vars,params,app)
-                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                    if vars.compra:
-                        broadcasting_buy(varsBc,varsLb,vars,params,app)
-                    pass
+                #     if vars.call or vars.put:
+                #         broadcasting_sell(varsBc,varsLb,vars,params,app)
+                #         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                #     if vars.compra:
+                #         broadcasting_buy(varsBc,varsLb,vars,params,app)
+                #     pass
                 
                 
 
@@ -281,23 +284,23 @@ def main():
                 #---------------------------------------------------
                 if int(timeNow.second) in params.frecuencia_accion:
                     
-                    saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
-                    calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
-                    readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
+                    # saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
+                    # calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
+                    # readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
 
                     # Se Bloquea en caso la configuracion de la wallet te indique
-                    if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
-                        # ================================
-                        #            -VENTA-
-                        # ================================
-                        if vars.call or vars.put:
-                            sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
-                        # ================================
-                        #            -COMPRA-
-                        # ================================
-                        if vars.compra and params.fd >= timeNow:
-                            buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
-                        pass
+                    # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                    #     # ================================
+                    #     #            -VENTA-
+                    #     # ================================
+                    #     if vars.call or vars.put:
+                    #         sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    #     # ================================
+                    #     #            -COMPRA-
+                    #     # ================================
+                    #     if vars.compra and params.fd >= timeNow:
+                    #         buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    #     pass
                     
                     # ================================
                     #          - Registro -
