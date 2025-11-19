@@ -26,6 +26,11 @@ def req_Options(app, params, vars, etf):
     requestContract(app, etf, vars.strike_c_2, vars.exp_2, "C", vars.exchange)
  
     requestContract(app, etf, vars.strike_p_2, vars.exp_2, "P", vars.exchange)
+
+
+    requestContract(app, etf, vars.strike_c_3, vars.exp_3, "C", vars.exchange)
+ 
+    requestContract(app, etf, vars.strike_p_3, vars.exp_3, "P", vars.exchange)
  
 # Creacion de contratos de Opciones
 def create_contract_OPT(
@@ -276,7 +281,23 @@ def buyOptionContract(app, params, vars, price, tipo, contract, tiker):
     vars.trade_hour = datetime.now(params.zone)
     return True
 
+def snapshot_3(app, etf, strike, exp, exchange):
 
+    contracts = [
+        create_contract_OPT(etf, "OPT", exchange, "USD", strike[1], exp, "C"),
+        create_contract_OPT(etf, "OPT", exchange, "USD", strike[0], exp, "P"),
+    ]
+   
+    for i, contract in enumerate(contracts, start=4):
+
+        app.reqMktData(i, contract, "", False, False, [])
+        time.sleep(3)
+        app.options[i] = {
+            "strike": contract.strike,
+            "expirations": contract.lastTradeDateOrContractMonth,
+            "ASK": 0,
+            "BID": 0,
+        }
 def snapshot_2(app, etf, strike, exp, exchange):
 
     contracts = [

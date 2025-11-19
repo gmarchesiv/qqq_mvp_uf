@@ -84,6 +84,29 @@ def data_option_open(app,   vars,params):
             break
         time.sleep(0.5)
 
+    vars.call_open_3 = -1
+    vars.put_open_3 = -1
+
+    while (vars.call_open_3==-1 or vars.put_open_3 == -1):
+        timeNow = datetime.now(params.zone).time()
+        c_ask=app.options[5]["ASK"]
+        c_bid=app.options[5]["BID"]
+        p_ask=app.options[6]["ASK"]
+        p_bid=app.options[6]["BID"]
+        if vars.call_open_3==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
+            vars.call_open_3 = app.options[5]["BID"]
+
+        if vars.put_open_3==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
+            vars.put_open_3 = app.options[6]["BID"]
+      
+        if   params.max_askbid_hora_open <= timeNow:
+            vars.call_open_3 = app.options[5]["BID"]
+            vars.put_open_3 = app.options[6]["BID"]
+            vars.flag_bloqueo_tiempo =True
+            break
+        time.sleep(0.5)
+
+
 # REALIZA LA SUSCIPCION DE DATOS
 def data_susciption(app, params, vars):
 
@@ -99,9 +122,9 @@ def data_susciption(app, params, vars):
 
     while True:
         ready  = 0
-        if app.etfs[5]["price"] > 0:
+        if app.etfs[10]["price"] > 0:
             ready += 1
-        if app.etfs[6]["price"] > 0:
+        if app.etfs[11]["price"] > 0:
             ready += 1
         if app.options[1]["ASK"] > 0 and app.options[1]["BID"] > 0:
             ready += 1
@@ -121,6 +144,20 @@ def data_susciption(app, params, vars):
             ready += 1
 
         if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
+            ready += 1
+ 
+        if ready == 2:
+            break
+
+        time.sleep(0.5)
+
+    while True:
+        ready  = 0
+  
+        if app.options[5]["ASK"] > 0 and app.options[5]["BID"] > 0:
+            ready += 1
+
+        if app.options[6]["ASK"] > 0 and app.options[6]["BID"] > 0:
             ready += 1
  
         if ready == 2:
@@ -186,7 +223,7 @@ def calculations(app, vars, params):
 
  
 
-    vars.vix= app.etfs[6]['price']
+    vars.vix= app.etfs[11]['price']
  
 
     # CALCULOS
@@ -211,7 +248,19 @@ def calculations(app, vars, params):
     vars.docall_2= vars.cbid_2 / vars.call_open_2 - 1
     vars.doput_2 = vars.pbid_2 / vars.put_open_2 - 1
 
+    vars.cask_3 = app.options[5]["ASK"]
+    vars.cbid_3 = app.options[5]["BID"]
+    vars.pask_3 = app.options[6]["ASK"]
+    vars.pbid_3 = app.options[6]["BID"]
 
+
+    # CALCULOS
+    vars.askbid_call_3 = vars.cask_3 / vars.cbid_3 - 1
+    vars.askbid_put_3 = vars.pask_3 / vars.pbid_3 - 1
+    vars.dcall_3 = vars.cbid_3 / vars.call_close_3 - 1
+    vars.dput_3 = vars.pbid_3 / vars.put_close_3 - 1
+    vars.docall_3= vars.cbid_3 / vars.call_open_3 - 1
+    vars.doput_3 = vars.pbid_3 / vars.put_open_3 - 1
 # GUARDADO DE TRANSACCIONES
 def saveTransaction(app, params, vars):
     for idreq in app.execution_details:
@@ -260,16 +309,16 @@ def saveTransaction(app, params, vars):
 def registro_strike(app, vars, params):
 
     # PEDIMOS LA CADENA DE OPCIONES
-    app.request_option_chain(app.etfs[5]["symbol"])
+    app.request_option_chain(app.etfs[10]["symbol"])
 
  
     vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
 
-    list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
+    list_exp = list_checkExpirations(app, app.etfs[10]["symbol"], params, vars.exchange)
 
 
-    precio = app.etfs[5]["price"]
-    printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+    precio = app.etfs[10]["price"]
+    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
     put = int(precio * ((100 - params.rangos_strikes[0][1]) / 100))
@@ -282,7 +331,7 @@ def registro_strike(app, vars, params):
  
     for exp in list_exp:
         strikes = checkStrike(
-        app, exp, app.etfs[5]["symbol"], "C", vars.exchange
+        app, exp, app.etfs[10]["symbol"], "C", vars.exchange
     )
         put_list = [
             float(x) for x in strikes if put <= float(x) <= put_inf
@@ -298,8 +347,10 @@ def registro_strike(app, vars, params):
             continue 
         print("CALLS:",call_list)
         print("PUTS:",put_list)
-        put_strike = put_list[-2]  
-        call_strike = call_list[1] 
+        # put_strike = put_list[-2]  
+        # call_strike = call_list[1] 
+        put_strike = put_list[-1]  
+        call_strike = call_list[0] 
         exp_escogido = exp
         break
      
@@ -317,7 +368,7 @@ def registro_strike(app, vars, params):
     time.sleep(1)
     del app.options[2]
     # app.options={}
-    snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+    snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
@@ -359,16 +410,16 @@ def registro_strike(app, vars, params):
 def registro_strike_2(app, vars, params):
 
     # PEDIMOS LA CADENA DE OPCIONES
-    app.request_option_chain(app.etfs[5]["symbol"])
+    app.request_option_chain(app.etfs[10]["symbol"])
 
  
     vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
 
-    list_exp = list_checkExpirations_2(app, app.etfs[5]["symbol"], params, vars.exchange)
+    list_exp = list_checkExpirations_2(app, app.etfs[10]["symbol"], params, vars.exchange)
 
 
-    precio = app.etfs[5]["price"]
-    printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+    precio = app.etfs[10]["price"]
+    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
     put = int(precio * ((100 - params.rangos_strikes[0][1]) / 100))
@@ -381,7 +432,7 @@ def registro_strike_2(app, vars, params):
 
     for exp in list_exp:
         strikes = checkStrike(
-        app, exp, app.etfs[5]["symbol"], "C", vars.exchange
+        app, exp, app.etfs[10]["symbol"], "C", vars.exchange
     )
         put_list = [
             float(x) for x in strikes if put <= float(x) <= put_inf
@@ -417,7 +468,7 @@ def registro_strike_2(app, vars, params):
     del app.options[4]
     time.sleep(1)
     # print("LLEGUE HASTA AQUI")
-    snapshot_2(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+    snapshot_2(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
@@ -449,6 +500,106 @@ def registro_strike_2(app, vars, params):
     print("===============================================")
     printStamp(
         f"GUARDADO: {vars.exp_2} | PUT-STRIKE: {vars.strike_p_2} PUT-CLOSE: {vars.put_close_2} | CALL-STRIKE: {vars.strike_c_2} CALL-CLOSE: {vars.call_close_2}  "
+    )
+    timeNow = datetime.now(params.zone).time()
+    vars.hora_inicio = str(timeNow)
+
+
+
+
+def registro_strike_3(app, vars, params):
+
+    # PEDIMOS LA CADENA DE OPCIONES
+    app.request_option_chain(app.etfs[10]["symbol"])
+
+ 
+    vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
+
+    list_exp = list_checkExpirations_2(app, app.etfs[10]["symbol"], params, vars.exchange)
+
+
+    precio = app.etfs[10]["price"]
+    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
+
+    call = int(precio * ((100 + params.rangos_strikes_2[0][1]) / 100))
+    put = int(precio * ((100 - params.rangos_strikes_2[0][1]) / 100))
+
+    call_inf = int(precio * ((100 + params.rangos_strikes_2[0][0]) / 100))
+    put_inf = int(precio * ((100 - params.rangos_strikes_2[0][0]) / 100))
+    
+    printStamp(f"RANGOS --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
+
+
+    for exp in list_exp:
+        strikes = checkStrike(
+        app, exp, app.etfs[10]["symbol"], "C", vars.exchange
+    )
+        put_list = [
+            float(x) for x in strikes if put <= float(x) <= put_inf
+        ]
+        call_list = [
+            float(x) for x in strikes if call_inf <= float(x) <= call
+        ]
+        # Ordenar listas
+        put_list.sort()
+        call_list.sort()
+        printStamp(f"EXP: {exp} - PUTs:{put_list} / CALLs:{call_list}")
+        if len(put_list)==0 or len(call_list)==0:
+            continue 
+        print("CALLS:",call_list)
+        print("PUTS:",put_list)
+        put_strike = put_list[-1]  
+        call_strike = call_list[0] 
+        exp_escogido = exp
+        break
+     
+    
+
+    printStamp(f"EXP: {exp_escogido}")
+ 
+    printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
+
+    app.cancelMarketData(3)
+    time.sleep(1)
+    del app.options[5]
+
+    app.cancelMarketData(4)
+    time.sleep(1)
+    del app.options[6]
+    time.sleep(1)
+    # print("LLEGUE HASTA AQUI")
+    snapshot_3(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
+    printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
+    while True:
+        timeNow = datetime.now(params.zone).time()
+        if dt_time(16, 30) < timeNow:
+            break
+        readyOpt = 0
+        if int(timeNow.second) in params.frecuencia_accion:
+            print("===============================================")
+            printStamp(f"CASK: {app.options[5]['ASK'] } | CBID: {app.options[5]['BID'] }")
+            printStamp(f"PASK: {app.options[6]['ASK'] } | PBID: {app.options[6]['BID'] }")
+        if app.options[5]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[5]["ASK"] / app.options[5]["BID"] - 1):
+            readyOpt += 1
+     
+        if app.options[6]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[6]["ASK"] / app.options[6]["BID"] - 1):
+            readyOpt += 1
+            
+   
+        if readyOpt == 2:
+            break
+
+        time.sleep(0.5)
+
+    
+    vars.exp_3 = exp
+    vars.strike_p_3 = put_strike
+    vars.strike_c_3 = call_strike
+    vars.put_close_3 = app.options[6]["BID"]
+    vars.call_close_3 = app.options[5]["BID"]
+    print("===============================================")
+    printStamp(
+        f"GUARDADO: {vars.exp_3} | PUT-STRIKE: {vars.strike_p_3} PUT-CLOSE: {vars.put_close_3} | CALL-STRIKE: {vars.strike_c_3} CALL-CLOSE: {vars.call_close_3}  "
     )
     timeNow = datetime.now(params.zone).time()
     vars.hora_inicio = str(timeNow)

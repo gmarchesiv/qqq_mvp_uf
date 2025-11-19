@@ -91,7 +91,20 @@ class dayTrade(Base):
     dPut_2 = Column(Float)
     doCall_2 = Column(Float)
     doPut_2 = Column(Float)
-
+    
+    cStrike_3 = Column(Float)
+    pStrike_3 = Column(Float)
+    exp_3 = Column(String)
+    cask_3 = Column(Float)
+    cbid_3 = Column(Float)
+    pask_3 = Column(Float)
+    pbid_3 = Column(Float)
+    cAskBid_3 = Column(Float)
+    pAskBid_3 = Column(Float)
+    dCall_3 = Column(Float)
+    dPut_3 = Column(Float)
+    doCall_3 = Column(Float)
+    doPut_3 = Column(Float)
 
     label= Column(Integer)
     

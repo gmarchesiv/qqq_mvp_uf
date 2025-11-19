@@ -71,7 +71,7 @@ def saveJson(vars, app, params, estado):
             "strike": app.options[2]["strike"],
         }
 
-        price = app.etfs[5]["price"]
+        price = app.etfs[10]["price"]
 
     datos = {
         "name": params.name,
@@ -132,6 +132,27 @@ def saveJson(vars, app, params, estado):
         ###############################################
         # VARIABLES DE TRADING
         ###############################################
+
+        "call_close_3 ":vars.call_close_3 ,
+        "put_close_3 ":vars.put_close_3 ,
+        "call_open_3 ":vars.call_open_3 ,
+        "put_open_3 ":vars.put_open_3 ,
+        "dcall_3 ":vars.dcall_3 ,
+        "dput_3 ":vars.dput_3 ,
+        "docall_3 ":vars.docall_3 ,
+        "doput_3 ":vars.doput_3 ,
+        "askbid_call_3 ":vars.askbid_call_3 ,
+        "askbid_put_3 ":vars.askbid_put_3 ,
+        "strike_c_3 ":vars.strike_c_3 ,
+        "strike_p_3 ":vars.strike_p_3 ,
+        "exp_3 ":vars.exp_3 ,
+        "cask_3 ":vars.cask_3 ,
+        "cbid_3 ":vars.cbid_3 ,
+        "pask_3 ":vars.pask_3 ,
+        "pbid_3 ":vars.pbid_3 ,
+
+
+
         "vix": vars.vix,
         "dcall": vars.dcall,
         "dput": vars.dput,
