@@ -26,12 +26,8 @@ def req_Options(app, params, vars, etf):
     requestContract(app, etf, vars.strike_c_2, vars.exp_2, "C", vars.exchange)
  
     requestContract(app, etf, vars.strike_p_2, vars.exp_2, "P", vars.exchange)
-
-
-    requestContract(app, etf, vars.strike_c_3, vars.exp_3, "C", vars.exchange)
  
-    requestContract(app, etf, vars.strike_p_3, vars.exp_3, "P", vars.exchange)
- 
+
 # Creacion de contratos de Opciones
 def create_contract_OPT(
     symbol, secType, exchange, currency, strike, expirations, typeOpt
@@ -52,29 +48,7 @@ def create_contract_OPT(
     return contract
 
 
-# revision de fechas de expiracion
-def checkExpirations(app, etf, params, vars, add):
-    name = f"{vars.exchange}_{etf}"
-    # print(app.option_chains[name])
-    listExpire = list(app.option_chains[name]["expirations"])
-    fecha_actual = datetime.now()
-
-    format_str = "%Y%m%d"
-    listExpire_dates = [datetime.strptime(date, format_str) for date in listExpire]
-
-    # Ordenar la lista en orden descendente
-    listExpire_dates.sort(reverse=False)
-
-    for expiry_date in listExpire_dates:
-        if expiry_date >= fecha_actual + timedelta(days=(params.diff_days_exp + add)):
-            fecha_seleccionada = expiry_date
-
-            vars.dif_exp = (
-                expiry_date - (fecha_actual + timedelta(days=params.diff_days_exp))
-            ).days
-            break
-
-    return fecha_seleccionada.strftime(format_str)
+ 
 
 
 # Funcion que busca el strike mas proximo
@@ -82,17 +56,7 @@ def strikeNear(numero, lista):
     return min(lista, key=lambda x: abs(x - numero))
 
 
-# revision del strike disponible
-# def checkStrike(app, exp, etf, tipo, exchange):
-
-#     contract = create_contract_OPT(etf, "OPT", exchange, "USD", "", exp, tipo)
-
-#     app.listStrikes = []
-#     app.reqContractDetails(10, contract)
-#     time.sleep(10)
-
-#     app.listStrikes.sort()
-
+ 
 
 # peticion de data de un contrato
 def requestContract(app, etf, strikes, expirations, tipo, exchange):
@@ -281,23 +245,6 @@ def buyOptionContract(app, params, vars, price, tipo, contract, tiker):
     vars.trade_hour = datetime.now(params.zone)
     return True
 
-def snapshot_3(app, etf, strike, exp, exchange):
-
-    contracts = [
-        create_contract_OPT(etf, "OPT", exchange, "USD", strike[1], exp, "C"),
-        create_contract_OPT(etf, "OPT", exchange, "USD", strike[0], exp, "P"),
-    ]
-   
-    for i, contract in enumerate(contracts, start=4):
-
-        app.reqMktData(i, contract, "", False, False, [])
-        time.sleep(3)
-        app.options[i] = {
-            "strike": contract.strike,
-            "expirations": contract.lastTradeDateOrContractMonth,
-            "ASK": 0,
-            "BID": 0,
-        }
 def snapshot_2(app, etf, strike, exp, exchange):
 
     contracts = [
@@ -334,6 +281,38 @@ def snapshot(app, etf, strike, exp, exchange):
         }
 
  
+
+# revision del strike disponible
+def dic_checkStrike(app, expiri, etf, tipo, exhange):
+    dic_strike = {}
+    for exp in expiri:
+
+        contract = create_contract_OPT(etf, "OPT", exhange, "USD", "", exp, tipo)
+
+        app.listStrikes = []
+        app.reqContractDetails(10, contract)
+        time.sleep(10)
+
+        app.listStrikes = list(set(app.listStrikes))
+
+        app.listStrikes.sort()
+        dic_strike[exp] = app.listStrikes
+    return dic_strike
+
+
+
+def checkStrike(app, exp, etf, tipo, exchange):
+
+    contract = create_contract_OPT(etf, "OPT", exchange, "USD", "", exp, tipo)
+
+    app.listStrikes = []
+    app.reqContractDetails(10, contract)
+    time.sleep(10)
+
+    app.listStrikes.sort()
+    return app.listStrikes
+
+
 def list_checkExpirations(app, etf, params, exchange):
     name = f"{exchange}_{etf}"
 
@@ -349,7 +328,7 @@ def list_checkExpirations(app, etf, params, exchange):
     lista_exp = []
     for expiry_date in listExpire_dates:
         if expiry_date >= (
-            fecha_actual + timedelta(days=params.days_min_exp )
+            fecha_actual + timedelta(days=params.days_min_exp)
         ) :
             if n!=0:
                 lista_exp.append(expiry_date.strftime(format_str))
@@ -357,6 +336,7 @@ def list_checkExpirations(app, etf, params, exchange):
                 return lista_exp
             n+=1
     return lista_exp
+
 
 def list_checkExpirations_2(app, etf, params, exchange):
     name = f"{exchange}_{etf}"
@@ -380,32 +360,3 @@ def list_checkExpirations_2(app, etf, params, exchange):
                 return lista_exp
             n+=1
     return lista_exp
-
-# revision del strike disponible
-def dic_checkStrike(app, expiri, etf, tipo, exhange):
-    dic_strike = {}
-    for exp in expiri:
-
-        contract = create_contract_OPT(etf, "OPT", exhange, "USD", "", exp, tipo)
-
-        app.listStrikes = []
-        app.reqContractDetails(10, contract)
-        time.sleep(10)
-
-        app.listStrikes = list(set(app.listStrikes))
-
-        app.listStrikes.sort()
-        dic_strike[exp] = app.listStrikes
-    return dic_strike
-
-
-def checkStrike(app, exp, etf, tipo, exchange):
-
-    contract = create_contract_OPT(etf, "OPT", exchange, "USD", "", exp, tipo)
-
-    app.listStrikes = []
-    app.reqContractDetails(10, contract)
-    time.sleep(10)
-
-    app.listStrikes.sort()
-    return app.listStrikes

@@ -40,7 +40,6 @@ from rules.routine import (
     registration,
     registro_strike,
     registro_strike_2,
-    registro_strike_3,
     saveTransaction 
 )
 # from rules.sell import sell_obligatoria, sellOptions
@@ -192,7 +191,6 @@ def main():
                 printStamp(" - Registrando Nuevo Strike - ")
                 registro_strike(app, vars, params)
                 registro_strike_2(app, vars, params)
-                registro_strike_3(app, vars, params)
                 clean_broadcasting(vars)
                 vars.status = "OFF"
                 saveJson(vars, app, params, True)
