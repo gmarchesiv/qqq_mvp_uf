@@ -28,11 +28,10 @@ def req_ETFs(app, etf):
     contracts = [
         create_contract(etf, "STK", "SMART", "USD"),
         create_contract("VIX", "IND", "CBOE", "USD"),
-        
     ]
     app.reqMarketDataType(1)
 
-    for i, contract in enumerate(contracts, start=10):
+    for i, contract in enumerate(contracts, start=5):
         app.reqMktData(i, contract, "", False, False, [])
         # time.sleep(2)
         app.etfs[i] = {

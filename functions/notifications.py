@@ -29,11 +29,11 @@ def sendStart(app, params):
 - INICIO DE RUTINA -
 USER: {params.name}
 ETF:{params.etf}
-TRADING MODE: Extracción
+TRADING MODE: {params.typeIB} 
 ======================
 """
     try:
-         
+      
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendStart-")
@@ -49,7 +49,7 @@ TOTAL CASH : $ {app.wallet["TotalCashValue"]}
 ======================
 """
     try:
-       
+        
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendEnd-")
@@ -69,7 +69,7 @@ REGLA : {vars.regla_ant}
 ======================
 """
     try:
-        
+  
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendBuy-")
@@ -88,7 +88,7 @@ REGLA : {vars.regla_ant}
 ======================
 """
     try:
-       
+        
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendSell-")
@@ -104,7 +104,7 @@ TIPO: {razon}
 ======================
 """
     try:
-    
+         
         sendTelegram(params, msg)
     except:
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendError-")

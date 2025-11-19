@@ -10,7 +10,7 @@ import pytz
 # =======================
 #  - GUARDAR VAIRBALES -
 # =======================
-def saveJson(vars, app, params, estado):
+def saveJson(vars, app,  params, estado):
     file_name = "/usr/src/app/data/vars.json"
     now = datetime.now(params.zone)
     if os.path.exists(file_name):
@@ -30,8 +30,7 @@ def saveJson(vars, app, params, estado):
                 vars.buy_regla_broadcasting=data["buy_regla_broadcasting"]
                 vars.user_broadcasting = data["user_broadcasting"]
  
-     
-
+ 
 
     if estado:
 
@@ -71,7 +70,7 @@ def saveJson(vars, app, params, estado):
             "strike": app.options[2]["strike"],
         }
 
-        price = app.etfs[10]["price"]
+        price = app.etfs[5]["price"]
 
     datos = {
         "name": params.name,
@@ -86,10 +85,10 @@ def saveJson(vars, app, params, estado):
         "call_close": vars.call_close,
         "put_close_2": vars.put_close_2,
         "call_close_2": vars.call_close_2,
-        "put_open": vars.put_open,
-        "call_open": vars.call_open,
         "put_open_2": vars.put_open_2,
         "call_open_2": vars.call_open_2,
+        "put_open": vars.put_open,
+        "call_open": vars.call_open,
         "date": now.date().isoformat(),
         "time": now.time().isoformat(),
         "price": price,
@@ -112,14 +111,15 @@ def saveJson(vars, app, params, estado):
         "manifesto": vars.manifesto,
         "flag_Call_R2": vars.flag_Call_R2,
         "flag_Put_R2": vars.flag_Put_R2,
-        "flag_Call_reset_r1": vars.flag_Call_reset_r1,
-        "flag_Call_reset_r1_c" :vars.flag_Call_reset_r1_c,
+        "flag_Put_reset_r2_e": vars.flag_Put_reset_r2_e,
+        "flag_Put_reset_r1_e": vars.flag_Put_reset_r1_e,
         "flag_Put_reset_r1 ": vars.flag_Put_reset_r1,
-        "flag_Call_reset_r1_e ": vars.flag_Call_reset_r1_e,
-        "flag_cambio_fast ": vars.flag_cambio_fast,
-        "flag_Call_reset_r2":vars.flag_Call_reset_r2,
-        "flag_bloqueo_r1_e":vars.flag_bloqueo_r1_e,
-        "flag_Call_reset_r1_e2":vars.flag_Call_reset_r1_e2 ,
+        "flag_Put_reset_r1_c":vars.flag_Put_reset_r1_c,
+        "flag_Call_reset_r1_e":vars.flag_Call_reset_r1_e,
+        "flag_Call_reset_r1_e2":vars.flag_Call_reset_r1_e2,
+        "flag_Put_reset_r1_i":vars.flag_Put_reset_r1_i,
+        "flag_Call_reset_r3":vars.flag_Call_reset_r3,
+        "flag_Put_reset_r1_c":vars.flag_Put_reset_r1_c,
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
@@ -132,27 +132,6 @@ def saveJson(vars, app, params, estado):
         ###############################################
         # VARIABLES DE TRADING
         ###############################################
-
-        "call_close_3 ":vars.call_close_3 ,
-        "put_close_3 ":vars.put_close_3 ,
-        "call_open_3 ":vars.call_open_3 ,
-        "put_open_3 ":vars.put_open_3 ,
-        "dcall_3 ":vars.dcall_3 ,
-        "dput_3 ":vars.dput_3 ,
-        "docall_3 ":vars.docall_3 ,
-        "doput_3 ":vars.doput_3 ,
-        "askbid_call_3 ":vars.askbid_call_3 ,
-        "askbid_put_3 ":vars.askbid_put_3 ,
-        "strike_c_3 ":vars.strike_c_3 ,
-        "strike_p_3 ":vars.strike_p_3 ,
-        "exp_3 ":vars.exp_3 ,
-        "cask_3 ":vars.cask_3 ,
-        "cbid_3 ":vars.cbid_3 ,
-        "pask_3 ":vars.pask_3 ,
-        "pbid_3 ":vars.pbid_3 ,
-
-
-
         "vix": vars.vix,
         "dcall": vars.dcall,
         "dput": vars.dput,
@@ -168,6 +147,7 @@ def saveJson(vars, app, params, estado):
         "askbid_call_2": vars.askbid_call_2,
         "askbid_put_2": vars.askbid_put_2,
 
+        
         "askbid_call_prom": [float(x) for x in vars.askbid_call_prom],
         "askbid_put_prom":  [float(x) for x in vars.askbid_put_prom],
         "quantity": vars.quantity,
@@ -187,10 +167,10 @@ def saveJson(vars, app, params, estado):
         "accion_mensaje": vars.accion_mensaje,
         "bloqueo": vars.bloqueo,
         "status": vars.status,
-        "hora_inicio": vars.hora_inicio,
         ###############################################
         # BROADCASTING
         ###############################################
+        "hora_inicio": vars.hora_inicio,
         "aliniar": vars.aliniar,
         "sell_broadcasting": vars.sell_broadcasting,
         "sell_tipo_broadcasting": vars.sell_tipo_broadcasting,
@@ -198,11 +178,12 @@ def saveJson(vars, app, params, estado):
         "buy_broadcasting": vars.buy_broadcasting,
         "buy_tipo_broadcasting": vars.buy_tipo_broadcasting,
         "buy_regla_broadcasting": vars.buy_regla_broadcasting,
-        "user_broadcasting": vars.user_broadcasting,
-        "regla_broadcasting":vars.regla_broadcasting,
-
+        "buy": vars.buy,
+        "sell": vars.sell,
         "conexion": True,
         "venta_intentos":vars.venta_intentos,
+        "user_broadcasting": vars.user_broadcasting,
+        "regla_broadcasting":vars.regla_broadcasting,
         ###############################################
         # VARIABLES DE APP
         ###############################################
@@ -213,13 +194,11 @@ def saveJson(vars, app, params, estado):
         "sendError": app.sendError,
         "Error": app.Error,
         "Error_buy": app.Error_buy,
-
         ###############################################
         # LABEL
         ###############################################
         "flag_minuto_label": vars.flag_minuto_label,
         "label": int(vars.label),
-        "label_ant": int(vars.label_ant),
         "retorno_lista":[float(x) for x in vars.retorno_lista],
         "retorno": vars.retorno,
         "signo": vars.signo,
@@ -239,32 +218,7 @@ def saveJson(vars, app, params, estado):
         "promedio_call": vars.promedio_call,
         "promedio_put": vars.promedio_put 
     
-       
     }
 
     with open(file_name, "w") as json_file:
         json.dump(datos, json_file, indent=4)
-
-
-    try:
-        with open(file_name, "r") as json_file:
-            data = json.load(json_file)
-            return
-
-    except:
-        from config.vars import variables
-        vars = variables(debug_mode=False)
-
-def save_rentabilidad(vars):
-    file_name = "/usr/src/app/data/vars.json"
-    with open(file_name, "r") as f:
-        data = json.load(f)
-
-        # Actualizar los datos con los valores del body
-        data["pico"] = vars.pico
-
-        data["rentabilidad"] =vars.rentabilidad
- 
-        # Guardar los datos actualizados de nuevo en el archivo
-        with open(file_name, "w") as file:
-            json.dump(data, file, indent=4)

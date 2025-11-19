@@ -7,44 +7,36 @@ import os
 
 import requests
  
+
 from functions.logs import printStamp
 
 
 import aiohttp
 import asyncio
-
-
-
-
 # =======================
 #  - Broadcasting -
 # =======================
- 
+
 
 def broadcasting_Aliniar(vars):
     # Lectura del Archivo
     file_name = "/usr/src/app/data/vars.json"
- 
 
     if os.path.exists(file_name):
- 
+
         with open(file_name, "r") as json_file:
             data = json.load(json_file)
- 
-            if 'aliniar' in data:
+
+            if "aliniar" in data:
                 if data["aliniar"] == True:
                     vars.aliniar = False
-              
 
-            
                     vars.call_close = data["call_close"]
                     vars.put_close = data["put_close"]
                     vars.call_open = data["call_open"]
                     vars.put_open = data["put_open"]
-
                     vars.flag_Call_R2 = data["flag_Call_R2"]
                     vars.flag_Put_R2 = data["flag_Put_R2"]
-                     
 
 def broadcasting_sell(vars,params,app):
     from rules.sell import sell
@@ -85,15 +77,12 @@ def broadcasting_sell(vars,params,app):
                             vars.sell_regla_broadcasting,
                             app.options[val]["contract"],
                             app.options[val]["symbol"],
-                            debug_mode=False
                         )
                     if venta:
                         vars.sell_broadcasting =False
                         return
                   
                     return
-
-
 def broadcasting_sell_auto(vars,params,app,bc):
     
     # Lectura del Archivo
@@ -107,7 +96,6 @@ def broadcasting_sell_auto(vars,params,app,bc):
  
             if 'sell' in data:
                 if data["sell"] == True  :
-
                     params.max_askbid_venta_abs=data["max_askbid_venta_abs"]
                     if vars.call:
                         val = 1
@@ -123,7 +111,7 @@ def broadcasting_sell_auto(vars,params,app,bc):
                         printStamp("-ERROR VENTA BROADCASTING-")
                         return False
                     printStamp(f"-VENTA BROADCASTING POR : ALPHALYTICS - FORZADA")
-
+                    
                     from rules.sell import sell_forzada
 
                     venta=sell_forzada(
@@ -145,6 +133,8 @@ def broadcasting_sell_auto(vars,params,app,bc):
                   
                     return
 
+
+
 def broadcasting_buy(vars,params,app):
     from rules.buy import buy
     # Lectura del Archivo
@@ -152,7 +142,7 @@ def broadcasting_buy(vars,params,app):
  
     try:
         if os.path.exists(file_name):
-        
+    
             with open(file_name, "r") as json_file:
                 data = json.load(json_file)
     
@@ -186,16 +176,13 @@ def broadcasting_buy(vars,params,app):
                             precio,
                             app.options[val]["contract"],
                             app.options[val]["symbol"],
-                        
-                            debug_mode=False
                         )
 
                         if flag_buy == False:
                             return
                         vars.buy_broadcasting=False
                         return
-    except:pass
-                  
+    except:pass             
 async def send_request(session, url, data, user):
     try:
         async with session.post(url, json=data, timeout=2) as response:

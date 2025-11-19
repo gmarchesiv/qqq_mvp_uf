@@ -7,14 +7,13 @@ import pandas_ta as ta
 import pandas as pd  
 import joblib
 
-from sklearn.cluster import KMeans
-
 from database.repository.repository import writeLabel      
 
 def generar_label(params, vars,app):
    
     generar_garch(params, vars,app)
    
+ 
     
     generar_rsi(params, vars,app)
   
@@ -26,7 +25,6 @@ def generar_label(params, vars,app):
     clusterizar(params, vars,app)
 
     generar_hour_back(params, vars,app)
-    
     
     pass
 
@@ -40,24 +38,27 @@ def generar_garch(params, vars,app):
     
     vars.signo=0 if (vars.retorno-vars.mu)>0 else 1
  
-    vars.retorno_lista.append(app.etfs[10]['price'])
+    vars.retorno_lista.append(app.etfs[5]['price'])
  
-    vars.retorno=app.etfs[10]['price'] / vars.retorno_lista[0] -1
+    vars.retorno=app.etfs[5]['price'] / vars.retorno_lista[0] -1
     
+
     vars.mu= ((vars.mu*vars.mu_conteo) + vars.retorno)/(vars.mu_conteo+1)
     vars.mu_conteo=vars.mu_conteo+1
 
+ 
+
 def generar_hour_back(params, vars,app):
-    vars.ret_1H_back.append(app.etfs[10]['price'])
-    vars.ret_3H_back.append(app.etfs[10]['price'])
-    vars.ret_6H_back.append(app.etfs[10]['price'])
-    vars.ret_12H_back.append(app.etfs[10]['price'])
-    vars.ret_24H_back.append(app.etfs[10]['price'])
-    vars.ret_96H_back.append(app.etfs[10]['price'])
+    vars.ret_1H_back.append(app.etfs[5]['price'])
+    vars.ret_3H_back.append(app.etfs[5]['price'])
+    vars.ret_6H_back.append(app.etfs[5]['price'])
+    vars.ret_12H_back.append(app.etfs[5]['price'])
+    vars.ret_24H_back.append(app.etfs[5]['price'])
+    vars.ret_96H_back.append(app.etfs[5]['price'])
     pass
 
 def generar_rsi(params, vars,app):
-    vars.etf_price_lista.append(app.etfs[10]['price'])
+    vars.etf_price_lista.append(app.etfs[5]['price'])
     print()
     if len(vars.etf_price_lista)<4:
         vars.rsi=0
@@ -71,10 +72,10 @@ def generar_rsi(params, vars,app):
     pass
 
 def generar_d_pico(params, vars,app):
-    if app.etfs[10]['price'] > vars.pico_etf:
-        vars.pico_etf=app.etfs[10]['price']
+    if app.etfs[5]['price'] > vars.pico_etf:
+        vars.pico_etf=app.etfs[5]['price']
 
-    vars.d_pico=app.etfs[10]['price']/vars.pico_etf -1
+    vars.d_pico=app.etfs[5]['price']/vars.pico_etf -1
 
     pass
 
@@ -83,21 +84,20 @@ def clusterizar(params, vars,app):
     import pandas as pd  
     import joblib
     from sklearn.cluster import KMeans
-    
     scaler = joblib.load('/usr/src/app/functions/scaler.joblib')
     km = joblib.load('/usr/src/app/functions/model.joblib')
 
     df=pd.DataFrame(
 
         {
-            "VIX_CLOSE":[app.etfs[11]['price']],
+            "VIX_CLOSE":[app.etfs[6]['price']],
             "QQQ_GARCH":[vars.garch],
-            "ret_1H_back":[(app.etfs[10]['price']/ vars.ret_1H_back[0] -1)*100],
-            "ret_3H_back":[(app.etfs[10]['price']/ vars.ret_3H_back[0] -1)*100],
-            "ret_6H_back":[(app.etfs[10]['price']/ vars.ret_6H_back[0] -1)*100],
-            "ret_12H_back":[(app.etfs[10]['price']/ vars.ret_12H_back[0] -1)*100],
-            "ret_24H_back":[(app.etfs[10]['price']/ vars.ret_24H_back[0] -1)*100],
-            "ret_96H_back":[(app.etfs[10]['price']/ vars.ret_96H_back[0] -1)*100],
+            "ret_1H_back":[(app.etfs[5]['price']/ vars.ret_1H_back[0] -1)*100],
+            "ret_3H_back":[(app.etfs[5]['price']/ vars.ret_3H_back[0] -1)*100],
+            "ret_6H_back":[(app.etfs[5]['price']/ vars.ret_6H_back[0] -1)*100],
+            "ret_12H_back":[(app.etfs[5]['price']/ vars.ret_12H_back[0] -1)*100],
+            "ret_24H_back":[(app.etfs[5]['price']/ vars.ret_24H_back[0] -1)*100],
+            "ret_96H_back":[(app.etfs[5]['price']/ vars.ret_96H_back[0] -1)*100],
             "rsi_prom_3":[vars.rsi],
             "D_PICO":[vars.d_pico]
         }
@@ -109,10 +109,7 @@ def clusterizar(params, vars,app):
     X_s = scaler.transform(X)
     labels = km.predict(X_s)
     df_final["LABELS"] = labels
- 
     df_final.reset_index(drop=True,inplace=True)
-    vars.label_ant=vars.label
     vars.label=df_final["LABELS"][0]
-  
  
     writeLabel(app, vars,params)
