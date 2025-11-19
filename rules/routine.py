@@ -136,7 +136,7 @@ def data_susciption(app, params, vars):
             break
 
         time.sleep(0.5)
-
+    printStamp(" - Esperando Datos 2- ")
     while True:
         ready  = 0
   
@@ -150,7 +150,7 @@ def data_susciption(app, params, vars):
             break
 
         time.sleep(0.5)
-
+    printStamp(" - Esperando Datos 3- ")
     while True:
         ready  = 0
   
