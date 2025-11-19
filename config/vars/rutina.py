@@ -213,3 +213,48 @@ class varsRutina:
 
         self.promedio_call=self.data.get("promedio_call",0)
         self.promedio_put=self.data.get("promedio_put",0)
+
+
+        self.call_close_2 = self.data.get("call_close_2", 0)
+        self.put_close_2 = self.data.get("put_close_2", 0)
+        self.call_open_2 = self.data.get("call_open_2", 0)
+        self.put_open_2 = self.data.get("put_open_2", 0)
+
+        self.dcall_2 = self.data.get("dcall_2", 0)
+        self.dput_2 = self.data.get("dput_2", 0)
+        self.docall_2 = self.data.get("docall_2", 0)
+        self.doput_2 = self.data.get("doput_2", 0)
+        self.askbid_call_2 = self.data.get("askbid_call_2", 0)
+        self.askbid_put_2 = self.data.get("askbid_put_2", 0)
+
+        self.strike_c_2 = self.data.get("strike_c_2", 0)
+        self.strike_p_2 = self.data.get("strike_p_2", 0)
+        self.exp_2 = self.data.get("exp_2", "")
+
+        self.cask_2 = 0
+        self.cbid_2 = 0
+        self.pask_2 = 0
+        self.pbid_2 = 0
+
+
+
+        self.call_close_3 = self.data.get("call_close_3", 0)
+        self.put_close_3 = self.data.get("put_close_3", 0)
+        self.call_open_3 = self.data.get("call_open_3", 0)
+        self.put_open_3 = self.data.get("put_open_3", 0)
+
+        self.dcall_3 = self.data.get("dcall_3", 0)
+        self.dput_3 = self.data.get("dput_3", 0)
+        self.docall_3 = self.data.get("docall_3", 0)
+        self.doput_3 = self.data.get("doput_3", 0)
+        self.askbid_call_3 = self.data.get("askbid_call_3", 0)
+        self.askbid_put_3 = self.data.get("askbid_put_3", 0)
+
+        self.strike_c_3 = self.data.get("strike_c_3", 0)
+        self.strike_p_3 = self.data.get("strike_p_3", 0)
+        self.exp_3 = self.data.get("exp_3", "")
+
+        self.cask_3 = 0
+        self.cbid_3 = 0
+        self.pask_3 = 0
+        self.pbid_3 = 0
