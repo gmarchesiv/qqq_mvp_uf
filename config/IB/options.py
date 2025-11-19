@@ -105,9 +105,7 @@ def requestContract(app, etf, strikes, expirations, tipo, exchange):
 
         app.reqContractDetails(i, contract)
         time.sleep(3)
-        
         tiker = app.tikerOption(contract, i)
-        print(tiker)
         tiker = tiker.replace(" ", "")
 
         app.reqMktData(i, contract, "", False, False, [])
