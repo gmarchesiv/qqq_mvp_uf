@@ -396,13 +396,9 @@ def registro_strike(app, vars, params):
  
     printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
-    app.cancelMarketData(1)
-    time.sleep(1)
-    del app.options[1]
+    
 
-    app.cancelMarketData(2)
-    time.sleep(1)
-    del app.options[2]
+
 
     snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
@@ -493,13 +489,7 @@ def registro_strike_2(app, vars, params):
  
     printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
-    app.cancelMarketData(1)
-    time.sleep(1)
-    del app.options[3]
-
-    app.cancelMarketData(2)
-    time.sleep(1)
-    del app.options[4]
+    
 
     snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
@@ -589,13 +579,7 @@ def registro_strike_3(app, vars, params):
  
     printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
-    app.cancelMarketData(1)
-    time.sleep(1)
-    del app.options[5]
-
-    app.cancelMarketData(2)
-    time.sleep(1)
-    del app.options[6]
+    
 
     snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
