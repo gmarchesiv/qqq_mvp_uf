@@ -171,7 +171,7 @@ class parameters:
         # ==================================
         
         self.dcall_r1_e2 = [-0.07, 0.1 ]
-        self.docall_r1_e2 =[0.057, 0.0631]
+        self.docall_r1_e2 =[0.057, 0.062]
         self.timeCall_r1_e2 = [dt_time(10,26), dt_time(10, 40)]
         self.labelCall_r1_e2 =0
         
@@ -187,7 +187,7 @@ class parameters:
         # =======  CALL - R1 -INV ==========  
         # ==================================
         
-        self.dcall_r1_i =[-0.37, 0]
+        self.dcall_r1_i =[-0.27, 0]
         self.docall_r1_i = [0.08, 0.088]
         self.timeCall_r1_i = [dt_time(9, 34), dt_time(9,55)]
         self.labelCall_r1_i=1
@@ -225,7 +225,7 @@ class parameters:
         # ==================================
 
         # COMPRA
-        self.dcall_r2 =[0.25, 0.38]
+        self.dcall_r2 =[0.25, 0.37]
         self.docall_r2 = [0.03, 0.0335]  
         self.timeCall_r2 =  [dt_time(9, 36,30), dt_time(9, 50)]
         self.labelCall_r2=0
@@ -249,7 +249,7 @@ class parameters:
         # COMPRA
         self.dcall_r2_2 = [0.25, 0.35]
         self.docall_r2_2 = [0.03, 0.0335]  
-        self.timeCall_r2_2= [dt_time(10, 0), dt_time(10, 45)]
+        self.timeCall_r2_2= [dt_time(10, 0), dt_time(10, 30)]
         self.labelCall_r2_2=0
         self.umbral_cr2_2=0.225
         # VENTA
@@ -268,7 +268,7 @@ class parameters:
         # =========== CALL - R1-FAST =======
         # ==================================
         
-        self.dcall_r1_fast = [-0.02 ,0.125]
+        self.dcall_r1_fast = [-0.02 ,0.08]
         self.docall_r1_fast =  [0.04, 0.057]
         self.timeCall_r1_fast = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1_fast =0
@@ -284,7 +284,7 @@ class parameters:
         # =========== CALL - R3 =======
         # ==================================
         
-        self.dcall_r3 =  [ 0.2, 0.227]
+        self.dcall_r3 =  [ 0.2, 0.225]
         self.docall_r3 =  [0.03, 0.04]
         self.timeCall_r3 =  [dt_time(9, 38), dt_time(9, 45)]
         self.labelCall_r3=0
@@ -414,9 +414,9 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r1_fast = [ 0.0755, 0.155]
+        self.dput_r1_fast = [ 0.09, 0.158]
         self.doput_r1_fast = [0.0805, 0.0885]
-        self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 55)]
+        self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 50)]
         self.labelPut_r1_fast=1
 
         # VENTA
@@ -433,7 +433,7 @@ class parameters:
         
         self.dput_r1_label =  [ 0.02, 0.1]
         self.doput_r1_label = [0.03, 0.04]
-        self.timePut_r1_label = [dt_time(9, 40), dt_time(9, 55)]
+        self.timePut_r1_label = [dt_time(9, 40), dt_time(9, 51)]
         self.labelPut_r1_label=1
 
         # VENTA
@@ -469,9 +469,9 @@ class parameters:
 
         # COMPRA
         self.umbral_pr2=0.15
-        self.dput_r2 = [0.21, 0.33]  
+        self.dput_r2 = [0.21, 0.32]  
         self.doput_r2 = [0.055, 0.071]  
-        self.timePut_r2 = [dt_time(9, 45), dt_time(9, 55)]
+        self.timePut_r2 = [dt_time(9, 45), dt_time(9, 50)]
         self.labelPut_r2=1
   
         # VENTA
@@ -491,7 +491,7 @@ class parameters:
         # COMPRA
         
         self.dput_r2_e = [0.385, 0.57]  
-        self.doput_r2_e = [0.0355, 0.073]  
+        self.doput_r2_e = [0.0355, 0.055]  
         self.timePut_r2_e = [dt_time(9, 50), dt_time(9, 55)]
         self.labelPut_r2_e=1
         
@@ -537,7 +537,7 @@ class parameters:
         # COMPRA
         
         self.dput_r3 =  [ 0.166, 0.21]
-        self.doput_r3 = [0.04, 0.06] 
+        self.doput_r3 = [0.04, 0.055] 
         self.timePut_r3 = [dt_time(9, 55), dt_time(10, 40)]
         self.labelPut_r3=1
 
@@ -589,7 +589,7 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r2_fast = [ 0.21, 0.43]
+        self.dput_r2_fast = [ 0.26, 0.42]
         self.doput_r2_fast = [0.055, 0.065]
         self.timePut_r2_fast = [dt_time(9, 34), dt_time(9, 35,30)]
         self.labelPut_r2_fast=1
