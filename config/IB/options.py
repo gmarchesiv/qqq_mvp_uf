@@ -277,7 +277,7 @@ def snapshot(app, etf, strike, exp, exchange):
         create_contract_OPT(etf, "OPT", exchange, "USD", strike[0], exp, "P"),
     ]
 
-    for i, contract in enumerate(contracts, start=(len(app.options) + 1)):
+    for i, contract in enumerate(contracts, start=app.id_IO) :
 
         app.reqMktData(i, contract, "", False, False, [])
         time.sleep(3)
@@ -287,7 +287,7 @@ def snapshot(app, etf, strike, exp, exchange):
             "ASK": 0,
             "BID": 0,
         }
-
+    app.id_IO=app.id_IO+2
  
 def list_checkExpirations(app, etf, params, exchange):
     name = f"{exchange}_{etf}"

@@ -83,7 +83,7 @@ class IBapi(EWrapper, EClient):
         self.alerta = False
 
         self.executions = []
-        self.id_IO=10
+        self.id_IO=21
 
     # ================= IB CONTROL =================
     def error(

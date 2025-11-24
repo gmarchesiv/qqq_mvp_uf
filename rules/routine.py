@@ -409,12 +409,12 @@ def registro_strike(app, vars, params):
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {app.options[1]['ASK'] } | CBID: {app.options[1]['BID'] }")
-            printStamp(f"PASK: {app.options[2]['ASK'] } | PBID: {app.options[2]['BID'] }")
-        if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
+            printStamp(f"CASK: {app.options[21]['ASK'] } | CBID: {app.options[21]['BID'] }")
+            printStamp(f"PASK: {app.options[22]['ASK'] } | PBID: {app.options[22]['BID'] }")
+        if app.options[21]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[21]["ASK"] / app.options[21]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
+        if app.options[22]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[22]["ASK"] / app.options[22]["BID"] - 1):
             readyOpt += 1
             
    
@@ -427,8 +427,8 @@ def registro_strike(app, vars, params):
     vars.exp = exp
     vars.strike_p = put_strike
     vars.strike_c = call_strike
-    vars.put_close = app.options[2]["BID"]
-    vars.call_close = app.options[1]["BID"]
+    vars.put_close = app.options[22]["BID"]
+    vars.call_close = app.options[21]["BID"]
     print("===============================================")
     printStamp(
         f"GUARDADO: {vars.exp} | PUT-STRIKE: {vars.strike_p} PUT-CLOSE: {vars.put_close} | CALL-STRIKE: {vars.strike_c} CALL-CLOSE: {vars.call_close}  "
@@ -500,12 +500,12 @@ def registro_strike_2(app, vars, params):
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {app.options[3]['ASK'] } | CBID: {app.options[3]['BID'] }")
-            printStamp(f"PASK: {app.options[4]['ASK'] } | PBID: {app.options[4]['BID'] }")
-        if app.options[3]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[3]["ASK"] / app.options[3]["BID"] - 1):
+            printStamp(f"CASK: {app.options[23]['ASK'] } | CBID: {app.options[23]['BID'] }")
+            printStamp(f"PASK: {app.options[24]['ASK'] } | PBID: {app.options[24]['BID'] }")
+        if app.options[23]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[23]["ASK"] / app.options[23]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[4]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[4]["ASK"] / app.options[4]["BID"] - 1):
+        if app.options[24]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[24]["ASK"] / app.options[24]["BID"] - 1):
             readyOpt += 1
             
    
@@ -518,8 +518,8 @@ def registro_strike_2(app, vars, params):
     vars.exp_2 = exp
     vars.strike_p_2 = put_strike
     vars.strike_c_2 = call_strike
-    vars.put_close_2 = app.options[4]["BID"]
-    vars.call_close_2 = app.options[3]["BID"]
+    vars.put_close_2 = app.options[24]["BID"]
+    vars.call_close_2 = app.options[23]["BID"]
     print("===============================================")
     printStamp(
         f"GUARDADO: {vars.exp_2} | PUT-STRIKE: {vars.strike_p_2} PUT-CLOSE: {vars.put_close_2} | CALL-STRIKE: {vars.strike_c_2} CALL-CLOSE: {vars.call_close_2}  "
@@ -590,12 +590,12 @@ def registro_strike_3(app, vars, params):
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {app.options[5]['ASK'] } | CBID: {app.options[5]['BID'] }")
-            printStamp(f"PASK: {app.options[6]['ASK'] } | PBID: {app.options[6]['BID'] }")
-        if app.options[5]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[5]["ASK"] / app.options[5]["BID"] - 1):
+            printStamp(f"CASK: {app.options[25]['ASK'] } | CBID: {app.options[25]['BID'] }")
+            printStamp(f"PASK: {app.options[26]['ASK'] } | PBID: {app.options[26]['BID'] }")
+        if app.options[25]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[25]["ASK"] / app.options[25]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[6]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[6]["ASK"] / app.options[6]["BID"] - 1):
+        if app.options[26]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[26]["ASK"] / app.options[26]["BID"] - 1):
             readyOpt += 1
             
    
@@ -608,8 +608,8 @@ def registro_strike_3(app, vars, params):
     vars.exp_3 = exp
     vars.strike_p_3 = put_strike
     vars.strike_c_3 = call_strike
-    vars.put_close_3 = app.options[6]["BID"]
-    vars.call_close_3 = app.options[5]["BID"]
+    vars.put_close_3 = app.options[26]["BID"]
+    vars.call_close_3 = app.options[25]["BID"]
     print("===============================================")
     printStamp(
         f"GUARDADO: {vars.exp_3} | PUT-STRIKE: {vars.strike_p_3} PUT-CLOSE: {vars.put_close_3} | CALL-STRIKE: {vars.strike_c_3} CALL-CLOSE: {vars.call_close_3}  "
