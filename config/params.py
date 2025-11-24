@@ -75,7 +75,7 @@ class parameters:
         self.inf_n = -9
  
         # SELECCION DE STRIKES 
-        self.rangos_strikes_2 = [[2, 2.5] ]
+        self.rangos_strikes_2 = [[1.9, 2.6] ]
         self.rangos_strikes = [[0, 1] ]
         self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
         self.days_max_exp = 39 
@@ -210,7 +210,7 @@ class parameters:
         # =======  CALL - C       ==========  
         # ==================================
         
-        self.dcall_r1_c =[-0.17,-0.04]
+        self.dcall_r1_c =[-0.17,-0.1]
         self.docall_r1_c = [0.1, 0.11]
         self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
         self.labelCall_r1_c=0
@@ -248,7 +248,7 @@ class parameters:
         # ==================================
 
         # COMPRA
-        self.dcall_r2_2 = [0.25, 0.38]
+        self.dcall_r2_2 = [0.25, 0.35]
         self.docall_r2_2 = [0.03, 0.0335]  
         self.timeCall_r2_2= [dt_time(10, 0), dt_time(10, 45)]
         self.labelCall_r2_2=0
@@ -304,7 +304,7 @@ class parameters:
         
         self.dcall_r1_f1 = [-0.22,-0.08]
         self.docall_r1_f1 = [0.095, 0.11]
-        self.timeCall_r1_f1 = [dt_time(12, 30), dt_time(12, 32)]
+        self.timeCall_r1_f1 = [dt_time(12, 30), dt_time(12, 31)]
         self.labelCall_r1_f1=0
 
         # VENTA
@@ -326,7 +326,7 @@ class parameters:
         
         self.dcall_r1_f2 = [0.25, 0.35]
         self.docall_r1_f2 = [0.095, 0.11]
-        self.timeCall_r1_f2 = [dt_time(12, 30), dt_time(12, 32)]
+        self.timeCall_r1_f2 = [dt_time(12, 30), dt_time(12, 31)]
         self.labelcall_r1_f2=0
 
         # VENTA
@@ -449,10 +449,10 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r1_label_2 = [ 0.02, 0.1]
+        self.dput_r1_label_2 = [ 0.02, 0.095]
         self.doput_r1_label_2 = [0.03, 0.04]
     
-        self.timePut_r1_label_2 = [dt_time(10, 1), dt_time(10, 50)]
+        self.timePut_r1_label_2 = [dt_time(10, 7), dt_time(10, 32)]
         self.labelPut_r1_label_2=1
 
         # VENTA

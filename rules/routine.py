@@ -11,6 +11,7 @@ from config.IB.options import (
     list_checkExpirations,
     list_checkExpirations_2,
     req_Options,
+    revisar_OI,
     snapshot,
 )
 from config.IB.wallet import wallet_cash, wallet_load
