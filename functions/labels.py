@@ -56,6 +56,8 @@ def generar_garch(params, varsLb,app):
  
 
 def generar_hour_back(params, varsLb,app):
+    print("generar")
+    print(varsLb.ret_1H_back)
     varsLb.ret_1H_back.append(app.etfs[10]['price'])
     varsLb.ret_3H_back.append(app.etfs[10]['price'])
     varsLb.ret_6H_back.append(app.etfs[10]['price'])

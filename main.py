@@ -175,6 +175,7 @@ def main():
         if vars.fecha != now:
             clean_vars(vars,varsApp)
             data_option_open(app,vars,params)
+            print("generar")
             generar_label(params, varsLb,app)
 
             timeNow = datetime.now(params.zone).time()
