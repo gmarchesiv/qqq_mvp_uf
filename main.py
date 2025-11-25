@@ -175,7 +175,7 @@ def main():
         if vars.fecha != now:
             clean_vars(vars,varsApp)
             data_option_open(app,vars,params)
-            print("generar")
+            
             generar_label(params, varsLb,app)
 
             timeNow = datetime.now(params.zone).time()
@@ -185,7 +185,7 @@ def main():
                varsApp.flag_bloqueo_tiempo=True
         else:
             load_app_vars(app, varsApp)
-  
+        print(varsLb.ret_1H_back,"e")
         wallet_config(app, params, vars)
 
         # sendStart(app, params)
@@ -202,7 +202,7 @@ def main():
         del dia y se rompe al finalizar el trading day. 
         '''
         #---------------------------------------------------
-
+        print(varsLb.ret_1H_back,"da")
         while True:
 
             timeNow = datetime.now(params.zone).time()
@@ -220,8 +220,11 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
+
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+                
                 if varsLb.flag_minuto_label:
+                    print(varsLb.ret_1H_back,"c")
                     generar_label(params, vars,app)
                     vars.flag_minuto_label=False
                     time.sleep(0.5)
@@ -285,7 +288,7 @@ def main():
                 '''
                 #---------------------------------------------------
                 if int(timeNow.second) in params.frecuencia_accion:
-                    
+                    print(varsLb.ret_1H_back,"b")
                     # saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
                     calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
                     # readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
@@ -309,7 +312,7 @@ def main():
                     # ================================
  
                     registration(app, vars,varsApp, varsLb,params)
-                
+                    print(varsLb.ret_1H_back,"a")
                     time.sleep(0.5)
     
                 # ==================================
