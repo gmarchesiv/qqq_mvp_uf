@@ -33,7 +33,7 @@ class varsLabel:
   
         else:
             self.data={}
-        print(self.data )
+        # print(self.data )
         ###############################################
         # LABEL
         ###############################################
