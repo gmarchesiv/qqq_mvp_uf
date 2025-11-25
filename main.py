@@ -219,16 +219,16 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
-            # if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
-            #     if varsLb.flag_minuto_label:
-            #         generar_label(params, vars,app)
-            #         vars.flag_minuto_label=False
-            #         time.sleep(0.5)
-            #         calculations(app, vars, params)
-            #         readIBData(app, vars) 
+            if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
+                if varsLb.flag_minuto_label:
+                    generar_label(params, vars,app)
+                    vars.flag_minuto_label=False
+                    time.sleep(0.5)
+                    # calculations(app, vars, params)
+                    # readIBData(app, vars) 
 
-            # else:
-            #     varsLb.flag_minuto_label=True
+            else:
+                varsLb.flag_minuto_label=True
 
             # ==================================
             #  -        DAY TRADING            -
