@@ -48,17 +48,7 @@ class varsLabel:
         self.mu=self.data.get("mu", 0.000622019)
         self.mu_conteo=self.data.get("mu_conteo", 358123)
 
-        
-        # DEQUES
- 
-        self.retorno_lista =  deque(self.retorno_lista, maxlen=79)
-        self.ret_1H_back= deque(self.ret_1H_back, maxlen=1)
-        self.ret_3H_back= deque(self.ret_3H_back, maxlen=3)
-        self.ret_6H_back= deque(self.ret_6H_back, maxlen=6)
-        self.ret_12H_back= deque(self.ret_12H_back, maxlen=12)
-        self.ret_24H_back= deque(self.ret_24H_back, maxlen=24)
-        self.ret_96H_back= deque(self.ret_96H_back, maxlen=96)
-        self.etf_price_lista=deque(self.etf_price_lista, maxlen=200)
+
         # Listas
 
         self.retorno_lista = self.data.get("retorno_lista", [])
@@ -71,6 +61,16 @@ class varsLabel:
         self.etf_price_lista=self.data.get("etf_price_lista", [])
         
 
+        # DEQUES
+ 
+        self.retorno_lista =  deque(self.retorno_lista, maxlen=79)
+        self.ret_1H_back= deque(self.ret_1H_back, maxlen=1)
+        self.ret_3H_back= deque(self.ret_3H_back, maxlen=3)
+        self.ret_6H_back= deque(self.ret_6H_back, maxlen=6)
+        self.ret_12H_back= deque(self.ret_12H_back, maxlen=12)
+        self.ret_24H_back= deque(self.ret_24H_back, maxlen=24)
+        self.ret_96H_back= deque(self.ret_96H_back, maxlen=96)
+        self.etf_price_lista=deque(self.etf_price_lista, maxlen=200)
 
   
         print(self.ret_1H_back)
