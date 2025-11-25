@@ -92,7 +92,8 @@ def clusterizar(params, varsLb,app):
     
     scaler = joblib.load('/usr/src/app/functions/scaler.joblib')
     km = joblib.load('/usr/src/app/functions/model.joblib')
-
+    print(app.etfs[10]['price'])
+    print(varsLb.ret_1H_back)
     df=pd.DataFrame(
 
         {

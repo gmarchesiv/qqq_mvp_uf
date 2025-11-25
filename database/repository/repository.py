@@ -226,7 +226,7 @@ def writeLabel(app, varsLb,params):
             signo = varsLb.signo,
             varianza = varsLb.varianza,
             garch=varsLb.garch,
-
+            
             ret_1H_back= float(app.etfs[10]['price']/ varsLb.ret_1H_back[0] -1)*100,
             ret_3H_back=float(app.etfs[10]['price']/ varsLb.ret_3H_back[0] -1)*100,
             ret_6H_back= float(app.etfs[10]['price']/ varsLb.ret_6H_back[0] -1)*100,
