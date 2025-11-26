@@ -77,7 +77,7 @@ class parameters:
         # SELECCION DE STRIKES 
         self.rangos_strikes_2 = [[1.9, 2.6] ]
         self.rangos_strikes = [[0, 1] ]
-        self.days_min_exp = 25  # DIAS para el exp minimo de busqueda
+        self.days_min_exp = 23  # DIAS para el exp minimo de busqueda
         self.days_max_exp = 39 
         self.except_days_min_exp = 28
 
