@@ -361,7 +361,7 @@ def main():
             # Corte de conexión con IB
             try:
                 vars.status = "ERROR"
-                
+                vars.conexion=False
                 saveVars(vars, app, params, False)
             except Exception as e:
                 print(type(e).__name__, ":", e)
@@ -395,7 +395,7 @@ def main():
         try:
             try:
                 vars.status = "ERROR"
-              
+                vars.conexion=False
                 saveVars(vars, app, params, False)
                 error=f"{e}"
                 sendError(params, error)
