@@ -653,13 +653,21 @@ def calculos_call(vars, params,varsLb,debug_mode):
     else:
         pass
     
+    if debug_mode and vars.i>0:
 
-    if (vars.flag_cambio_fast==False  and  
-        varsLb.label==params.labelCall_r1_fast  and  
-       timeNow >= dt_time(9, 33) and  #VITA EL CAMBIO DE NOCHE A MAñana
+        if (vars.flag_cambio_fast==False  and  
+            varsLb.label==params.labelCall_r1_fast  and 
+            vars.df["FECHA"][vars.i]==vars.df["FECHA"][vars.i-1] and  #EVITA EL CAMBIO DE NOCHE A MAñana
+            varsLb.label!=vars.label_ant):
+
+            vars.flag_cambio_fast=True
+    else:
+        if (vars.flag_cambio_fast==False  and  
+            varsLb.label==params.labelCall_r1_fast  and  
+        timeNow >= dt_time(9, 33) and  #EVITA EL CAMBIO DE NOCHE A MAñana
         varsLb.label!=vars.label_ant):
 
-        vars.flag_cambio_fast=True
+            vars.flag_cambio_fast=True
   
 
 def calculos_put(vars, params ):
@@ -757,16 +765,37 @@ def calculos_previos(vars,varsLb, params,debug_mode):
         vars.flag_bloqueo_r1_e=True
   
  
+    if debug_mode and vars.i>0:
+        if (vars.flag_cambio_f==False and 
+            timeNow >= params.timePut_r1_f[0] and
+            varsLb.label==params.labelPut_r1_f  and  
+            varsLb.label!=vars.label_ant  and
+            vars.df["FECHA"][vars.i]==vars.df["FECHA"][vars.i-1]  #EVITA EL CAMBIO DE NOCHE A MAñana
+            ):
+            vars.flag_cambio_f=True
 
-    if (vars.flag_cambio_f==False and 
-        timeNow >= params.timePut_r1_f[0] and
-         varsLb.label==params.labelPut_r1_f  and  
-         varsLb.label!=vars.label_ant 
-        ):
-        vars.flag_cambio_f=True
+        if  (( timeNow <= params.timePut_r1_label_2[1]) and 
+            ( varsLb.label!=vars.label_ant  and
+                varsLb.label==params.labelPut_r1_label and 
+                vars.flag_cambio_R1_label==False)and
+                vars.df["FECHA"][vars.i]==vars.df["FECHA"][vars.i-1]  #EVITA EL CAMBIO DE NOCHE A MAñana
+                ) :
+            vars.flag_cambio_R1_label=True
+        
 
-    if  (( timeNow <= params.timePut_r1_label_2[1]) and 
-          ( varsLb.label!=vars.label_ant  and
-            varsLb.label==params.labelPut_r1_label and 
-            vars.flag_cambio_R1_label==False)) :
-        vars.flag_cambio_R1_label=True
+    else:
+        if (vars.flag_cambio_f==False and 
+            timeNow >= params.timePut_r1_f[0] and
+            varsLb.label==params.labelPut_r1_f  and  
+            varsLb.label!=vars.label_ant  and
+            timeNow >= dt_time(9, 33)    #EVITA EL CAMBIO DE NOCHE A MAñana
+            ):
+            vars.flag_cambio_f=True
+
+        if  (( timeNow <= params.timePut_r1_label_2[1]) and 
+            ( varsLb.label!=vars.label_ant  and
+                varsLb.label==params.labelPut_r1_label and 
+                vars.flag_cambio_R1_label==False)and
+                timeNow >= dt_time(9, 33)    #EVITA EL CAMBIO DE NOCHE A MAñana
+                ) :
+            vars.flag_cambio_R1_label=True

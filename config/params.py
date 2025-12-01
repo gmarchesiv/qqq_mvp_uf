@@ -131,7 +131,7 @@ class parameters:
         
         self.dcall_r1 =  [0.11, 0.129]
         self.docall_r1 =[0.03, 0.035]
-        self.timeCall_r1 = [dt_time(9, 35), dt_time(10, 1)]
+        self.timeCall_r1 = [dt_time(9, 35), dt_time(10, 2)]
         self.labelCall_r1 =0
         
         # VENTA
