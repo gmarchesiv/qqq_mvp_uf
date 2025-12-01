@@ -224,8 +224,8 @@ def main():
                     generar_label(params, varsLb,app)
                     vars.flag_minuto_label=False
                     time.sleep(0.5)
-                    calculations(app, vars, params)
-                    readIBData(app, vars) 
+                    calculations(app, vars,varsBc, params) 
+                    readIBData(app, vars,varsLb)
 
             else:
                 varsLb.flag_minuto_label=True
