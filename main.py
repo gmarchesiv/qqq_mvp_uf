@@ -201,7 +201,7 @@ def main():
         del dia y se rompe al finalizar el trading day. 
         '''
         #---------------------------------------------------
-
+        vars.ready=True
         while True:
 
             timeNow = datetime.now(params.zone).time()
@@ -362,6 +362,7 @@ def main():
             try:
                 vars.status = "ERROR"
                 vars.conexion=False
+                vars.ready=False
                 saveVars(vars, app, params, False)
             except Exception as e:
                 print(type(e).__name__, ":", e)
@@ -396,6 +397,7 @@ def main():
             try:
                 vars.status = "ERROR"
                 vars.conexion=False
+                vars.ready=False
                 saveVars(vars, app, params, False)
                 error=f"{e}"
                 sendError(params, error)

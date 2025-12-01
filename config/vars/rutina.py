@@ -164,6 +164,7 @@ class varsRutina:
         self.buy_regla_broadcasting = self.data.get("buy_regla_broadcasting", "")
         self.user_broadcasting = self.data.get("user_broadcasting", "")
         self.conexion = self.data.get("conexion", True)
+        self.ready = self.data.get("ready", False)
         self.venta_intentos= self.data.get("venta_intentos", 0)
         self.regla_broadcasting = self.data.get("regla_broadcasting", "")
 
