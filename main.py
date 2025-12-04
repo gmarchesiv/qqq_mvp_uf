@@ -202,6 +202,7 @@ def main():
         del dia y se rompe al finalizar el trading day. 
         '''
         #---------------------------------------------------
+        broadcasting_Alinear_label(varsLb,params) 
         vars.ready=True
         while True:
 
