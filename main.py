@@ -36,6 +36,7 @@ from rules.routine import (
     registration,
     registro_strike,
     registro_strike_OI,
+    registro_strike_proximo,
     saveTransaction 
 )
 
@@ -336,7 +337,7 @@ def main():
                 #---------------------------------------------------
 
                 printStamp(" - Registrando Nuevo Strike - ")
-                registro_strike_OI(app, vars, params)
+                registro_strike_proximo(app, vars, params)
                 
                 vars.status = "OFF"
                 vars.ready=False
