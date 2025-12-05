@@ -172,10 +172,14 @@ def main():
         #---------------------------------------------------
 
         now = datetime.now(params.zone).strftime("%Y-%m-%d")
-
+        
         if vars.fecha != now:
             clean_vars(vars,varsApp)
             data_option_open(app,vars,params)
+            
+            broadcasting_Alinear_label(varsLb,params) 
+            time.sleep(5)
+
             generar_label(params, varsLb,app)
 
             timeNow = datetime.now(params.zone).time()
@@ -185,6 +189,8 @@ def main():
                varsApp.flag_bloqueo_tiempo=True
         else:
             load_app_vars(app, varsApp)
+            broadcasting_Alinear_label(varsLb,params) 
+ 
   
         wallet_config(app, params, vars)
 
@@ -202,7 +208,7 @@ def main():
         del dia y se rompe al finalizar el trading day. 
         '''
         #---------------------------------------------------
-        broadcasting_Alinear_label(varsLb,params) 
+        
         vars.ready=True
         while True:
 
