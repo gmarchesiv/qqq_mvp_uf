@@ -22,11 +22,7 @@
             "user": "Javier Briceño",
             "rama":false
         },
-        {
-            "ip": "10.8.0.27:8000",
-            "user": "Juan Carlos Mandujano",
-            "rama":false
-        },
+     
         {
             "ip": "10.8.0.28:8000",
             "user": "Orlando Marchesi",
