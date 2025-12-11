@@ -589,7 +589,7 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r2_fast = [ 0.26, 0.42]
+        self.dput_r2_fast = [ 0.30, 0.42]
         self.doput_r2_fast = [0.055, 0.065]
         self.timePut_r2_fast = [dt_time(9, 34), dt_time(9, 35,30)]
         self.labelPut_r2_fast=1
