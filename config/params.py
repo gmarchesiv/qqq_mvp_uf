@@ -131,7 +131,7 @@ class parameters:
         
         self.dcall_r1 =  [0.11, 0.129]
         self.docall_r1 =[0.03, 0.035]
-        self.timeCall_r1 = [dt_time(9, 35), dt_time(10, 2)]
+        self.timeCall_r1 = [dt_time(9, 37), dt_time(10, 2)]
         self.labelCall_r1 =0
         
         # VENTA
@@ -191,7 +191,8 @@ class parameters:
         self.docall_r1_i = [0.078, 0.088]
         self.timeCall_r1_i = [dt_time(9, 34), dt_time(9,55)]
         self.labelCall_r1_i=1
-        self.dcall_r1_i_dput=0.27
+        # self.dcall_r1_i_dput=0.27
+        self.dcall_r1_i_dput =[-0.088, -0.035]
         
         # VENTA
         
@@ -347,7 +348,7 @@ class parameters:
         self.docall_r1_2 = [0.03, 0.035]
         self.timeCall_r1_2 = [dt_time(9, 34), dt_time(9, 40)]
         self.labelCall_r1_2 =0
-        
+        self.docall_r1_2_doput =[-0.07, -0.018] 
         # VENTA
     
         # min_desicion_cr1  = 60
@@ -417,6 +418,7 @@ class parameters:
         self.dput_r1_fast = [ 0.09, 0.158]
         self.doput_r1_fast = [0.0805, 0.0885]
         self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 50)]
+        self.doput_r1_fast_dcall =[ -0.21,-0.13]
         self.labelPut_r1_fast=1
 
         # VENTA
@@ -434,6 +436,7 @@ class parameters:
         self.dput_r1_label =  [ 0.02, 0.106]
         self.doput_r1_label = [0.03, 0.04]
         self.timePut_r1_label = [dt_time(9, 40), dt_time(9, 51)]
+        self.doput_r1_label_docall =[-0.09, -0.02]
         self.labelPut_r1_label=1
 
         # VENTA
@@ -539,6 +542,7 @@ class parameters:
         self.dput_r3 =  [ 0.166, 0.215]
         self.doput_r3 = [0.04, 0.055] 
         self.timePut_r3 = [dt_time(9, 55), dt_time(10, 40)]
+        self.doput_r3_dcall = [-0.231,-0.095]
         self.labelPut_r3=1
 
         # VENTA
@@ -571,9 +575,9 @@ class parameters:
         
         self.dput_r1_i_5 =[-0.18, -0.129]
         self.doput_r1_i_5 = [0.03, 0.038]
-        self.timePut_r1_i_5 = [dt_time(9,34), dt_time(9,55)]
+        self.timePut_r1_i_5 = [dt_time(9,35,20), dt_time(9,50,20)]
         self.labelPut_r1_i_5=0
-        
+        self.doput_r1_i_5_dcall = [0.065,0.24]
         # VENTA
         self.sl_pr1_i_5=-0.046  # STOP LOSS
         # min_desicion_pr1_i_3  = 60
