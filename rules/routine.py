@@ -357,7 +357,7 @@ def registro_strike(app, vars, params):
     list_exp = list_checkExpirations_2(app, app.etfs[10]["symbol"], params, vars.exchange)
 
 
-    precio = app.etfs[5]["price"]
+    precio = app.etfs[10]["price"]
     vars.precio=precio
     printStamp(f"PRECIO: {app.etfs[5]['price']} $")
 
