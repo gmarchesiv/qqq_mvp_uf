@@ -39,7 +39,8 @@ class parameters:
         self.token = os.getenv("TOKENBOT")
         self.typeIB = os.getenv("TYPEIB")
         self.cuenta = os.getenv("CUENTA")
- 
+        self.strike_escenario =int( os.getenv("STRIKE"))
+        self.strike_unidad = int(os.getenv("UNIDAD"))
         ###############################################
         #               PARAMETROS -  conexión IBKR
         ###############################################
