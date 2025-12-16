@@ -287,7 +287,7 @@ def main():
                     
                     # saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
                     calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
-                    # readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
+                    readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
 
                     # Se Bloquea en caso la configuracion de la wallet te indique
                     # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:

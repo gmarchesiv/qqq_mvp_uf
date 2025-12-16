@@ -359,7 +359,7 @@ def registro_strike(app, vars, params):
 
     precio = app.etfs[10]["price"]
     vars.precio=precio
-    printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+    printStamp(f"PRECIO: {app.etfs[10]["price"]} $")
 
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
@@ -385,7 +385,7 @@ def registro_strike(app, vars, params):
     
     for exp in list_exp:
         strikes = checkStrike(
-        app, exp, app.etfs[5]["symbol"], "C", vars.exchange
+        app, exp, app.etfs[10]["symbol"], "C", vars.exchange
     )
         put_list = [
             float(x) for x in strikes if put <= float(x) <= put_inf
@@ -464,7 +464,7 @@ def registro_strike_2(app, vars, params):
 
 
     precio = vars.precio
-    printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+    printStamp(f"PRECIO: {app.etfs[10]["price"]} $")
 
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
@@ -490,7 +490,7 @@ def registro_strike_2(app, vars, params):
     
     for exp in list_exp:
         strikes = checkStrike(
-        app, exp, app.etfs[5]["symbol"], "C", vars.exchange
+        app, exp, app.etfs[10]["symbol"], "C", vars.exchange
     )
         put_list = [
             float(x) for x in strikes if put <= float(x) <= put_inf
