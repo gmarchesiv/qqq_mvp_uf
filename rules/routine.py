@@ -364,8 +364,8 @@ def registro_strike(app, vars, params):
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
 
-    call_inf = (round(int(precio * ((100 + params.strike_escenario) / 100))/ 5) * 5)-params.strike_unidad
-    put_inf = (round(int(precio * ((100 - params.strike_escenario) / 100))/ 5) * 5 )+params.strike_unidad
+    call_inf = (round(int(precio * ((100 + params.strike_escenario) / 100))/ 5) * 5)+params.strike_unidad
+    put_inf = (round(int(precio * ((100 - params.strike_escenario) / 100))/ 5) * 5 )-params.strike_unidad
     
     call = call_inf+10
     put = put_inf-10
@@ -469,8 +469,8 @@ def registro_strike_2(app, vars, params):
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
 
-    call_inf = (round(int(precio * ((100 + params.strike_escenario) / 100))/ 5) * 5)-params.strike_unidad
-    put_inf = (round(int(precio * ((100 - params.strike_escenario) / 100))/ 5) * 5 )+params.strike_unidad
+    call_inf = (round(int(precio * ((100 + params.strike_escenario) / 100))/ 5) * 5)+params.strike_unidad
+    put_inf = (round(int(precio * ((100 - params.strike_escenario) / 100))/ 5) * 5 )-params.strike_unidad
     
     call = call_inf+10
     put = put_inf-10
