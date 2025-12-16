@@ -99,8 +99,8 @@ class parameters:
 
         #PARAMETROS DE TIEMPO DE RUTINA Y MUESTRAS
     
-        self.fin_rutina =  dt_time(15, 20)
-        self.fd =  dt_time(15, 20)
+        self.fin_rutina = dt_time(15, 55)
+        self.fd =  dt_time(15, 30)
         self.rutina = [dt_time(6, 50), dt_time(16, 0)]
         self.frecuencia_accion =[i for i in range(0, 60, 2)]
         
