@@ -359,7 +359,7 @@ def registro_strike(app, vars, params):
 
     precio = app.etfs[10]["price"]
     vars.precio=precio
-    printStamp(f"PRECIO: {app.etfs[10]["price"]} $")
+    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
@@ -464,7 +464,7 @@ def registro_strike_2(app, vars, params):
 
 
     precio = vars.precio
-    printStamp(f"PRECIO: {app.etfs[10]["price"]} $")
+    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     # call = int(precio * ((100 + params.strike_escenario+0.5) / 100))
     # put = int(precio * ((100 - params.strike_escenario-0.5) / 100))
