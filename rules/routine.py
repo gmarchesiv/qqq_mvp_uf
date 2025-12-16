@@ -146,7 +146,7 @@ def data_susciption(app, params, vars):
         #     ready += 1
         # if app.options[6]["ASK"] > 0 and app.options[6]["BID"] > 0:
         #     ready += 1
-        if ready == 4:
+        if ready == 6:
             break
 
         time.sleep(0.5)
