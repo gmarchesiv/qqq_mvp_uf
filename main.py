@@ -127,6 +127,9 @@ def main():
             return
 
         # Cuenta regresiva para iniciar.
+        try:
+            broadcasting_Alinear_label(varsLb,params) 
+        except:pass
         countdown(params.zone)
 
         # Registro de sesion.
