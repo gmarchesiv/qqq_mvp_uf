@@ -1,5 +1,5 @@
 # Dockerfile para python_script
-FROM python:3.8
+FROM python:3.10
 
 WORKDIR /usr/src/app
 
