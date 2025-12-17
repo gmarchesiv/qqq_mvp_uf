@@ -204,7 +204,8 @@ def main():
         del dia y se rompe al finalizar el trading day. 
         '''
         #---------------------------------------------------
-
+        vars.ready=True
+        flag_label_BC=True
         while True:
 
             timeNow = datetime.now(params.zone).time()
@@ -222,6 +223,9 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
+            if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
+                broadcasting_Alinear_label(varsLb,params) 
+                flag_label_BC=False
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
                     generar_label(params, varsLb,app)
