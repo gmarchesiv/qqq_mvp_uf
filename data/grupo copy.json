@@ -44,6 +44,16 @@
             "ip": "10.8.0.20:8000",
             "user": "Andres Sotomayor",
             "rama":false
+        },
+        {
+            "ip": "10.8.0.29:8000",
+            "user": "Alvaro Rodriguez ",
+            "rama":false
+        },
+        {
+            "ip": "10.8.0.19:8000",
+            "user": "Renzo Muente ",
+            "rama":false
         }
     ]
 }
