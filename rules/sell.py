@@ -118,13 +118,13 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
 
     vars.caida = vars.rentabilidad - vars.pico
 
-    if vars.askbid_call > params.max_askbid_venta_abs or vars.cbid <= 0 or vars.askbid_call<0 :
-        proteccion_askbid_flag=False
-        for hora in params.proteccion_ask_bid:
-            if (timeNow >= hora[0] and timeNow<= hora[1]):
-                proteccion_askbid_flag=True
-        if proteccion_askbid_flag:
-            return
+    # if vars.askbid_call > params.max_askbid_venta_abs or vars.cbid <= 0 or vars.askbid_call<0 :
+    proteccion_askbid_flag=False
+    for hora in params.proteccion_ask_bid:
+        if (timeNow >= hora[0] and timeNow<= hora[1]):
+            proteccion_askbid_flag=True
+    if proteccion_askbid_flag:
+        return
    
     
     if timeNow >= params.fd:
@@ -332,7 +332,7 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
     else:
 
         # vars.manifesto
-        if vars.rentabilidad >= manifestacion:
+        if vars.pico >= manifestacion:
             vars.manifesto = True
             vars.minutos = 0
             # DIAMANTE
@@ -411,13 +411,13 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
     vars.caida = vars.rentabilidad - vars.pico
 
-    if vars.askbid_put > params.max_askbid_venta_abs or vars.pbid <= 0 or vars.askbid_put<0 :
-        proteccion_askbid_flag=False
-        for hora in params.proteccion_ask_bid:
-            if (timeNow >= hora[0] and timeNow<= hora[1]):
-                proteccion_askbid_flag=True
-        if proteccion_askbid_flag:
-            return
+    # if vars.askbid_put > params.max_askbid_venta_abs or vars.pbid <= 0 or vars.askbid_put<0 :
+    proteccion_askbid_flag=False
+    for hora in params.proteccion_ask_bid:
+        if (timeNow >= hora[0] and timeNow<= hora[1]):
+            proteccion_askbid_flag=True
+    if proteccion_askbid_flag:
+        return
         
     # # FIN DE DIA DE TRADE
  
@@ -444,17 +444,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
     #     return
 
-    # REGLA PROTECCION
-    if (
-         vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-        and vars.manifesto == False and vars.pico>0  
-    ):
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "P",  "PROTECCION_D" ,debug_mode
-        )
-
-        return
+    
 
 
     # REGLA PROTECCION
@@ -596,7 +586,18 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         manifestacion=params.umbral_manifestacion_pR1_f
         nmt=params.inf
  
+    # REGLA PROTECCION
+    if (
+         vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
+        and vars.manifesto == False and vars.pico>0  and
+        vars.pico < diamante[0]
+    ):
+        sell(
+            app,varsBc,varsLb,vars,params,
+            "P",  "PROTECCION_D" ,debug_mode
+        )
 
+        return
     #########################################################
     ####################      VENTA       ###################
     #########################################################
@@ -627,8 +628,9 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             pass
 
     else:
+        # print(vars.df["FECHA"][vars.i],vars.df["HORA"][vars.i],vars.rentabilidad*100 , vars.pico*100 )
         # vars.manifesto
-        if vars.rentabilidad >= manifestacion:
+        if vars.pico >= manifestacion:
             vars.manifesto = True
             vars.minutos = 0
 
