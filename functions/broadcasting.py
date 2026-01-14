@@ -38,7 +38,7 @@ def broadcasting_Alinear(varsBc,vars):
                 data = json.load(json_file)
             except Exception as e:
                 print(type(e).__name__, ":", e)
-                varsBc = varsBroadcasting()
+                varsBc = varsBroadcasting(debug_mode=False)
                 data = json.load(json_file)
 
             if "aliniar" in data:
@@ -156,7 +156,7 @@ def broadcasting_sell(varsBc,varsLb,vars,params,app):
                     data = json.load(json_file)
                 except Exception as e:
                     print(type(e).__name__, ":", e)
-                    varsBc = varsBroadcasting()
+                    varsBc = varsBroadcasting(debug_mode=False)
                     data = json.load(json_file)
                     
                 if 'sell' in data:
@@ -210,7 +210,7 @@ def broadcasting_sell_auto(varsBc,varsLb,vars,params,app):
                 data = json.load(json_file)
             except Exception as e:
                 print(type(e).__name__, ":", e)
-                varsBc = varsBroadcasting()
+                varsBc = varsBroadcasting(debug_mode=False)
                 data = json.load(json_file)
  
             if 'sell' in data:
