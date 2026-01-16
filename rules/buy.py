@@ -178,7 +178,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,debug_mode):
     #     (timeNow >= params.timeCall_r1_c[0] and timeNow < params.timeCall_r1_c[1])
     #     and (vars.dcall >= params.dcall_r1_c[0] and vars.dcall < params.dcall_r1_c[1])
     #     and (vars.docall >= params.docall_r1_c[0] and vars.docall <= params.docall_r1_c[1])
-    #     and  (varsLb.label==params.labelCall_r1_c ) and vars.flag_Call_reset_r1_c
+    #     # and  (varsLb.label==params.labelCall_r1_c ) and vars.flag_Call_reset_r1_c
     # ):
     #     buy(
     #         app,varsBc,varsLb,vars,params,
@@ -226,7 +226,8 @@ def buy_Call(app,varsBc,varsLb,vars,params,debug_mode):
     #     (timeNow >= params.timeCall_r1_f1[0] and timeNow < params.timeCall_r1_f1[1])
     #     and (vars.dcall >= params.dcall_r1_f1[0] and vars.dcall < params.dcall_r1_f1[1])
     #     and (vars.docall >= params.docall_r1_f1[0] and vars.docall <= params.docall_r1_f1[1])
-    #     and  (varsLb.label==params.labelCall_r1_f1 ) and vars.flag_Call_F_1
+    #     and  (varsLb.label==params.labelCall_r1_f1 )
+    #     #   and vars.flag_Call_F_1
     # ):
     #     buy(
     #         app,varsBc,varsLb,vars,params,
@@ -439,7 +440,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #     (timeNow >= params.timePut_r1_f[0] and timeNow < params.timePut_r1_f[1])
     #     and (vars.dput >= params.dput_r1_f[0] and vars.dput < params.dput_r1_f[1])
     #     and (vars.doput >= params.doput_r1_f[0] and vars.doput < params.doput_r1_f[1])
-    #     and (varsLb.label==params.labelPut_r1_f ) and vars.flag_cambio_f
+    #     # and (varsLb.label==params.labelPut_r1_f ) and vars.flag_cambio_f
 
     # ):
     #     buy(
