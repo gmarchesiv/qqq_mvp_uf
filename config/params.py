@@ -153,6 +153,7 @@ class parameters:
         
         self.dcall_r1_e = [-0.155,0.1 ]
         self.docall_r1_e =  [0.057, 0.065]
+        self.dput_Call_r1_e = [ -0.18 ,0.035 ]
         self.timeCall_r1_e = [dt_time(10,14), dt_time(10, 40)]
         self.labelCall_r1_e =0
         
@@ -190,10 +191,11 @@ class parameters:
         
         self.dcall_r1_i =[-0.27,  -0.02]
         self.docall_r1_i = [0.078, 0.088]
+        self.dput_Call_r1_i = [ 0.05 ,0.27 ]
         self.timeCall_r1_i = [dt_time(9, 34), dt_time(9,45)]
         self.labelCall_r1_i=1
         # self.dcall_r1_i_dput=0.27
-        self.doput_call_r1_i =[-0.088, -0.035]
+        # self.doput_call_r1_i =[-0.088, -0.035]
         
         # VENTA
         
@@ -213,6 +215,7 @@ class parameters:
         
         self.dcall_r1_c =[-0.17,-0.1]
         self.docall_r1_c = [0.1, 0.11]
+        self.dput_Call_r1_c = [ 0.08 ,0.1 ]
         self.timeCall_r1_c = [dt_time(11, 30), dt_time(12, 15)]
         self.labelCall_r1_c=0
         # VENTA
@@ -228,7 +231,8 @@ class parameters:
 
         # COMPRA
         self.dcall_r2 =[0.24, 0.37]
-        self.docall_r2 = [0.031, 0.0335]  
+        self.docall_r2 = [0.031, 0.0335] 
+        self.dput_Call_r2 =[ -0.38 ,-0.19 ] 
         self.timeCall_r2 =  [dt_time(9, 36,30), dt_time(9, 53)]
         self.labelCall_r2=0
         self.umbral_cr2=0.225
@@ -251,6 +255,7 @@ class parameters:
         # COMPRA
         self.dcall_r2_2 = [0.25, 0.35]
         self.docall_r2_2 = [0.03, 0.0335]  
+        self.dput_Call_r2_2 = [ -0.4 ,-0.17 ]
         self.timeCall_r2_2= [dt_time(10, 0), dt_time(10, 30)]
         self.labelCall_r2_2=0
         self.umbral_cr2_2=0.225
@@ -272,6 +277,7 @@ class parameters:
         
         self.dcall_r1_fast = [-0.02 ,0.08]
         self.docall_r1_fast =  [0.04, 0.057]
+        self.dput_Call_r1_fast = [ -0.15 ,0.04 ]
         self.timeCall_r1_fast = [dt_time(9, 35), dt_time(9, 55)]
         self.labelCall_r1_fast =0
         
@@ -288,6 +294,7 @@ class parameters:
         
         self.dcall_r3 =  [ 0.2, 0.225]
         self.docall_r3 =  [0.03, 0.04]
+        self.dput_Call_r3 = [ -0.26 ,-0.14 ]
         self.timeCall_r3 =  [dt_time(9, 38), dt_time(9, 51)]
         self.labelCall_r3=0
         
@@ -305,6 +312,7 @@ class parameters:
         
         self.dcall_r1_f1 =[-0.09,0.1]
         self.docall_r1_f1 = [0.0315, 0.04]
+        self.dput_Call_f1 =[ -0.12 ,0.05 ]
         self.timeCall_r1_f1 = [dt_time(14, 30), dt_time(14, 50)]
         self.labelCall_r1_f1=0
 
@@ -347,11 +355,12 @@ class parameters:
         self.docall_r1_2 = [0.03, 0.035]
         self.timeCall_r1_2 = [dt_time(9, 34), dt_time(9, 40)]
         self.labelCall_r1_2 =0
-        self.doput_call_r1_2 =[-0.07, -0.018] 
+        self.dput_Call_r1_2 =[ -0.17 ,-0.03 ]
+        # self.doput_call_r1_2 =[-0.07, -0.018] 
         # VENTA
     
         # min_desicion_cr1  = 60
-        self.sl_cr1_2 = -0.04  # STOP LOSS
+        self.sl_cr1_2 = -0.036  # STOP LOSS
 
         # target_cR1=0.04
         self.umbral_manifestacion_cR1_2 = 0.0165
@@ -398,11 +407,12 @@ class parameters:
         
         self.dput_r1_i_3 =[-0.025, 0.08]
         self.doput_r1_i_3 =[0.0645, 0.089]
+        self.dcall_Put_r1_i_3 =[-0.14,0.025]
         self.timePut_r1_i_3 = [dt_time(9,35), dt_time(10,1)]
         self.labelPut_r1_i_3=0
         
         # VENTA
-        self.sl_pr1_i_3=-0.045  # STOP LOSS
+        self.sl_pr1_i_3=-0.04  # STOP LOSS
         # min_desicion_pr1_i_3  = 60
         self.umbral_manifestacion_pR1_i_3=0.018
         self.diamante_pr1_i_3 = [self.umbral_manifestacion_pR1_i_3,0.025 ,0.0295]# DIAMANTE DE COMPRA
@@ -434,8 +444,9 @@ class parameters:
         
         self.dput_r1_label = [ 0.024, 0.106]
         self.doput_r1_label = [0.03, 0.04]
+        self.dcall_Put_r1_label = [-0.195 , -0.03]
         self.timePut_r1_label = [dt_time(9, 40), dt_time(10, 32)]
-        self.docall_Put_r1_label =[-0.09, -0.01]
+        # self.docall_Put_r1_label =[-0.09, -0.01]
         self.labelPut_r1_label=1
 
         # VENTA
@@ -471,8 +482,9 @@ class parameters:
 
         # COMPRA
         self.umbral_pr2=0.15
-        self.dput_r2 = [0.172,0.61]
+        self.dput_r2 =[0.172,0.4] 
         self.doput_r2 = [0.0545, 0.069] 
+        self.dcall_Put_r2 =[-0.37 , -0.1]
         self.timePut_r2 = [dt_time(9, 45), dt_time(10, 40)]
         self.labelPut_r2=1
   
@@ -517,6 +529,7 @@ class parameters:
         
         self.dput_r1_f = [0,0.56]
         self.doput_r1_f = [0.05, 0.067]
+        self.dcall_Put_r1_f=[-0.38 , -0.06]
         self.timePut_r1_f = [dt_time(12, 30), dt_time(13, 0)]
         self.labelPut_r1_f=1
 
@@ -558,6 +571,7 @@ class parameters:
         
         self.dput_r1_i_4 =[-0.036, -0.015]
         self.doput_r1_i_4 = [0.03, 0.0335]
+        self.dcall_r1_i_4 =[-0.12 , 0.08]
         self.timePut_r1_i_4 = [dt_time(9,35), dt_time(9,58)]
         self.labelPut_r1_i_4=0
         
@@ -594,6 +608,7 @@ class parameters:
         
         self.dput_r2_fast = [ 0.30, 0.42]
         self.doput_r2_fast = [0.055, 0.065]
+        self.dcall_Put_r2_fast =[-0.39 , -0.23]
         self.timePut_r2_fast = [dt_time(9, 34), dt_time(9, 35,30)]
         self.labelPut_r2_fast=1
 
