@@ -133,6 +133,8 @@ def main():
         except:pass 
         # countdown(params.zone)
         wallet_config(app, params, vars)
+        time.sleep(10)
+        print(app.wallet["TotalCashValue"])
         a=1/0
         # Registro de sesion.
         writeRegister(params.name, params.zone)
