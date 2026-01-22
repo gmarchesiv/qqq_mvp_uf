@@ -89,9 +89,9 @@ def main():
 
         timeNow = datetime.now(params.zone).time()
 
-        # if timeNow < params.rutina[0] or timeNow >= params.rutina[1]:
-        #     test_ibkr_connection(params)
-        #     return
+        if timeNow < params.rutina[0] or timeNow >= params.rutina[1]:
+            test_ibkr_connection(params)
+            return
 
         # ====================
         #  - Feriados -
@@ -104,9 +104,9 @@ def main():
         '''
         #---------------------------------------------------
 
-        # if isTradingDay(params): # TODO MEJORAR LOS FERIADOS NO AGREGADOS
-        #     test_ibkr_connection(params)
-        #     return
+        if isTradingDay(params): # TODO MEJORAR LOS FERIADOS NO AGREGADOS
+            test_ibkr_connection(params)
+            return
 
         # ---------------------------------
 
@@ -131,11 +131,8 @@ def main():
         try:
             broadcasting_Alinear_label(varsLb,params)
         except:pass 
-        # countdown(params.zone)
-        wallet_config(app, params, vars)
-        time.sleep(10)
-        print(app.wallet["TotalCashValue"])
-        a=1/0
+        countdown(params.zone)
+
         # Registro de sesion.
         writeRegister(params.name, params.zone)
    
