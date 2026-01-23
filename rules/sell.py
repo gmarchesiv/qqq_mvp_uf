@@ -140,20 +140,21 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
  
  
     # REGLA DE PROTECCION
-    if (
-        vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
-        and vars.manifesto == False and   (vars.tipo == "R2" or vars.tipo == "R2-2")
-    ):
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "C",  "PROTECCION" ,debug_mode
-        )
+    # if (
+    #     vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
+    #     and vars.manifesto == False and   (vars.tipo == "R2" or vars.tipo == "R2-2")
+    # ):
+    #     sell(
+    #         app,varsBc,varsLb,vars,params,
+    #         "C",  "PROTECCION" ,debug_mode
+    #     )
 
-        return
+    #     return
     
     # REGLA DE PROTECCION
     if ( vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
         and vars.manifesto == False and vars.pico>0 and (vars.tipo != "R2" and  vars.tipo != "R2-2" )
+        and vars.tipo not in ["R1-FAST","R2" ,"R2-2"]
     ):
         sell(
             app,varsBc,varsLb,vars,params,

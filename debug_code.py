@@ -165,7 +165,7 @@ def debug_code(archivos):
     df_aux = pd.DataFrame()
     df_aux["FECHA_C"] = vars.df["FECHA"]
     df_aux["HORA_C"] = vars.df["HORA"]
-    # df_aux["FECHA_V"] = vars.df["FECHA"]
+    df_aux["FECHA_V"] = vars.df["FECHA"]
     df_aux["HORA_V"] = vars.df["HORA"]
     df_aux["REGLA"] = vars.df["REGLA"]
     df_aux["TIPO"] = vars.df["REGLA"]
