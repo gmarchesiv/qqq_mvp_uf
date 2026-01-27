@@ -288,17 +288,17 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #########################################################
     ####################       PUT R2   E ###################
     #########################################################
-    elif ( 
-        (timeNow >= params.timePut_r2_e[0] and timeNow < params.timePut_r2_e[1])
-        and (vars.dput >= params.dput_r2_e[0] and vars.dput < params.dput_r2_e[1])
-        and (vars.doput >= params.doput_r2_e[0] and vars.doput < params.doput_r2_e[1])
-        and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e
+    # elif ( 
+    #     (timeNow >= params.timePut_r2_e[0] and timeNow < params.timePut_r2_e[1])
+    #     and (vars.dput >= params.dput_r2_e[0] and vars.dput < params.dput_r2_e[1])
+    #     and (vars.doput >= params.doput_r2_e[0] and vars.doput < params.doput_r2_e[1])
+    #     and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e
 
-    ):
-        buy(
-            app,varsBc,varsLb,vars,params,
-            "P", "R2-E" ,debug_mode
-        )
+    # ):
+    #     buy(
+    #         app,varsBc,varsLb,vars,params,
+    #         "P", "R2-E" ,debug_mode
+    #     )
  
     #########################################################
     ###################    PUT R2 FAST    ###################
