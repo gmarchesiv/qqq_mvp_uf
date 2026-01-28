@@ -298,7 +298,18 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         sl=params.sl_cr1_f2
         manifestacion=params.umbral_manifestacion_cR1_f2
         nmt=params.inf
-  
+    
+
+    #########################################################
+    ################      CALL  R1  FAST2      ##################
+    #########################################################
+    elif vars.tipo == "R1-FAST_2"  : 
+        diamante=params.diamante_cr1_fast2
+        resta=params.resta_cr1_fast2
+        sl=params.sl_cr1_fast2
+        manifestacion=params.umbral_manifestacion_cR1_fast2
+        nmt=params.inf
+
 
     #########################################################
     ####################      VENTA       ###################

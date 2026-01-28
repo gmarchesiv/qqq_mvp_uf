@@ -88,7 +88,7 @@ class varsRutina:
 
         self.flag_Call_reset_r1_inv=self.data.get("flag_Call_reset_r1_inv", False)
         self.flag_Call_F_1=self.data.get("flag_Call_F_1", False)
-        self.flag_Call_F_2=self.data.get("flag_Call_F_2", False)
+        self.flag_Call_Fast_2=self.data.get("flag_Call_Fast_2", False)
         self.flag_Put_reset_R2=self.data.get("flag_Put_reset_R2", False)
         self.flag_Put_reset_R2e=self.data.get("flag_Put_reset_R2e", False)
         self.flag_Put_reset_r2_fast=self.data.get("flag_Put_reset_r2_fast", False)
