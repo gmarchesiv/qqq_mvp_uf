@@ -142,10 +142,10 @@ def data_susciption(app, params, vars):
         if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
             ready += 1
 
-        # if app.options[5]["ASK"] > 0 and app.options[5]["BID"] > 0:
-        #     ready += 1
-        # if app.options[6]["ASK"] > 0 and app.options[6]["BID"] > 0:
-        #     ready += 1
+        if app.options[5]["ASK"] > 0 and app.options[5]["BID"] > 0:
+            ready += 1
+        if app.options[6]["ASK"] > 0 and app.options[6]["BID"] > 0:
+            ready += 1
         if ready == 6:
             break
 
@@ -258,19 +258,19 @@ def calculations(app, vars,varsBc, params):
     vars.docall_2= vars.cbid_2 / vars.call_open_2 - 1
     vars.doput_2 = vars.pbid_2 / vars.put_open_2 - 1
 
-    # vars.cask_3 = app.options[5]["ASK"]
-    # vars.cbid_3 = app.options[5]["BID"]
-    # vars.pask_3 = app.options[6]["ASK"]
-    # vars.pbid_3 = app.options[6]["BID"]
+    vars.cask_3 = app.options[5]["ASK"]
+    vars.cbid_3 = app.options[5]["BID"]
+    vars.pask_3 = app.options[6]["ASK"]
+    vars.pbid_3 = app.options[6]["BID"]
 
 
-    # # CALCULOS
-    # vars.askbid_call_3 = vars.cask_3 / vars.cbid_3 - 1
-    # vars.askbid_put_3 = vars.pask_3 / vars.pbid_3 - 1
-    # vars.dcall_3 = vars.cbid_3 / vars.call_close_3 - 1
-    # vars.dput_3 = vars.pbid_3 / vars.put_close_3 - 1
-    # vars.docall_3= vars.cbid_3 / vars.call_open_3 - 1
-    # vars.doput_3 = vars.pbid_3 / vars.put_open_3 - 1    
+    # CALCULOS
+    vars.askbid_call_3 = vars.cask_3 / vars.cbid_3 - 1
+    vars.askbid_put_3 = vars.pask_3 / vars.pbid_3 - 1
+    vars.dcall_3 = vars.cbid_3 / vars.call_close_3 - 1
+    vars.dput_3 = vars.pbid_3 / vars.put_close_3 - 1
+    vars.docall_3= vars.cbid_3 / vars.call_open_3 - 1
+    vars.doput_3 = vars.pbid_3 / vars.put_open_3 - 1    
 
     # if vars.askbid_call >0 and params.umbral_askbid>vars.askbid_call:
     #     vars.askbid_call_prom.append(round(vars.askbid_call,6))
@@ -576,6 +576,8 @@ def registro_strike_2(app, vars, params):
 
 # REGISTRO DE STRIKES
 def registro_strike_3(app, vars, params):
+
+     
 
     # PEDIMOS LA CADENA DE OPCIONES
     app.request_option_chain(app.etfs[10]["symbol"])
