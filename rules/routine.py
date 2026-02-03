@@ -230,6 +230,12 @@ def saveTransaction(app, params, vars):
                     vars.accion_mensaje = 2
 
                 if app.execution_details[idreq]["price"] != 0:
+                    app.reqAccountSummary(
+                        9001,
+                        "All",
+                        "AvailableFunds,NetLiquidation,SettledCash,UnrealizedPnL,TotalCashValue",
+                    )
+                    app.done.wait()
                     wallet_load(app, params)
 
                     app.cash = wallet_cash(app, params)
