@@ -470,7 +470,7 @@ def registro_strike_2(app, vars, params):
  
     vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
 
-    list_exp = list_checkExpirations(app, app.etfs[10]["symbol"], params, vars.exchange)
+    list_exp = list_checkExpirations_2(app, app.etfs[10]["symbol"], params, vars.exchange)
 
 
     precio = vars.precio
@@ -481,13 +481,13 @@ def registro_strike_2(app, vars, params):
 
     call_inf = (
     math.ceil(
-        precio * ((100 + params.strike_escenario) / 100) / 5
+        precio * ((100 - params.strike_escenario) / 100) / 5
         ) * 5
     ) + params.strike_unidad
 
     put_inf = (
         math.floor(
-            precio * ((100 - params.strike_escenario) / 100) / 5
+            precio * ((100 + params.strike_escenario) / 100) / 5
         ) * 5
     ) - params.strike_unidad
     
