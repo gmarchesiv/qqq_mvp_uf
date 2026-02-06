@@ -481,15 +481,15 @@ def registro_strike_2(app, vars, params):
 
     call_inf = (
     math.ceil(
-        precio * ((100 - params.strike_escenario) / 100) / 5
+        precio * ((100 + params.strike_escenario) / 100) / 5
         ) * 5
-    ) + params.strike_unidad
+    ) - params.strike_unidad
 
     put_inf = (
         math.floor(
-            precio * ((100 + params.strike_escenario) / 100) / 5
+            precio * ((100 - params.strike_escenario) / 100) / 5
         ) * 5
-    ) - params.strike_unidad
+    ) + params.strike_unidad
     
     call = call_inf+10
     put = put_inf-10
