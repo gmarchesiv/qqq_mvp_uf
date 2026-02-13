@@ -450,7 +450,7 @@ class parameters:
         self.dput_r1_fast = [ 0.08, 0.158]
         self.doput_r1_fast =[0.081, 0.0885]
         self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 50)]
-        self.dcall_Put_r1_fast =[ -0.21,-0.13]
+        self.dcall_Put_r1_fast =[ -0.21,-0.08]
         self.labelPut_r1_fast=1
 
         # VENTA
