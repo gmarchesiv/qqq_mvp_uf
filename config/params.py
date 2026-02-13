@@ -166,7 +166,7 @@ class parameters:
         self.resta_cr1_e = [0.015,0.01,0.005, 0.001 ] # RETROCESO DEL DIAMANTE 
 
         self.bloqueo_cr1_e_docall=0.15
-        self.bloqueo_cr1_e_doput=0.06
+        self.bloqueo_cr1_e_doput=0.062
         # bloqueo_cr1_e_dput= -0.05
         self.bloqueo_cr1_e_hora=dt_time(10,0)
         # ==================================
@@ -592,7 +592,7 @@ class parameters:
         # =======   PUT - R1-INV 4==========   
         # ==================================
         
-        self.dput_r1_i_4 =[-0.036, -0.015]
+        self.dput_r1_i_4 =[-0.036, -0.01 ]
         self.doput_r1_i_4 = [0.03, 0.0335]
         self.dcall_r1_i_4 =[-0.12 , 0.08]
         self.timePut_r1_i_4 = [dt_time(9,35), dt_time(9,58)]
