@@ -604,40 +604,19 @@ def registro_strike_3(app, vars, params):
     put_strike=  round(put_inf / 5) * 5
     call_strike= round(call_inf / 5) * 5
 
-    # for exp in list_exp:
-    #     strikes = checkStrike(
-    #     app, exp, app.etfs[10]["symbol"], "C", vars.exchange
-    # )
-    #     put_list = [
-    #         float(x) for x in strikes if put <= float(x) <= put_inf
-    #     ]
-    #     call_list = [
-    #         float(x) for x in strikes if call_inf <= float(x) <= call
-    #     ]
-    #     # Ordenar listas
-    #     put_list.sort()
-    #     call_list.sort()
-    #     printStamp(f"EXP: {exp} - PUTs:{put_list} / CALLs:{call_list}")
-    #     if len(put_list)==0 or len(call_list)==0:
-    #         continue 
-    #     put_strike = put_list[-1]  
-    #     call_strike = call_list[0] 
-    #     exp_escogido = exp
-    #     break
-     
-    
-
     printStamp(f"EXP: {exp_escogido}")
  
     printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
 
+ 
+ 
     
 
     snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp_escogido, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
-        if dt_time(15, 59) < timeNow:
+        if dt_time(16, 0)< timeNow:
             break
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
