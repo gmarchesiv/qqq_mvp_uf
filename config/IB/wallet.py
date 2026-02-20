@@ -77,3 +77,15 @@ def block_Trades(vars, money):
     #---------------------------------------------------
     if len(vars.trades) < 3 or money >= 25000:
         vars.bloqueo = False
+
+
+
+def block_Trades_2(vars):
+    #---------------------------------------------------
+    '''
+    Bloqueo por muchos Trades realizados o por cash
+    insuficiente.
+    '''
+    #---------------------------------------------------
+    if len(vars.trades) < 3 :
+        vars.bloqueo = False

@@ -34,6 +34,7 @@ CORS(
         r"/get-price": origin,
         r"/get-regla": origin,
         r"/get-label": origin,
+        r"/bloquear": origin,
     },
 )
 
@@ -424,6 +425,30 @@ def get_regla():
         return respuesta, 200
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": str(e)}, 500
+
+
+@app.route("/bloquear", methods=["GET"])
+def get_bloquear():
+
+    # Ejecutar el comando para reiniciar el contenedor
+    try:
+        file_name = "/usr/src/vars.json"
+
+        # Leer los datos existentes en el archivo JSON
+        with open(file_name, "r") as f:
+            data = json.load(f)
+            bloque=  bool(data["bloqueo"])
+            bloque= not bloque
+            data["bloqueo"]=bloque
+           # Guardar los datos actualizados de nuevo en el archivo
+        with open(file_name, "w") as file:
+            json.dump(data, file, indent=4)
+
+        # Devolver los datos actualizados como respuesta
+        return jsonify({"status": "ok"}), 200
+    except subprocess.CalledProcessError as e:
+        return {"status": "error", "message": str(e)}, 500
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

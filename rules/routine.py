@@ -13,7 +13,7 @@ from config.IB.options import (
     revisar_OI,
     snapshot,
 )
-from config.IB.wallet import wallet_cash, wallet_load
+from config.IB.wallet import block_Trades, block_Trades_2, wallet_cash, wallet_load
 from database.repository.repository import writeDayTrade, writeTransactions, writeWallet
 from functions.broadcasting import broadcasting_Alinear
 from functions.logs import printStamp
@@ -109,6 +109,9 @@ def update_status(app, vars,varsApp, params):
     segun sea el caso.
     '''
     #---------------------------------------------------
+ 
+  
+    
     if app.alerta:
         vars.status = "DESCONEXION"
     else:
