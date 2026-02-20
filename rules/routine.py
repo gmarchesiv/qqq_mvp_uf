@@ -590,7 +590,7 @@ def registro_strike_3(app, vars, params):
 
     # precio = app.etfs[10]["price"]
     precio = vars.precio
-    printStamp(f"PRECIO: {app.etfs[10]['price']} $")
+    printStamp(f"PRECIO: {precio} $")
 
     call = int(precio * ((100 + params.rangos_strikes_2[0][1]) / 100))
     put = int(precio * ((100 - params.rangos_strikes_2[0][1]) / 100))
