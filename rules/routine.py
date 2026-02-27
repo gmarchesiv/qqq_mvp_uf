@@ -19,7 +19,7 @@ from functions.broadcasting import broadcasting_Alinear
 from functions.logs import printStamp
 from datetime import datetime
 
-from functions.notifications import sendBuy, sendSell
+from functions.notifications import sendBuy, sendDisconnection, sendSell
 from datetime import time as dt_time
 import random
 
@@ -146,6 +146,13 @@ def registration(app, vars,varsApp, varsLb,params):
     wallet_load(app, params)
     update_status(app, vars,varsApp, params)
     
+    if app.alerta==True and vars.flag_alerta==False:
+        sendDisconnection(params )
+        vars.flag_alerta=True
+    if vars.flag_alerta and app.alerta==False :
+        vars.flag_alerta=False
+
+
     saveVars(vars, app, params, False)
     asyncio.run(saveApp(varsApp, app,  params  ))
     writeDayTrade(app, vars,varsLb, params)
@@ -264,6 +271,7 @@ def saveTransaction(app, params, vars):
                     app.execution_details[idreq]["save"] = True
                     vars.priceBuy = app.execution_details[idreq]["price"]
                     vars.real_priceBuy= app.execution_details[idreq]["price"]
+                    vars.flag_real_priceBuy=True
                     app.execution_details[idreq]["shares"] = vars.quantity
                     writeWallet(app)
 

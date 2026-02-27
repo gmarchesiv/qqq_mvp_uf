@@ -97,7 +97,7 @@ def saveVars(vars, app, params, estado):
         "flag_Put_reset_r1_label":vars.flag_Put_reset_r1_label,
         "flag_cambio_f":vars.flag_cambio_f,
         "flag_Call_reset_r1_c":vars.flag_Call_reset_r1_c,
-
+        "flag_real_priceBuy":vars.flag_real_priceBuy,
         "flag_Call_reset_r1_inv":vars.flag_Call_reset_r1_inv,
         "flag_Call_F_1":vars.flag_Call_F_1,
         "flag_Call_Fast_2":vars.flag_Call_Fast_2,

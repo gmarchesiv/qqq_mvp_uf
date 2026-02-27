@@ -23,7 +23,7 @@ from functions.clean import clean_broadcasting, clean_vars
 from functions.events import countdown, isTradingDay
 from functions.labels import generar_label
 from functions.logs import *
-from functions.notifications import sendError, sendStart
+from functions.notifications import sendDisconnection, sendError, sendStart
 from functions.saveVars import saveVars
 
 # rules/
@@ -37,7 +37,8 @@ from rules.routine import (
     registro_strike,
     registro_strike_OI,
     registro_strike_proximo,
-    saveTransaction 
+    saveTransaction,
+    update_status 
 )
 
 # database/
@@ -131,7 +132,10 @@ def main():
         try:
             broadcasting_Alinear_label(varsLb,params)
         except:pass 
-        countdown(params.zone)
+        
+  
+
+        countdown(params.zone,app,vars,params)
 
         # Registro de sesion.
         writeRegister(params.name, params.zone)
@@ -267,11 +271,11 @@ def main():
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
                 if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
                     
-                    # if vars.call or vars.put:
-                    #     broadcasting_sell(varsBc,varsLb,vars,params,app)
-                    #     broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                    # if vars.compra:
-                    #     broadcasting_buy(varsBc,varsLb,vars,params,app)
+                    if vars.call or vars.put:
+                        broadcasting_sell(varsBc,varsLb,vars,params,app)
+                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                    if vars.compra:
+                        broadcasting_buy(varsBc,varsLb,vars,params,app)
                     pass
                 
                 
@@ -303,13 +307,13 @@ def main():
                     # ================================
                     #            -VENTA-
                     # ================================
-                    # if vars.call or vars.put:
-                    #     sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
-                    # # ================================
-                    # #            -COMPRA-
-                    # # ================================
-                    # if vars.compra and params.fd >= timeNow:
-                    #     buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    if vars.call or vars.put:
+                        sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    # ================================
+                    #            -COMPRA-
+                    # ================================
+                    if vars.compra and params.fd >= timeNow:
+                        buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
                     pass
                 
                 # ================================

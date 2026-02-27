@@ -84,7 +84,7 @@ class varsRutina:
         self.flag_Put_reset_r1_label= self.data.get("flag_Put_R2", False)
         self.flag_cambio_f= self.data.get("flag_Put_R2", False)
         self.flag_Call_reset_r1_c=self.data.get("flag_Call_reset_r1_c", False)
-
+        self.flag_real_priceBuy = self.data.get("flag_real_priceBuy", False)
 
         self.flag_Call_reset_r1_inv=self.data.get("flag_Call_reset_r1_inv", False)
         self.flag_Call_F_1=self.data.get("flag_Call_F_1", False)
@@ -214,3 +214,6 @@ class varsRutina:
 
         self.promedio_call=self.data.get("promedio_call",0)
         self.promedio_put=self.data.get("promedio_put",0)
+
+
+        self.flag_alerta=False
