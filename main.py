@@ -35,6 +35,8 @@ from rules.routine import (
     data_susciption,
     registration,
     registro_strike,
+    registro_strike_2,
+    registro_strike_3,
     registro_strike_OI,
     registro_strike_proximo,
     saveTransaction,
@@ -352,7 +354,37 @@ def main():
                 #---------------------------------------------------
 
                 printStamp(" - Registrando Nuevo Strike - ")
-                registro_strike_proximo(app, vars, params)
+                # registro_strike_proximo(app, vars, params)
+
+                app.cancelMarketData(1)
+                time.sleep(1)
+                del app.options[1]
+
+                app.cancelMarketData(2)
+                time.sleep(1)
+                del app.options[2]
+
+                app.cancelMarketData(3)
+                time.sleep(1)
+                del app.options[3]
+
+                app.cancelMarketData(4)
+                time.sleep(1)
+                del app.options[4]
+
+                app.cancelMarketData(5)
+                time.sleep(1)
+                del app.options[5]
+
+                app.cancelMarketData(6)
+                time.sleep(1)
+                del app.options[6]
+
+                registro_strike(app, vars, params)
+                registro_strike_2(app, vars, params)
+                registro_strike_3(app, vars, params)
+
+                
                 
                 vars.status = "OFF"
                 vars.ready=False
