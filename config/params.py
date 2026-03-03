@@ -554,7 +554,7 @@ class parameters:
         self.dput_r1_f = [0,0.56]
         self.doput_r1_f = [0.05, 0.067]
         self.dcall_Put_r1_f=[-0.38 , -0.06]
-        self.timePut_r1_f = [dt_time(12, 30), dt_time(13, 0)]
+        self.timePut_r1_f = [dt_time(12, 30), dt_time(12, 46)]
         self.labelPut_r1_f=1
 
         # VENTA
