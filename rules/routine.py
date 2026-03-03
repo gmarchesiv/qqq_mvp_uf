@@ -684,7 +684,7 @@ def registro_strike_OI(app, vars, params):
 
 
     precio = app.etfs[5]["price"]
-    printStamp(f"PRECIO: {app.etfs[10]["symbol"]} $")
+    printStamp(f"PRECIO: {app.etfs[10]['symbol']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
     put = int(precio * ((100 - params.rangos_strikes[0][1]) / 100))
@@ -789,7 +789,7 @@ def registro_strike_proximo(app, vars, params):
 
 
     precio = app.etfs[5]["price"]
-    printStamp(f"PRECIO: {app.etfs[10]["symbol"]} $")
+    printStamp(f"PRECIO: {app.etfs[10]['symbol']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
     put = int(precio * ((100 - params.rangos_strikes[0][1]) / 100))
