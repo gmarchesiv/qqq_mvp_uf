@@ -220,7 +220,7 @@ def writeLabel(app, varsLb,params):
         new_data = label(
             date=datetime_now,
             underlying = app.etfs[5]["price"],
-            vix =app.etfs[11]["symbol"],
+            vix =app.etfs[11]["price"],
             
             mu =  float(varsLb.mu),
             mu_conteo = int(varsLb.mu_conteo),
@@ -229,12 +229,12 @@ def writeLabel(app, varsLb,params):
             varianza = varsLb.varianza,
             garch=varsLb.garch,
 
-            ret_1H_back= float(app.etfs[10]["symbol"]/ varsLb.ret_1H_back[0] -1)*100,
-            ret_3H_back=float(app.etfs[10]["symbol"]/ varsLb.ret_3H_back[0] -1)*100,
-            ret_6H_back= float(app.etfs[10]["symbol"]/ varsLb.ret_6H_back[0] -1)*100,
-            ret_12H_back= float(app.etfs[10]["symbol"]/ varsLb.ret_12H_back[0] -1)*100,
-            ret_24H_back= float(app.etfs[10]["symbol"]/ varsLb.ret_24H_back[0] -1)*100,
-            ret_96H_back= float(app.etfs[10]["symbol"]/ varsLb.ret_96H_back[0] -1)*100,
+            ret_1H_back= float(app.etfs[10]["price"]/ varsLb.ret_1H_back[0] -1)*100,
+            ret_3H_back=float(app.etfs[10]["price"]/ varsLb.ret_3H_back[0] -1)*100,
+            ret_6H_back= float(app.etfs[10]["price"]/ varsLb.ret_6H_back[0] -1)*100,
+            ret_12H_back= float(app.etfs[10]["price"]/ varsLb.ret_12H_back[0] -1)*100,
+            ret_24H_back= float(app.etfs[10]["price"]/ varsLb.ret_24H_back[0] -1)*100,
+            ret_96H_back= float(app.etfs[10]["price"]/ varsLb.ret_96H_back[0] -1)*100,
 
             rsi_prom= varsLb.rsi,
             d_pico= float(varsLb.d_pico),
