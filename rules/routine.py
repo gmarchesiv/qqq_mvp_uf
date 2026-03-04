@@ -683,7 +683,7 @@ def registro_strike_OI(app, vars, params):
     list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
 
 
-    precio = app.etfs[5]["price"]
+    precio = app.etfs[10]['price']
     printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
@@ -788,7 +788,7 @@ def registro_strike_proximo(app, vars, params):
     list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
 
 
-    precio = app.etfs[5]["price"]
+    precio = app.etfs[10]['price']
     printStamp(f"PRECIO: {app.etfs[10]['price']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))

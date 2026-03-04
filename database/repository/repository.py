@@ -219,7 +219,7 @@ def writeLabel(app, varsLb,params):
         datetime_now = datetime.now(params.zone)
         new_data = label(
             date=datetime_now,
-            underlying = app.etfs[5]["price"],
+            underlying = app.etfs[10]['price'],
             vix =app.etfs[11]["price"],
             
             mu =  float(varsLb.mu),

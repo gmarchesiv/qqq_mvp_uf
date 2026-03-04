@@ -52,7 +52,7 @@ def saveVars(vars, app, params, estado):
             "strike": app.options[2]["strike"],
         }
 
-        price = app.etfs[5]["price"]
+        price = app.etfs[10]['price']
 
     datos = {
         "name": params.name,
