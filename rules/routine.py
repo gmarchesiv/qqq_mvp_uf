@@ -450,17 +450,17 @@ def   registro_strike_3(app, vars, params):
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
-        if dt_time(15, 59) < timeNow:
+        if dt_time(16, 0) < timeNow:
             break
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {app.options[21]['ASK'] } | CBID: {app.options[21]['BID'] }")
-            printStamp(f"PASK: {app.options[22]['ASK'] } | PBID: {app.options[22]['BID'] }")
-        if app.options[21]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[21]["ASK"] / app.options[21]["BID"] - 1):
+            printStamp(f"CASK: {app.options[25]['ASK'] } | CBID: {app.options[25]['BID'] }")
+            printStamp(f"PASK: {app.options[26]['ASK'] } | PBID: {app.options[26]['BID'] }")
+        if app.options[25]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[25]["ASK"] / app.options[25]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[22]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[22]["ASK"] / app.options[22]["BID"] - 1):
+        if app.options[26]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[26]["ASK"] / app.options[26]["BID"] - 1):
             readyOpt += 1
             
    
@@ -468,6 +468,7 @@ def   registro_strike_3(app, vars, params):
             break
 
         time.sleep(0.5)
+
 
     
     vars.exp_3 = exp_escogido
@@ -635,20 +636,23 @@ def  registro_strike(app, vars, params):
     
 
     snapshot(app, app.etfs[10]["symbol"], [put_strike, call_strike], exp_escogido, vars.exchange)
+    
+
+
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
-        if dt_time(16, 0) < timeNow:
+        if dt_time(15, 59) < timeNow:
             break
         readyOpt = 0
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {app.options[25]['ASK'] } | CBID: {app.options[25]['BID'] }")
-            printStamp(f"PASK: {app.options[26]['ASK'] } | PBID: {app.options[26]['BID'] }")
-        if app.options[25]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[25]["ASK"] / app.options[25]["BID"] - 1):
+            printStamp(f"CASK: {app.options[21]['ASK'] } | CBID: {app.options[21]['BID'] }")
+            printStamp(f"PASK: {app.options[22]['ASK'] } | PBID: {app.options[22]['BID'] }")
+        if app.options[21]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[21]["ASK"] / app.options[21]["BID"] - 1):
             readyOpt += 1
      
-        if app.options[26]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[26]["ASK"] / app.options[26]["BID"] - 1):
+        if app.options[22]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[22]["ASK"] / app.options[22]["BID"] - 1):
             readyOpt += 1
             
    
