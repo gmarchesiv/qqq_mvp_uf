@@ -294,7 +294,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
         and (vars.dput >= params.dput_r2[0] and vars.dput < params.dput_r2[1])
         and (vars.doput >= params.doput_r2[0] and vars.doput < params.doput_r2[1])
          and (vars.dcall >= params.dcall_Put_r2[0] and vars.dcall < params.dcall_Put_r2[1]) and vars.askbid_call < params.max_askbid_compra_alt
-        and (varsLb.label==params.labelPut_r2 )  and vars.flag_Put_reset_R2
+        and (varsLb.label==params.labelPut_r2 )  and vars.flag_Put_reset_R2 and not vars.flag_bloqueo_put
 
     ):
         buy(
@@ -309,7 +309,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #     (timeNow >= params.timePut_r2_e[0] and timeNow < params.timePut_r2_e[1])
     #     and (vars.dput >= params.dput_r2_e[0] and vars.dput < params.dput_r2_e[1])
     #     and (vars.doput >= params.doput_r2_e[0] and vars.doput < params.doput_r2_e[1])
-    #     and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e
+    #     and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e and not vars.flag_bloqueo_put
 
     # ):
     #     buy(
@@ -325,7 +325,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
         and (vars.dput >= params.dput_r2_fast[0] and vars.dput < params.dput_r2_fast[1])
         and (vars.doput >= params.doput_r2_fast[0] and vars.doput < params.doput_r2_fast[1])
         and (vars.dcall >= params.dcall_Put_r2_fast[0] and vars.dcall < params.dcall_Put_r2_fast[1]) and vars.askbid_call < params.max_askbid_compra_alt
-        and (varsLb.label==params.labelPut_r2_fast )  and vars.flag_Put_reset_r2_fast
+        and (varsLb.label==params.labelPut_r2_fast )  and vars.flag_Put_reset_r2_fast and not vars.flag_bloqueo_put
 
     ):
         buy(
@@ -720,6 +720,13 @@ def calculos_put(vars, params,debug_mode ):
     ###################      CALCULOS      ##################
     #########################################################
 
+    diff=vars.dcall+vars.dput
+    if ((diff<=params.limite_Put_bloqueo[0] or diff>=params.limite_Put_bloqueo[1])
+                    and ( vars.askbid_call < params.max_askbid_compra_abs and vars.cask > 0 and vars.promedio_call < params.max_askbid_compra_prom )):
+                    
+
+        vars.flag_bloqueo_put=True
+        
     # RESET R3
     if vars.doput >= params.doput_r3[1]:
         vars.flag_Put_reset_r3 = False

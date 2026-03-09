@@ -94,7 +94,7 @@ class varsRutina:
         self.flag_Put_reset_r2_fast=self.data.get("flag_Put_reset_r2_fast", False)
         self.flag_Put_reset_r1_fast=self.data.get("flag_Put_reset_r1_fast", False)
         self.flag_Put_reset_r1_label_2=self.data.get("flag_Put_reset_r1_label_2", False)
-        
+        self.flag_bloqueo_put=self.data.get("flag_bloqueo_put", False)
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################

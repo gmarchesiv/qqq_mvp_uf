@@ -97,7 +97,7 @@ class parameters:
         self.max_askbid_compra_abs = 0.0185
         self.max_askbid_compra_alt = 0.02
         self.max_askbid_venta_forzada = 0.04
-
+        self.limite_Put_bloqueo=[-0.1,0.2]
         # PARAMETROS LIMITES DE OPEN ASKBID
         self.max_askbid_open = 0.03
         self.max_askbid_hora_open =  dt_time(9, 33)
