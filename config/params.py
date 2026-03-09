@@ -92,7 +92,7 @@ class parameters:
         self.max_askbid_open = 0.03
         self.max_askbid_hora_open =  dt_time(9, 33)
         self.umbral_askbid=0.08
-
+        self.limite_Put_bloqueo=[-0.1,0.2]
         # PARAMETROS DE COMPRA VENTA SLIPPAGE
         self.slippage=1.04
 

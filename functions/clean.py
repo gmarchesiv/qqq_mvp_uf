@@ -38,6 +38,7 @@ def clean_vars(vars,varsApp):
     vars.flag_Put_reset_r1_label_2=False
 
     vars.flag_real_priceBuy=False
+    vars.flag_bloqueo_put=False
         
 
 
