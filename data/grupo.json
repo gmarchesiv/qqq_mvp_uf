@@ -4,7 +4,7 @@
       {
             "ip": "10.8.1.11:8000",
             "user": "Alberto Necco",
-            "rama":true
+            "rama":false
         } 
     ]
 }
