@@ -227,19 +227,19 @@ def buy_Call(app,varsBc,varsLb,vars,params,debug_mode):
     ####################      CALL R1  F  ###################
     #########################################################
 
-    # elif (not (timeNow >= params.proteccion_compra[0] and timeNow < params.proteccion_compra[1]) and 
-    #                     not (timeNow >= params.proteccion_compra_2[0] and timeNow < params.proteccion_compra_2[1]) )and(
-    #     (timeNow >= params.timeCall_r1_f1[0] and timeNow < params.timeCall_r1_f1[1])
-    #     and (vars.dcall >= params.dcall_r1_f1[0] and vars.dcall < params.dcall_r1_f1[1])
-    #     and (vars.docall >= params.docall_r1_f1[0] and vars.docall <= params.docall_r1_f1[1])
-    #     and (vars.dput >= params.dput_Call_f1[0] and vars.dput <= params.dput_Call_f1[1]) and vars.askbid_put < params.max_askbid_compra_alt
-    #     and  (varsLb.label==params.labelCall_r1_f1 )
-    #     #   and vars.flag_Call_F_1
-    # ):
-    #     buy(
-    #         app,varsBc,varsLb,vars,params,
-    #         "C", "F" ,debug_mode
-    #     )
+    elif (not (timeNow >= params.proteccion_compra[0] and timeNow < params.proteccion_compra[1]) and 
+                        not (timeNow >= params.proteccion_compra_2[0] and timeNow < params.proteccion_compra_2[1]) )and(
+        (timeNow >= params.timeCall_r1_f1[0] and timeNow < params.timeCall_r1_f1[1])
+        and (vars.dcall >= params.dcall_r1_f1[0] and vars.dcall < params.dcall_r1_f1[1])
+        and (vars.docall >= params.docall_r1_f1[0] and vars.docall <= params.docall_r1_f1[1])
+        and (vars.dput >= params.dput_Call_f1[0] and vars.dput <= params.dput_Call_f1[1]) and vars.askbid_put < params.max_askbid_compra_alt
+        and  (varsLb.label==params.labelCall_r1_f1 )
+        #   and vars.flag_Call_F_1
+    ):
+        buy(
+            app,varsBc,varsLb,vars,params,
+            "C", "F" ,debug_mode
+        )
 
     # #########################################################
     # ####################      CALL R1  F2  ################## 
@@ -266,6 +266,8 @@ def buy_Call(app,varsBc,varsLb,vars,params,debug_mode):
         (timeNow >= params.timeCall_r1_fast2[0] and timeNow < params.timeCall_r1_fast2[1])
         and (vars.dcall >= params.dcall_r1_fast2[0] and vars.dcall < params.dcall_r1_fast2[1])
         and (vars.docall >= params.docall_r1_fast2[0] and vars.docall <= params.docall_r1_fast2[1])
+        and (vars.dput >= params.dput_Call_r1_fast2[0] and vars.dput <= params.dput_Call_r1_fast2[1]) and vars.askbid_put < params.max_askbid_compra_alt
+
         and  (varsLb.label==params.labelcall_r1_fast2 )  and vars.flag_Call_Fast_2
     ):
         buy(
@@ -305,17 +307,17 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #########################################################
     ####################       PUT R2   E ###################
     #########################################################
-    # elif ( 
-    #     (timeNow >= params.timePut_r2_e[0] and timeNow < params.timePut_r2_e[1])
-    #     and (vars.dput >= params.dput_r2_e[0] and vars.dput < params.dput_r2_e[1])
-    #     and (vars.doput >= params.doput_r2_e[0] and vars.doput < params.doput_r2_e[1])
-    #     and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e  and not vars.flag_bloqueo_put
+    elif ( 
+        (timeNow >= params.timePut_r2_e[0] and timeNow < params.timePut_r2_e[1])
+        and (vars.dput >= params.dput_r2_e[0] and vars.dput < params.dput_r2_e[1])
+        and (vars.doput >= params.doput_r2_e[0] and vars.doput < params.doput_r2_e[1])
+        and (varsLb.label==params.labelPut_r2_e ) and vars.flag_Put_reset_R2e  and not vars.flag_bloqueo_put
 
-    # ):
-    #     buy(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P", "R2-E" ,debug_mode
-    #     )
+    ):
+        buy(
+            app,varsBc,varsLb,vars,params,
+            "P", "R2-E" ,debug_mode
+        )
  
     #########################################################
     ###################    PUT R2 FAST    ###################
@@ -384,34 +386,35 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #########################################################
     ###################    PUT R1 LABEL 2  ###################
     #########################################################
-    # elif ( 
-    #     (timeNow >= params.timePut_r1_label_2[0] and timeNow < params.timePut_r1_label_2[1])
-    #     and (vars.dput >= params.dput_r1_label_2[0] and vars.dput < params.dput_r1_label_2[1])
-    #     and (vars.doput >= params.doput_r1_label_2[0] and vars.doput < params.doput_r1_label_2[1])
-    #     and (varsLb.label==params.labelPut_r1_label_2 )   and vars.flag_cambio_R1_label  
-    #     and vars.flag_Put_reset_r1_label_2
+    elif ( 
+        (timeNow >= params.timePut_r1_label_2[0] and timeNow < params.timePut_r1_label_2[1])
+        and (vars.dput >= params.dput_r1_label_2[0] and vars.dput < params.dput_r1_label_2[1])
+        and (vars.doput >= params.doput_r1_label_2[0] and vars.doput < params.doput_r1_label_2[1])
+        and (vars.dcall >= params.dcall_Put_r1_label_2[0] and vars.dcall < params.dcall_Put_r1_label_2[1]) and vars.askbid_call < params.max_askbid_compra_alt
+        and (varsLb.label==params.labelPut_r1_label_2 )   and vars.flag_cambio_R1_label  
+        and vars.flag_Put_reset_r1_label_2
 
-    # ):
-    #     buy(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P", "LABEL-II" ,debug_mode
-    #     )
+    ):
+        buy(
+            app,varsBc,varsLb,vars,params,
+            "P", "LABEL-II" ,debug_mode
+        )
 
     #########################################################
     ####################       PUT R1 I2   ################## 
     #########################################################
-    # elif ( 
-    #     (timeNow >= params.timePut_r1_i_2[0] and timeNow < params.timePut_r1_i_2[1])
-    #     and (vars.dput >= params.dput_r1_i_2[0] and vars.dput < params.dput_r1_i_2[1])
-    #     and (vars.doput >= params.doput_r1_i_2[0] and vars.doput < params.doput_r1_i_2[1])
-    #     and (vars.dcall >= params.dcall_Put_r1_i_2[0] and vars.dcall < params.dcall_Put_r1_i_2[1]) and vars.askbid_call < params.max_askbid_compra_alt
+    elif ( 
+        (timeNow >= params.timePut_r1_i_2[0] and timeNow < params.timePut_r1_i_2[1])
+        and (vars.dput >= params.dput_r1_i_2[0] and vars.dput < params.dput_r1_i_2[1])
+        and (vars.doput >= params.doput_r1_i_2[0] and vars.doput < params.doput_r1_i_2[1])
+        and (vars.dcall >= params.dcall_Put_r1_i_2[0] and vars.dcall < params.dcall_Put_r1_i_2[1]) and vars.askbid_call < params.max_askbid_compra_alt
 
-    #     and (varsLb.label==params.labelPut_r1_i_2 )  
-    # ):
-    #     buy(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P", "R1-I2" ,debug_mode
-    #     )
+        and (varsLb.label==params.labelPut_r1_i_2 )  
+    ):
+        buy(
+            app,varsBc,varsLb,vars,params,
+            "P", "R1-I2" ,debug_mode
+        )
  
     #########################################################
     ####################       PUT R1 I3   ###################
