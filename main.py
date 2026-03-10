@@ -129,9 +129,9 @@ def main():
             return
         vars.conexion=True
         # Cuenta regresiva para iniciar.
-        try:
-            broadcasting_Alinear_label(varsLb,params)
-        except:pass 
+        # try:
+        #     broadcasting_Alinear_label(varsLb,params)
+        # except:pass 
         
   
 
@@ -232,9 +232,9 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
-            if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
-                broadcasting_Alinear_label(varsLb,params) 
-                flag_label_BC=False
+            # if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
+            #     broadcasting_Alinear_label(varsLb,params) 
+            #     flag_label_BC=False
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
                     vars.label_ant=varsLb.label
@@ -270,14 +270,14 @@ def main():
                 '''
                 #---------------------------------------------------
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
-                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
                     
-                    if vars.call or vars.put:
-                        broadcasting_sell(varsBc,varsLb,vars,params,app)
-                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                    if vars.compra:
-                        broadcasting_buy(varsBc,varsLb,vars,params,app)
-                    pass
+                #     if vars.call or vars.put:
+                #         broadcasting_sell(varsBc,varsLb,vars,params,app)
+                #         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                #     if vars.compra:
+                #         broadcasting_buy(varsBc,varsLb,vars,params,app)
+                #     pass
                 
                 
 
