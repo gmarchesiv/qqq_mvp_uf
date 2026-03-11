@@ -270,14 +270,14 @@ def main():
                 '''
                 #---------------------------------------------------
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
-                # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
                     
-                #     if vars.call or vars.put:
-                #         broadcasting_sell(varsBc,varsLb,vars,params,app)
-                #         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                #     if vars.compra:
-                #         broadcasting_buy(varsBc,varsLb,vars,params,app)
-                #     pass
+                    if vars.call or vars.put:
+                        broadcasting_sell(varsBc,varsLb,vars,params,app)
+                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                    if vars.compra:
+                        broadcasting_buy(varsBc,varsLb,vars,params,app)
+                    pass
                 
                 
 
