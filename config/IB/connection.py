@@ -51,7 +51,7 @@ def ibkr_connection(params):
             app.reqAccountSummary(
                 9001,
                 "All",
-                "AvailableFunds,NetLiquidation,SettledCash,UnrealizedPnL,TotalCashValue",
+                "AccountType,AvailableFunds,NetLiquidation,SettledCash,UnrealizedPnL,TotalCashValue",
             )
             app.done.wait()
             printStamp(" - Servidor conectado - ")

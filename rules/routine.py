@@ -247,7 +247,7 @@ def saveTransaction(app, params, vars):
                     app.reqAccountSummary(
                         9001,
                         "All",
-                        "AvailableFunds,NetLiquidation,SettledCash,UnrealizedPnL,TotalCashValue",
+                        "AccountType,AvailableFunds,NetLiquidation,SettledCash,UnrealizedPnL,TotalCashValue",
                     )
                     app.done.wait()
                     wallet_load(app, params)
