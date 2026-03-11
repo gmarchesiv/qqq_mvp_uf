@@ -263,15 +263,6 @@ class IBapi(EWrapper, EClient):
         if tag in self.typeCash:
 
             self.cuentas[account][tag] = value
-        if tag == "AccountType":
-            print("Cuenta:", account)
-            print("Tipo de cuenta:", value)
-
-            if value == "CASH":
-                print(" Cuenta CASH detectada")
-
-            elif value == "MARGIN":
-                print(" Cuenta MARGIN detectada")
 
     def updateAccountValue(self, key: str, val: str, currency: str, accountName: str):
 

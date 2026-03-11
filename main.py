@@ -129,9 +129,9 @@ def main():
             return
         vars.conexion=True
         # Cuenta regresiva para iniciar.
-        # try:
-        #     broadcasting_Alinear_label(varsLb,params)
-        # except:pass 
+        try:
+            broadcasting_Alinear_label(varsLb,params)
+        except:pass 
         
   
 
@@ -232,9 +232,9 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
-            # if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
-            #     broadcasting_Alinear_label(varsLb,params) 
-            #     flag_label_BC=False
+            if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
+                broadcasting_Alinear_label(varsLb,params) 
+                flag_label_BC=False
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
                     vars.label_ant=varsLb.label
