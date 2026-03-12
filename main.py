@@ -131,7 +131,10 @@ def main():
         # Cuenta regresiva para iniciar.
         try:
             broadcasting_Alinear_label(varsLb,params)
-        except:pass 
+            printStamp(" - BROADCASTING LABEL - ")
+        except:
+            printStamp(" - ERROR EN BROADCASTING LABEL - ")
+            pass 
         
   
 
@@ -176,7 +179,7 @@ def main():
         notificacion de inicio de sesion del cliente por la
         aplicacion de Telegram.   
         '''
-        #---------------------------------------------------
+        #--------------------------------------------------- 
 
         now = datetime.now(params.zone).strftime("%Y-%m-%d")
         
@@ -232,9 +235,9 @@ def main():
             '''
             #---------------------------------------------------
             # GENERAR LABEL
-            if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
-                broadcasting_Alinear_label(varsLb,params) 
-                flag_label_BC=False
+            # if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
+            #     broadcasting_Alinear_label(varsLb,params) 
+            #     flag_label_BC=False
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
                     vars.label_ant=varsLb.label
@@ -270,14 +273,14 @@ def main():
                 '''
                 #---------------------------------------------------
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
-                # if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
                     
-                #     if vars.call or vars.put:
-                #         broadcasting_sell(varsBc,varsLb,vars,params,app)
-                #         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                #     if vars.compra:
-                #         broadcasting_buy(varsBc,varsLb,vars,params,app)
-                #     pass
+                    if vars.call or vars.put:
+                        broadcasting_sell(varsBc,varsLb,vars,params,app)
+                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                    if vars.compra:
+                        broadcasting_buy(varsBc,varsLb,vars,params,app)
+                    pass
                 
                 
 
@@ -308,13 +311,13 @@ def main():
                     # ================================
                     #            -VENTA-
                     # ================================
-                    # if vars.call or vars.put:
-                    #     sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
-                    # # ================================
-                    # #            -COMPRA-
-                    # # ================================
-                    # if vars.compra and params.fd >= timeNow:
-                    #     buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    if vars.call or vars.put:
+                        sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    # ================================
+                    #            -COMPRA-
+                    # ================================
+                    if vars.compra and params.fd >= timeNow:
+                        buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
                     pass
                 
                 # ================================
