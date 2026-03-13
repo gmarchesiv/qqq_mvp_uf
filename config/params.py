@@ -285,9 +285,9 @@ class parameters:
         # VENTA
         self.sl_cr1_fast =-0.045  # STOP LOSS
         # min_desicion_cr1_fast   = 60
-        self.umbral_manifestacion_cR1_fast =0.045 
-        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast ,0.08,0.1 ] # DIAMANTE DE COMPRA
-        self.resta_cr1_fast  =[0.01, 0.005,self.inf_n]# RETROCESO DEL DIAMANTE 
+        self.umbral_manifestacion_cR1_fast =0.02 
+        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.03,0.04,0.06]  # DIAMANTE DE COMPRA
+        self.resta_cr1_fast  =[0.015,0.01,0.005,0.001]# RETROCESO DEL DIAMANTE 
     
         # ==================================
         # =========== CALL - R3 =======
