@@ -3,12 +3,12 @@
         {
             "ip": "10.8.1.11:8000",
             "user": "Alberto Necco",
-            "rama":true
+            "rama":tfalserue
         },
         {
             "ip": "10.8.1.4:8000",
             "user": "Augusto Vidaurre",
-            "rama":true
+            "rama":false
         },
      {
             "ip": "10.8.1.5:8000",
@@ -43,7 +43,7 @@
         {
             "ip": "10.8.1.9:8000",
             "user": "Orlando Marchesi",
-            "rama":true
+            "rama":false
         },
         {
             "ip": "10.8.1.3:8000",
