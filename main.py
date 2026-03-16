@@ -192,8 +192,8 @@ def main():
             timeNow = datetime.now(params.zone).time()
          
             # Bloqueo por sesion tardia
-            if (timeNow.hour >= 9 and timeNow.minute >= 33):
-               varsApp.flag_bloqueo_tiempo=True
+            # if (timeNow.hour >= 9 and timeNow.minute >= 33):
+            #    varsApp.flag_bloqueo_tiempo=True
         else:
             load_app_vars(app, varsApp)
             # broadcasting_Alinear_label(varsLb,params) 
