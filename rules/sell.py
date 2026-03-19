@@ -310,6 +310,25 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         manifestacion=params.umbral_manifestacion_cR1_fast2
         nmt=params.inf
 
+    #########################################################
+    ####################      CALL  R1  LABEL  ###############
+    #########################################################
+    elif vars.tipo == "LABEL-I": 
+        diamante=params.diamante_cr1_label
+        resta=params.resta_cr1_label
+        sl=params.sl_cr1_label
+        manifestacion=params.umbral_manifestacion_cR1_label
+        nmt=params.inf
+
+    #########################################################
+    ####################      CALL  R1  LABEL 2###############
+    #########################################################
+    elif vars.tipo == "LABEL-II": 
+        diamante=params.diamante_cr1_label_2
+        resta=params.resta_cr1_label_2
+        sl=params.sl_cr1_label_2
+        manifestacion=params.umbral_manifestacion_cR1_label_2
+        nmt=params.inf
 
     #########################################################
     ####################      VENTA       ###################
@@ -540,6 +559,16 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         resta=params.resta_pr1_label_2
         sl=params.sl_pr1_label_2
         manifestacion=params.umbral_manifestacion_pR1_label_2
+        nmt=params.inf
+
+    #########################################################
+    ####################      PUT  R1  LABEL 4###############
+    #########################################################
+    elif vars.tipo == "LABEL-IV": 
+        diamante=params.diamante_pr1_label_4
+        resta=params.resta_pr1_label_4
+        sl=params.sl_pr1_label_4
+        manifestacion=params.umbral_manifestacion_pR1_label_4
         nmt=params.inf
     #########################################################
     ####################      PUT  R1     ###################

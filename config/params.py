@@ -170,7 +170,7 @@ class parameters:
         # bloqueo_cr1_e_dput= -0.05
         self.bloqueo_cr1_e_hora=dt_time(10,0)
         # ==================================
-        # =========== CALL - R1-E2 ==========  
+        # =========== CALL - R1-E2 ========= COMENTADA  
         # ==================================
         
         self.dcall_r1_e2 = [-0.07, 0.1 ]
@@ -200,10 +200,8 @@ class parameters:
         
         # VENTA
         
-        self.sl_cr1_i = -0.048  # STOP LOSS
-   
-
-
+        self.sl_cr1_i = -0.045  # STOP LOSS
+    
         self.umbral_manifestacion_cr1_i =0.018
         self.diamante_cr1_i = [self.umbral_manifestacion_cr1_i,0.0245,0.03   ] # DIAMANTE DE COMPRA
         self.resta_cr1_i=[0.015,0.01 ,0.001] # RETROCESO DEL DIAMANTE 
@@ -211,7 +209,7 @@ class parameters:
         
 
         # ==================================
-        # =======  CALL - C       ==========  
+        # =======  CALL - C       ==========   COMENTADA
         # ==================================
         
         self.dcall_r1_c =[-0.17,-0.1]
@@ -250,7 +248,7 @@ class parameters:
         # self.target_cR2=0.11
 
         # ==================================
-        # =========== CALL - R2-2 ============
+        # =========== CALL - R2-2 ========== 
         # ==================================
 
         # COMPRA
@@ -286,8 +284,8 @@ class parameters:
         self.sl_cr1_fast =-0.045  # STOP LOSS
         # min_desicion_cr1_fast   = 60
         self.umbral_manifestacion_cR1_fast =0.02 
-        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast , 0.03,0.04,0.06]  # DIAMANTE DE COMPRA
-        self.resta_cr1_fast  =[0.015,0.01,0.005,0.001]# RETROCESO DEL DIAMANTE 
+        self.diamante_cr1_fast  = [self.umbral_manifestacion_cR1_fast,0.025,0.04 ]  # DIAMANTE DE COMPRA
+        self.resta_cr1_fast  =[0.01,0.005 ,0.001]# RETROCESO DEL DIAMANTE 
     
         # ==================================
         # =========== CALL - R3 =======
@@ -311,14 +309,14 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dcall_r1_f1 =[-0.09,0.06]
+        self.dcall_r1_f1 =[-0.05,0.06]
         self.docall_r1_f1 = [0.0315, 0.04]
-        self.dput_Call_f1 =[ -0.12 ,0.05 ]
+        self.dput_Call_f1 =[ -0.105 ,0.02 ]
         self.timeCall_r1_f1 = [dt_time(14, 30), dt_time(14, 45)]
         self.labelCall_r1_f1=0
 
         # VENTA
-        self.sl_cr1_f1=-0.05  # STOP LOSS
+        self.sl_cr1_f1=-0.035  # STOP LOSS
     
 
         self.umbral_manifestacion_cR1_f1=0.015
@@ -328,7 +326,7 @@ class parameters:
 
 
         # ==================================
-        # =========== CALL R1 F2 =============
+        # =========== CALL R1 F2 =========== COMENTADA
         # ==================================
         # COMPRA
         
@@ -355,7 +353,7 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dcall_r1_fast2 =[-0.2, 0.15]
+        self.dcall_r1_fast2 =[-0.19, 0.15]
         self.docall_r1_fast2 = [0.048, 0.058]
         self.dput_Call_r1_fast2=[ -0.23,0.135 ]
         self.timeCall_r1_fast2= [dt_time(9, 35), dt_time(9, 37 )]
@@ -372,7 +370,7 @@ class parameters:
 
 
         # ==================================
-        # =========== CALL - R1-2 ============
+        # =========== CALL - R1-2 ========== 
         # ==================================
         
         self.dcall_r1_2 = [0 , 0.08]
@@ -390,6 +388,54 @@ class parameters:
         self.umbral_manifestacion_cR1_2 = 0.0165
         self.diamante_cr1_2 = [self.umbral_manifestacion_cR1_2,0.028 ,0.0379 ,0.07,0.1 ] # DIAMANTE DE COMPRA
         self.resta_cr1_2  = [ 0.012,0.01,0.005,0.02 , 0.001] # RETROCESO DEL DIAMANTE 
+
+
+
+        # ==================================
+        # =========== CALL Label================
+        # ==================================
+        # COMPRA
+        
+        self.dcall_r1_label =[ -0.21, -0.1]
+        self.docall_r1_label = [-0.17, 0.045]
+        self.dput_Call_r1_label =[0.05, 0.265]
+        self.timeCall_r1_label = [dt_time (10, 20), dt_time(10, 40,5)]
+ 
+        self.labelCall_r1_label=0
+
+        self.umbral_compra_Call_label=[0.002,0.005]
+ 
+        self.fin_trade_Call_label=dt_time(10, 45)
+     
+ 
+
+        # VENTA
+        self.sl_cr1_label=-0.035 # STOP LOSS
+        # min_desicion_pr1_label  = 60
+        self.umbral_manifestacion_cR1_label=0.014
+        self.diamante_cr1_label= [self.umbral_manifestacion_cR1_label,0.025 ,0.03,0.04]# DIAMANTE DE COMPRA
+        self.resta_cr1_label =[0.014,0.005  , 0.003  ,0.001 ]# RETROCESO DEL DIAMANTE 
+
+        # ==================================
+        # =========== CALL Label 2=========== 
+        # ==================================
+        # COMPRA
+ 
+        self.dcall_r1_label_2 = [  -0.085, 0.175]
+        self.docall_r1_label_2 = [-0.05, 0.05]
+        self.dput_Call_r1_label_2 = [-0.135, 0.07]
+        self.timeCall_r1_label_2 = [dt_time(9, 45), dt_time(9, 55,5)]
+ 
+        self.labelCall_r1_label_2=0
+        self.umbral_compra_Call_label_2=[0.002,0.005]
+ 
+        self.fin_trade_Call_label_2=dt_time(10, 0)
+        # VENTA
+        self.sl_cr1_label_2=-0.05 # STOP LOSS
+        # min_desicion_pr1_label  = 60
+        self.umbral_manifestacion_cR1_label_2=0.013
+        self.diamante_cr1_label_2= [self.umbral_manifestacion_cR1_label_2,0.025 ,0.03,0.04]# DIAMANTE DE COMPRA
+        self.resta_cr1_label_2 =[0.01 ,0.005  , 0.003  ,0.001 ] # RETROCESO DEL DIAMANTE 
 
 
         #########################################################
@@ -413,7 +459,7 @@ class parameters:
         # =======   PUT - R1-INV 2==========  
         # ==================================
         
-        self.dput_r1_i_2 =[-0.294, -0.21]
+        self.dput_r1_i_2 =[-0.28, -0.21]
         self.doput_r1_i_2 =  [0.025, 0.046]
         self.dcall_Put_r1_i_2 = [0.2,0.385]
         self.timePut_r1_i_2 = [dt_time(9,33,30), dt_time(9,36)]
@@ -433,7 +479,7 @@ class parameters:
         self.dput_r1_i_3 =[-0.03, 0.075]
         self.doput_r1_i_3 =[0.0645, 0.074]
         self.dcall_Put_r1_i_3 =[-0.14,0.023]
-        self.timePut_r1_i_3 = [dt_time(9,35), dt_time(10,1)]
+        self.timePut_r1_i_3 = [dt_time(9,35), dt_time(9,59)]
         self.labelPut_r1_i_3=0
         
         # VENTA
@@ -450,13 +496,13 @@ class parameters:
         # COMPRA
         
         self.dput_r1_fast = [ 0.08, 0.158]
-        self.doput_r1_fast =[0.081, 0.0885]
+        self.doput_r1_fast =[0.081, 0.087]
         self.timePut_r1_fast = [dt_time(9, 40), dt_time(9, 50)]
         self.dcall_Put_r1_fast =[ -0.21,-0.08]
         self.labelPut_r1_fast=1
 
         # VENTA
-        self.sl_pr1_fast=-0.05 # STOP LOSS
+        self.sl_pr1_fast=-0.035 # STOP LOSS
         # min_desicion_pr1_fast  = 60
         self.umbral_manifestacion_pR1_fast=0.02
         self.diamante_pr1_fast = [self.umbral_manifestacion_pR1_fast,0.03 ,0.065,0.075  ]  # DIAMANTE DE COMPRA
@@ -471,11 +517,10 @@ class parameters:
         self.doput_r1_label = [0.03, 0.04]
         self.dcall_Put_r1_label = [-0.195 , -0.04]
         self.timePut_r1_label = [dt_time(9, 40), dt_time(9, 45)]
-        # self.docall_Put_r1_label =[-0.09, -0.01]
         self.labelPut_r1_label=1
 
         # VENTA
-        self.sl_pr1_label=-0.046 # STOP LOSS
+        self.sl_pr1_label=-0.04 # STOP LOSS
         # min_desicion_pr1_label  = 60
         self.umbral_manifestacion_pR1_label=0.0165
         self.diamante_pr1_label= [self.umbral_manifestacion_pR1_label,0.025 ,0.04,0.07,0.08]# DIAMANTE DE COMPRA
@@ -501,6 +546,44 @@ class parameters:
 
 
 
+
+         # ==================================
+        # =========== PUT Label 3=========== 
+        # ==================================
+        # COMPRA
+        
+        # self.dput_r1_label_3 = [ 0.024, 0.105]
+        # self.doput_r1_label_3 = [0.03, 0.04]
+        # self.dcall_Put_r1_label_3=[-0.195 , -0.03]
+        # self.timePut_r1_label_3 = [dt_time(9, 50),dt_time(10, 32)]
+        # self.labelPut_r1_label_3=1
+
+        # # VENTA
+        # self.sl_pr1_label_3=-0.046 # STOP LOSS
+        # # min_desicion_pr1_label  = 60
+        # self.umbral_manifestacion_pR1_label_3=0.0165
+        # self.diamante_pr1_label_3= [self.umbral_manifestacion_pR1_label_3,0.025 ,0.04,0.07,0.08]  # DIAMANTE DE COMPRA
+        # self.resta_pr1_label_3 = [0.015,0.01  ,0.008  ,0.005  ,0.001 ]  # RETROCESO DEL DIAMANTE 
+
+         # ==================================
+        # =========== PUT Label 4=========== 
+        # ==================================
+        # COMPRA
+        
+        self.dput_r1_label_4 = [ -0.335, 0.08]
+        self.doput_r1_label_4 =[-0.14, 0.265]
+        self.dcall_Put_r1_label_4=[-0.06 , 0.335]
+        self.umbral_compra_Put_label_4=[0.002,0.005]
+        self.timePut_r1_label_4 = [dt_time(10, 40),dt_time(11, 15,5)]
+        self.fin_trade_Put_label_4=dt_time(11, 20)
+        self.labelPut_r1_label_4=1
+
+        # VENTA
+        self.sl_pr1_label_4=-0.05 # STOP LOSS
+        # min_desicion_pr1_label  = 60
+        self.umbral_manifestacion_pR1_label_4=0.02
+        self.diamante_pr1_label_4= [self.umbral_manifestacion_pR1_label_4,0.024 ,0.03 ,0.04]  # DIAMANTE DE COMPRA
+        self.resta_pr1_label_4 = [ 0.01 , 0.005 , 0.003 , 0.001]  # RETROCESO DEL DIAMANTE 
         # ==================================
         # =========== PUT R2 ===============
         # ==================================
@@ -524,7 +607,7 @@ class parameters:
     
         
         # ==================================
-        # =========== PUT R2E ===============
+        # =========== PUT R2E ==============
         # ==================================
 
         # COMPRA
@@ -559,7 +642,7 @@ class parameters:
         self.labelPut_r1_f=1
 
         # VENTA
-        self.sl_pr1_f=-0.05  # STOP LOSS
+        self.sl_pr1_f=-0.04  # STOP LOSS
         # min_desicion_pr1_f  = 60
         # self.target_pR1_f =0.04
 
@@ -572,7 +655,7 @@ class parameters:
         
 
         # ==================================
-        # =========== PUT R3 ===============
+        # =========== PUT R3 =============== COMENTADA
         # ==================================
         # COMPRA
         
@@ -596,12 +679,12 @@ class parameters:
         
         self.dput_r1_i_4 =[-0.035, -0.01]
         self.doput_r1_i_4 = [0.03, 0.0335]
-        self.dcall_r1_i_4 =[-0.115 , 0.075]
+        self.dcall_r1_i_4 =[-0.03 , 0.075]
         self.timePut_r1_i_4 = [dt_time(9,35), dt_time(9,58)]
         self.labelPut_r1_i_4=0
         
         # VENTA
-        self.sl_pr1_i_4=-0.046  # STOP LOSS
+        self.sl_pr1_i_4=-0.045  # STOP LOSS
         # min_desicion_pr1_i_3  = 60
         self.umbral_manifestacion_pR1_i_4=0.0165
         self.diamante_pr1_i_4 = [self.umbral_manifestacion_pR1_i_4 ,0.023,0.04 ]# DIAMANTE DE COMPRA
