@@ -349,7 +349,9 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
         and (vars.dput >= params.dput_r2[0] and vars.dput < params.dput_r2[1])
         and (vars.doput >= params.doput_r2[0] and vars.doput < params.doput_r2[1])
          and (vars.dcall >= params.dcall_Put_r2[0] and vars.dcall < params.dcall_Put_r2[1]) and vars.askbid_call < params.max_askbid_compra_alt
-        and (varsLb.label==params.labelPut_r2 )  and vars.flag_Put_reset_R2 and not vars.flag_bloqueo_put
+        and (varsLb.label==params.labelPut_r2 ) 
+        #   and vars.flag_Put_reset_R2 
+          and not vars.flag_bloqueo_put
 
     ):
         buy(
@@ -552,7 +554,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
         vars.flag_Put_label_4_compra=True
 
     #########################################################
-    ####################      CALL R1-LABEL   ############### 
+    ####################      PUT LABEL 4     ############### 
     #########################################################
     if ( (params.timePut_r1_label_4[0] <= timeNow< params.fin_trade_Put_label_4) 
         and vars.flag_Put_label_4_compra 
@@ -710,10 +712,6 @@ def calculos_call(vars, params,varsLb,debug_mode):
     '''
     #---------------------------------------------------
 
-    if vars.flag_Put_label_cambio and vars.price_Put_label==0:
-        vars.price_Put_label =vars.pbid
-    if vars.price_Put_label!=0:
-        vars.d_Put_label= (vars.pbid/vars.price_Put_label)-1
 
     if vars.flag_Call_label_cambio and vars.price_Call_label==0:
         vars.price_Call_label =vars.cbid
@@ -811,6 +809,14 @@ def calculos_put(vars, params,debug_mode ):
     #########################################################
     ###################      CALCULOS      ##################
     #########################################################
+
+    
+    if vars.flag_Put_label_cambio and vars.price_Put_label==0:
+        vars.price_Put_label =vars.pbid
+    if vars.price_Put_label!=0:
+        vars.d_Put_label= (vars.pbid/vars.price_Put_label)-1
+
+
     diff=vars.dcall+vars.dput
     if ((diff<=params.limite_Put_bloqueo[0] or diff>=params.limite_Put_bloqueo[1])
                     and ( vars.askbid_call < params.max_askbid_compra_abs and vars.cask > 0 and vars.promedio_call < params.max_askbid_compra_prom )):

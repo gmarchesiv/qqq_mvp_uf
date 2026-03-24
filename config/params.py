@@ -153,7 +153,7 @@ class parameters:
         # ==================================
         
         self.dcall_r1_e = [-0.155,0.1 ]
-        self.docall_r1_e =  [0.057, 0.065]
+        self.docall_r1_e =  [0.057, 0.06]
         self.dput_Call_r1_e = [ -0.18 ,0.035 ]
         self.timeCall_r1_e = [dt_time(10,14), dt_time(10, 35)]
         self.labelCall_r1_e =0
@@ -354,7 +354,7 @@ class parameters:
         # COMPRA
         
         self.dcall_r1_fast2 =[-0.19, 0.15]
-        self.docall_r1_fast2 = [0.048, 0.058]
+        self.docall_r1_fast2 = [0.048, 0.056]
         self.dput_Call_r1_fast2=[ -0.23,0.135 ]
         self.timeCall_r1_fast2= [dt_time(9, 35), dt_time(9, 37 )]
         self.labelcall_r1_fast2=0
@@ -591,8 +591,8 @@ class parameters:
         # COMPRA
         self.umbral_pr2=0.15
         self.dput_r2 =[0.172,0.32] 
-        self.doput_r2 = [0.0545, 0.069] 
-        self.dcall_Put_r2 =[-0.32 , -0.1]
+        self.doput_r2 = [0.0545, 0.06] 
+        self.dcall_Put_r2 =[-0.335 , -0.1]
         self.timePut_r2 = [dt_time(9, 45), dt_time(10, 27)]
         self.labelPut_r2=1
   
@@ -636,7 +636,7 @@ class parameters:
         # COMPRA
         
         self.dput_r1_f = [0,0.52]
-        self.doput_r1_f = [0.05, 0.067]
+        self.doput_r1_f = [0.05, 0.059]
         self.dcall_Put_r1_f=[-0.38 , -0.06]
         self.timePut_r1_f = [dt_time(12, 30), dt_time(12, 46)]
         self.labelPut_r1_f=1
@@ -695,7 +695,7 @@ class parameters:
         # ==================================
         
         self.dput_r1_i_5 =[-0.19, -0.129]
-        self.doput_r1_i_5 = [0.03, 0.041]
+        self.doput_r1_i_5 = [0.03, 0.0375]
         self.timePut_r1_i_5 = [dt_time(9,35,20), dt_time(9,50,20)]
         self.labelPut_r1_i_5=0
         self.dcall_Put_r1_i_5 = [0.065,0.24]
@@ -715,7 +715,7 @@ class parameters:
         # COMPRA
         
         self.dput_r2_fast = [ 0.30, 0.42]
-        self.doput_r2_fast = [0.055, 0.065]
+        self.doput_r2_fast = [0.055, 0.06]
         self.dcall_Put_r2_fast =[-0.39 , -0.23]
         self.timePut_r2_fast = [dt_time(9, 34), dt_time(9, 35,30)]
         self.labelPut_r2_fast=1

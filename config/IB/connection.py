@@ -104,6 +104,7 @@ def test_ibkr_connection(params):
     # Si se agotan los intentos
     printStamp("No se pudo conectar después de 3 minutos.")
     connection_record(params, False)
+    
     return
 
 
