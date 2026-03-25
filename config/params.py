@@ -292,8 +292,8 @@ class parameters:
         # ==================================
         
         self.dcall_r3 =  [ 0.19, 0.225]
-        self.docall_r3 =  [0.03, 0.045]
-        self.dput_Call_r3 = [ -0.26 ,-0.135 ]
+        self.docall_r3 =  [0.03, 0.04]
+        self.dput_Call_r3 = [ -0.21 ,-0.135 ]
         self.timeCall_r3 =  [dt_time(9, 38), dt_time(9, 52)]
         self.labelCall_r3=0
         
