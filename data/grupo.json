@@ -1,9 +1,9 @@
 {
     "red": [
-       {
-            "ip": "10.8.0.24:8000",
-            "user": "Giancarlo Marchesi",
-            "rama":true
-        } 
+  {
+            "ip": "10.8.1.11:8000",
+            "user": "Alberto Necco",
+            "rama":false
+        }
     ]
 }
