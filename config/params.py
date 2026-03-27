@@ -590,8 +590,8 @@ class parameters:
 
         # COMPRA
         self.umbral_pr2=0.15
-        self.dput_r2 =[0.172,0.32] 
-        self.doput_r2 = [0.0545, 0.06] 
+        self.dput_r2 =[0.168,0.32] 
+        self.doput_r2 = [0.0545, 0.063] 
         self.dcall_Put_r2 =[-0.335 , -0.1]
         self.timePut_r2 = [dt_time(9, 45), dt_time(10, 27)]
         self.labelPut_r2=1
@@ -714,9 +714,9 @@ class parameters:
         # ==================================
         # COMPRA
         
-        self.dput_r2_fast = [ 0.30, 0.42]
-        self.doput_r2_fast = [0.055, 0.06]
-        self.dcall_Put_r2_fast =[-0.39 , -0.23]
+        self.dput_r2_fast = [ 0.295, 0.42]
+        self.doput_r2_fast = [0.0545, 0.06]
+        self.dcall_Put_r2_fast =[-0.395 , -0.23]
         self.timePut_r2_fast = [dt_time(9, 34), dt_time(9, 35,30)]
         self.labelPut_r2_fast=1
 
