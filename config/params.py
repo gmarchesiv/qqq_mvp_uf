@@ -698,7 +698,7 @@ class parameters:
         self.doput_r1_i_5 = [0.03, 0.0375]
         self.timePut_r1_i_5 = [dt_time(9,35,20), dt_time(9,50,20)]
         self.labelPut_r1_i_5=0
-        self.dcall_Put_r1_i_5 = [0.065,0.24]
+        self.dcall_Put_r1_i_5 = [-0.005,0.24]
         # VENTA
         self.sl_pr1_i_5=-0.046  # STOP LOSS
         # min_desicion_pr1_i_3  = 60

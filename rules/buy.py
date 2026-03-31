@@ -458,18 +458,18 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     #########################################################
     ####################       PUT R1 I2   ################## 
     #########################################################
-    # elif ( 
-    #     (timeNow >= params.timePut_r1_i_2[0] and timeNow < params.timePut_r1_i_2[1])
-    #     and (vars.dput >= params.dput_r1_i_2[0] and vars.dput < params.dput_r1_i_2[1])
-    #     and (vars.doput >= params.doput_r1_i_2[0] and vars.doput < params.doput_r1_i_2[1])
-    #     and (vars.dcall >= params.dcall_Put_r1_i_2[0] and vars.dcall < params.dcall_Put_r1_i_2[1]) and vars.askbid_call < params.max_askbid_compra_alt
+    elif ( 
+        (timeNow >= params.timePut_r1_i_2[0] and timeNow < params.timePut_r1_i_2[1])
+        and (vars.dput >= params.dput_r1_i_2[0] and vars.dput < params.dput_r1_i_2[1])
+        and (vars.doput >= params.doput_r1_i_2[0] and vars.doput < params.doput_r1_i_2[1])
+        and (vars.dcall >= params.dcall_Put_r1_i_2[0] and vars.dcall < params.dcall_Put_r1_i_2[1]) and vars.askbid_call < params.max_askbid_compra_alt
 
-    #     and (varsLb.label==params.labelPut_r1_i_2 )  
-    # ):
-    #     buy(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P", "R1-I2" ,debug_mode
-    #     )
+        and (varsLb.label==params.labelPut_r1_i_2 )  
+    ):
+        buy(
+            app,varsBc,varsLb,vars,params,
+            "P", "R1-I2" ,debug_mode
+        )
  
     #########################################################
     ####################       PUT R1 I3   ###################
@@ -544,27 +544,27 @@ def buy_Put(app,varsBc,varsLb,vars,params,debug_mode):
     ####################      PUT LABEL 4     ###################
     #########################################################
 
-    elif ( 
-        (timeNow >= params.timePut_r1_label_4 [0] and timeNow < params.timePut_r1_label_4 [1])
-        and (vars.dput >= params.dput_r1_label_4[0] and vars.dput < params.dput_r1_label_4[1])
-        and (vars.doput >= params.doput_r1_label_4[0] and vars.doput < params.doput_r1_label_4[1])
-        and (vars.dcall >= params.dcall_Put_r1_label_4[0] and vars.dcall < params.dcall_Put_r1_label_4[1]) and vars.askbid_call < params.max_askbid_compra_alt
-        and  (varsLb.label==params.labelPut_r1_label_4  ) 
-    ):
-        vars.flag_Put_label_4_compra=True
+    # elif ( 
+    #     (timeNow >= params.timePut_r1_label_4 [0] and timeNow < params.timePut_r1_label_4 [1])
+    #     and (vars.dput >= params.dput_r1_label_4[0] and vars.dput < params.dput_r1_label_4[1])
+    #     and (vars.doput >= params.doput_r1_label_4[0] and vars.doput < params.doput_r1_label_4[1])
+    #     and (vars.dcall >= params.dcall_Put_r1_label_4[0] and vars.dcall < params.dcall_Put_r1_label_4[1]) and vars.askbid_call < params.max_askbid_compra_alt
+    #     and  (varsLb.label==params.labelPut_r1_label_4  ) 
+    # ):
+    #     vars.flag_Put_label_4_compra=True
 
-    #########################################################
-    ####################      PUT LABEL 4     ############### 
-    #########################################################
-    if ( (params.timePut_r1_label_4[0] <= timeNow< params.fin_trade_Put_label_4) 
-        and vars.flag_Put_label_4_compra 
-        and (params.umbral_compra_Put_label_4[0] <= vars.d_Put_label <= params.umbral_compra_Put_label_4[1])
+    # #########################################################
+    # ####################      PUT LABEL 4     ############### 
+    # #########################################################
+    # if ( (params.timePut_r1_label_4[0] <= timeNow< params.fin_trade_Put_label_4) 
+    #     and vars.flag_Put_label_4_compra 
+    #     and (params.umbral_compra_Put_label_4[0] <= vars.d_Put_label <= params.umbral_compra_Put_label_4[1])
         
-    ):
-        buy(
-            app,varsBc,varsLb,vars,params,
-            "P","LABEL-IV" ,debug_mode
-        )
+    # ):
+    #     buy(
+    #         app,varsBc,varsLb,vars,params,
+    #         "P","LABEL-IV" ,debug_mode
+    #     )
         
 
     
