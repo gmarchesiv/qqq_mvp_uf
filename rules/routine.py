@@ -50,14 +50,36 @@ def data_option_open(app,   vars,params):
         p_ask=app.options[2]["ASK"]
         p_bid=app.options[2]["BID"]
         if vars.call_open==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
-            vars.call_open = app.options[1]["BID"]
+            vars.call_open =c_bid
 
         if vars.put_open==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
-            vars.put_open = app.options[2]["BID"]
+            vars.put_open =p_bid
+        if   params.max_askbid_hora_open <= timeNow:
+            vars.call_open = c_bid
+            vars.put_open =p_bid
+            vars.flag_bloqueo_tiempo =True
+            break
+        time.sleep(0.5)
+
+
+    vars.call_open_2 = -1
+    vars.put_open_2 = -1
+
+    while (vars.call_open_2==-1 or vars.put_open_2 == -1):
+        timeNow = datetime.now(params.zone).time()
+        c_ask=app.options[3]["ASK"]
+        c_bid=app.options[3]["BID"]
+        p_ask=app.options[4]["ASK"]
+        p_bid=app.options[4]["BID"]
+        if vars.call_open_2==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
+            vars.call_open_2 = c_bid
+
+        if vars.put_open_2==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
+            vars.put_open_2 = p_bid
       
         if   params.max_askbid_hora_open <= timeNow:
-            vars.call_open = app.options[1]["BID"]
-            vars.put_open = app.options[2]["BID"]
+            vars.call_open_2 = c_bid
+            vars.put_open_2 = p_bid
             vars.flag_bloqueo_tiempo =True
             break
         time.sleep(0.5)
@@ -82,22 +104,60 @@ def data_susciption(app, params, vars):
     req_Options(app, vars, params.etf)
   
 
-    printStamp(" - Esperando Datos - ")
+    printStamp(" - Esperando Datos - VIX - ")
 
     while True:
         ready  = 0
         if app.etfs[5]["price"] > 0:  # ETF
             ready += 1
+       
+        if ready == 1:
+            break
+
+        time.sleep(0.5)
+
+    printStamp(" - Esperando Datos - ETF - ")
+
+    while True:
+        ready  = 0
+ 
         if app.etfs[6]["price"] > 0:  # VIX
             ready += 1
+   
+        if ready == 1:
+            break
+
+        time.sleep(0.5)
+
+    printStamp(" - Esperando Datos - OPTION-1 - ")
+
+    while True:
+        ready  = 0
+       
         if app.options[1]["ASK"] > 0 and app.options[1]["BID"] > 0:
             ready += 1
         if app.options[2]["ASK"] > 0 and app.options[2]["BID"] > 0:
             ready += 1
-        if ready == 4:
+        if ready == 2:
             break
 
         time.sleep(0.5)
+
+    printStamp(" - Esperando Datos - OPTION-2 - ")
+
+    while True:
+        ready  = 0
+       
+        if app.options[3]["ASK"] > 0 and app.options[3]["BID"] > 0:
+            ready += 1
+        if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
+            ready += 1
+        if ready == 2:
+            break
+
+        time.sleep(0.5)
+
+
 
     printStamp(" - Datos Recibidos - ")
 
@@ -494,6 +554,7 @@ def registro_strike_proximo(app, vars, params):
 
 
     precio = app.etfs[5]["price"]
+    vars.precio=precio
     printStamp(f"PRECIO: {app.etfs[5]['price']} $")
 
     call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
@@ -520,6 +581,84 @@ def registro_strike_proximo(app, vars, params):
     app.cancelMarketData(2)
     time.sleep(1)
     del app.options[2]
+
+    snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp_escogido, vars.exchange)
+    printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
+    while True:
+        timeNow = datetime.now(params.zone).time()
+        if dt_time(16, 0) < timeNow:
+            break
+        readyOpt = 0
+        if int(timeNow.second) in params.frecuencia_accion:
+            print("===============================================")
+            printStamp(f"CASK: {app.options[1]['ASK'] } | CBID: {app.options[1]['BID'] }")
+            printStamp(f"PASK: {app.options[2]['ASK'] } | PBID: {app.options[2]['BID'] }")
+        if app.options[1]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[1]["ASK"] / app.options[1]["BID"] - 1):
+            readyOpt += 1
+     
+        if app.options[2]["BID"] > 0 and params.max_askbid_venta_abs > (app.options[2]["ASK"] / app.options[2]["BID"] - 1):
+            readyOpt += 1
+            
+   
+        if readyOpt == 2:
+            break
+
+        time.sleep(0.5)
+
+    
+    vars.exp = exp_escogido
+    vars.strike_p = put_strike
+    vars.strike_c = call_strike
+    vars.put_close = app.options[2]["BID"]
+    vars.call_close = app.options[1]["BID"]
+    print("===============================================")
+    printStamp(
+        f"GUARDADO: {vars.exp} | PUT-STRIKE: {vars.strike_p} PUT-CLOSE: {vars.put_close} | CALL-STRIKE: {vars.strike_c} CALL-CLOSE: {vars.call_close}  "
+    )
+    timeNow = datetime.now(params.zone).time()
+    vars.hora_inicio = str(timeNow)
+
+
+
+# REGISTRO DE STRIKES
+def registro_strike_proximo_2 (app, vars, params): # TODO TERMINAR
+
+    # PEDIMOS LA CADENA DE OPCIONES
+    app.request_option_chain(app.etfs[5]["symbol"])
+
+ 
+    vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
+
+    list_exp = list_checkExpirations(app, app.etfs[5]["symbol"], params, vars.exchange)
+
+
+    precio = vars.precio
+    printStamp(f"PRECIO: { precio} $")
+
+    call = int(precio * ((100 + params.rangos_strikes[0][1]) / 100))
+    put = int(precio * ((100 - params.rangos_strikes[0][1]) / 100))
+
+    call_inf = int(precio * ((100 + params.rangos_strikes[0][0]) / 100))
+    put_inf = int(precio * ((100 - params.rangos_strikes[0][0]) / 100))
+    
+    printStamp(f"RANGOS --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
+
+    exp_escogido=list_exp[0]
+    put_strike=  round(put_inf / 5) * 5
+    call_strike= round(call_inf / 5) * 5
+  
+
+    printStamp(f"EXP: {exp_escogido}")
+ 
+    printStamp(f"RANGOS SELECCIONADOS --> PUT: {put_strike} /  CALL: {call_strike}")
+
+    app.cancelMarketData(3)
+    time.sleep(1)
+    del app.options[3]
+
+    app.cancelMarketData(4)
+    time.sleep(1)
+    del app.options[4]
 
     snapshot(app, app.etfs[5]["symbol"], [put_strike, call_strike], exp_escogido, vars.exchange)
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")

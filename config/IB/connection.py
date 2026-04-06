@@ -12,6 +12,8 @@ from ibapi.account_summary_tags import AccountSummaryTags
 from datetime import datetime
 from datetime import time as dt_time
 
+from functions.notifications import sendNoLog
+
 
 # ============================
 #  - Funciones de conexcion-
@@ -103,6 +105,13 @@ def test_ibkr_connection(params):
 
     # Si se agotan los intentos
     printStamp("No se pudo conectar después de 3 minutos.")
+
+    timeNow = datetime.now(params.zone)
+    hora = timeNow.time()
+    dia = timeNow.weekday()  # lunes=0, domingo=6
+
+    if (dia in range(0, 5) and hora < time(8, 0)) or (dia == 6 and hora > time(18, 0)):
+       sendNoLog(params)
     connection_record(params, False)
     
     return

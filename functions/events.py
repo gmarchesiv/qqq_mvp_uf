@@ -17,6 +17,8 @@ from functions.notifications import sendDisconnection
  
 
 
+from datetime import datetime, timedelta
+
 def es_fecha_especial(fecha):
     
     #---------------------------------------------------
@@ -26,66 +28,92 @@ def es_fecha_especial(fecha):
     '''
     #---------------------------------------------------
 
-    # Fechas específicas
-    fechas_especiales = {
-        "4 de julio": (7, 4),
-        "Thanksgiving": "thanksgiving",
-        "Navidad": (12, 25),
-        "Año Nuevo": (1, 1),
-        "24 de diciembre": (12, 24),
-        "3 de julio": (7, 3),
-        "Martin Luther King Day": "mlk_day" ,
-        "Día de los Presidentes": "presidents_day"
-    }
-
-    # Desglose de mes y día de la fecha proporcionada
     mes, dia = fecha.month, fecha.day
+    year = fecha.year
 
-    # Verificar 4 de julio, Navidad, Año Nuevo
-    if (mes, dia) == fechas_especiales["4 de julio"]:
-        return "4 de julio", False
-    elif (mes, dia) == fechas_especiales["Navidad"]:
-        return "Navidad", False
-    elif (mes, dia) == fechas_especiales["Año Nuevo"]:
+    # ----------- FECHAS FIJAS -----------
+    if (mes, dia) == (1, 1):
         return "Año Nuevo", False
-    elif (mes, dia) == fechas_especiales["24 de diciembre"]:
-        return "Visperas de Navidad", True
-    elif (mes, dia) == fechas_especiales["3 de julio"]:
-        return "3 de julio", True  # Nueva condición para 3 de julio
+    
+    if (mes, dia) == (6, 19):
+        return "Juneteenth", False
 
+    if (mes, dia) == (7, 4):
+        return "4 de julio", False
+
+    if (mes, dia) == (12, 25):
+        return "Navidad", False
+
+    if (mes, dia) == (12, 24):
+        return "Visperas de Navidad", True
+
+    if (mes, dia) == (7, 3):
+        return "3 de julio", True
+
+    # ----------- MLK DAY (3er lunes enero) -----------
     if mes == 1:
-        primer_dia_enero = datetime(fecha.year, 1, 1)
-        dia_de_la_semana = primer_dia_enero.weekday()
-        # Calcular el primer lunes de enero
-        primer_lunes = 1 + (7 - dia_de_la_semana) % 7
+        primer_dia = datetime(year, 1, 1)
+        primer_lunes = 1 + (7 - primer_dia.weekday()) % 7
         tercer_lunes = primer_lunes + 14
         if dia == tercer_lunes:
             return "Martin Luther King Day", False
 
-    # Verificar Día de los Presidentes (tercer lunes de febrero)
+    # ----------- PRESIDENTS DAY (3er lunes febrero) -----------
     if mes == 2:
-        primer_dia_febrero = datetime(fecha.year, 2, 1)
-        dia_de_la_semana = primer_dia_febrero.weekday()
-        primer_lunes = 1 + (7 - dia_de_la_semana) % 7
+        primer_dia = datetime(year, 2, 1)
+        primer_lunes = 1 + (7 - primer_dia.weekday()) % 7
         tercer_lunes = primer_lunes + 14
         if dia == tercer_lunes:
             return "Día de los Presidentes", False
-        
-    # Verificar Día de Acción de Gracias (cuarto jueves de noviembre)
+
+    # ----------- GOOD FRIDAY (variable) -----------
+    # Cálculo de Pascua (algoritmo de Meeus)
+    a = year % 19
+    b = year // 100
+    c = year % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19*a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    l = (32 + 2*e + 2*i - h - k) % 7
+    m = (a + 11*h + 22*l) // 451
+    mes_pascua = (h + l - 7*m + 114) // 31
+    dia_pascua = ((h + l - 7*m + 114) % 31) + 1
+
+    pascua = datetime(year, mes_pascua, dia_pascua)
+    good_friday = pascua - timedelta(days=2)
+
+    if fecha.date() == good_friday.date():
+        return "Good Friday", False
+
+    # ----------- MEMORIAL DAY (último lunes mayo) -----------
+    if mes == 5:
+        ultimo_dia = datetime(year, 5, 31)
+        ultimo_lunes = 31 - (ultimo_dia.weekday())
+        if dia == ultimo_lunes:
+            return "Memorial Day", False
+
+    # ----------- LABOR DAY (primer lunes septiembre) -----------
+    if mes == 9:
+        primer_dia = datetime(year, 9, 1)
+        primer_lunes = 1 + (7 - primer_dia.weekday()) % 7
+        if dia == primer_lunes:
+            return "Labor Day", False
+
+    # ----------- THANKSGIVING -----------
     if mes == 11:
-        # Calcular el cuarto jueves de noviembre
-        primer_dia_noviembre = datetime(fecha.year, 11, 1)
-        dia_de_la_semana = primer_dia_noviembre.weekday()
-        # Calcular el primer jueves de noviembre
-        primer_jueves = 1 + (3 - dia_de_la_semana) % 7
+        primer_dia = datetime(year, 11, 1)
+        primer_jueves = 1 + (3 - primer_dia.weekday()) % 7
         cuarto_jueves = primer_jueves + 21
+
         if dia == cuarto_jueves:
             return "Thanksgiving", False
-        # Verificar día después de Thanksgiving
         elif dia == cuarto_jueves + 1:
             return "Post Thanksgiving", True
 
-    # Si no coincide con ninguna fecha especial
     return None, None
 
 
@@ -159,12 +187,12 @@ def countdown(zone,app,vars,params):
             minuto_ante = now.minute
 
 
-
-        if app.alerta==True and vars.flag_alerta==False:
-            sendDisconnection(params )
-            vars.flag_alerta=True
-        if vars.flag_alerta and app.alerta==False :
-            vars.flag_alerta=False
+        if now >=  dt_time(7, 30):
+            if app.alerta==True and vars.flag_alerta==False:
+                sendDisconnection(params )
+                vars.flag_alerta=True
+            if vars.flag_alerta and app.alerta==False :
+                vars.flag_alerta=False
 
 
         time.sleep(1)

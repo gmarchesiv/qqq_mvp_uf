@@ -171,3 +171,28 @@ ALERTA: Revisar Maquina
     except Exception as e:
         print(type(e).__name__, ":", e)
         printStamp("-ERROR AL ENVIAR TELEGRAM: sendError-")
+
+
+
+def sendNoLog(params ):
+
+    #---------------------------------------------------
+    '''
+    Envio de mensaje de Alerta de Error.
+    '''
+    #---------------------------------------------------
+
+    msg = f"""
+======================
+- Alerta de No Conexión -
+USER: {params.name}
+ETF:{params.etf}
+ALERTA: Alertar al cliente
+======================
+"""
+    try:
+         
+        sendTelegram(params, msg)
+    except Exception as e:
+        print(type(e).__name__, ":", e)
+        printStamp("-ERROR AL ENVIAR TELEGRAM: sendError-")
