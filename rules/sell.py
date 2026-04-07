@@ -219,6 +219,16 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         nmt=params.inf
 
     #########################################################
+    ################      CALL  R1-3      ##################
+    #########################################################
+    elif vars.tipo == "R1-3"  : 
+        diamante=params.diamante_cr1_3
+        resta=params.resta_cr1_3
+        sl=params.sl_cr1_3
+        manifestacion=params.umbral_manifestacion_cR1_3
+        nmt=params.inf
+
+    #########################################################
     ################      CALL  R1  E      ##################
     #########################################################
     elif vars.tipo == "R1-E"  : 
