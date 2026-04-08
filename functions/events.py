@@ -187,12 +187,12 @@ def countdown(zone,app,vars,params):
             minuto_ante = now.minute
 
 
-        if now >=  dt_time(7, 30):
-            if app.alerta==True and vars.flag_alerta==False:
-                sendDisconnection(params )
-                vars.flag_alerta=True
-            if vars.flag_alerta and app.alerta==False :
-                vars.flag_alerta=False
+        # if now >=  dt_time(7, 30):
+        #     if app.alerta==True and vars.flag_alerta==False:
+        #         sendDisconnection(params )
+        #         vars.flag_alerta=True
+        #     if vars.flag_alerta and app.alerta==False :
+        #         vars.flag_alerta=False
 
 
         time.sleep(1)
