@@ -125,19 +125,30 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             proteccion_askbid_flag=True
     if proteccion_askbid_flag:
         return
-   
     
-    if timeNow >= params.fd:
+
+    if debug_mode :
+        if timeNow >= params.fd or  vars.df["FECHA"][vars.i] != vars.df["FECHA"][vars.i+1]:
+            name = "FD"
+            sell(
+                app,varsBc,varsLb,vars,params,
+                "C",
+                name ,debug_mode
+            )
+            return
+  
+    else:
+        if timeNow >= params.fd:
+            
         
-      
-        name = "FD"
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "C",
-            name ,debug_mode
-        )
-        return
- 
+            name = "FD"
+            sell(
+                app,varsBc,varsLb,vars,params,
+                "C",
+                name ,debug_mode
+            )
+            return
+    
  
     # REGLA DE PROTECCION
     # if (
@@ -309,6 +320,7 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
         manifestacion=params.umbral_manifestacion_cR1_f2
         nmt=params.inf
     
+    
 
     #########################################################
     ################      CALL  R1  FAST2      ##################
@@ -440,8 +452,10 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         return
     if vars.pbid <= 0 or vars.askbid_put<0: 
         return
-     
-    vars.rentabilidad = vars.pbid / vars.priceBuy - 1
+    try:  
+        vars.rentabilidad = vars.pbid / vars.priceBuy - 1
+    except:
+        print("------------",vars.tipo)
     if debug_mode==False:
         read_rentabilidad(vars)
     else:
@@ -461,16 +475,24 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         return
         
     # # FIN DE DIA DE TRADE
- 
-    if timeNow >= params.fd:
-         
-        sell(
-            app,varsBc,varsLb,vars,params,
-            "P",
-            "FD" ,debug_mode
-        )
+    if debug_mode :
+        if timeNow >= params.fd or  vars.df["FECHA"][vars.i] != vars.df["FECHA"][vars.i+1]:
+            sell(
+                    app,varsBc,varsLb,vars,params,
+                    "P",
+                    "FD" ,debug_mode
+                )
+            return
+    else:
+        if timeNow >= params.fd:
+            
+            sell(
+                app,varsBc,varsLb,vars,params,
+                "P",
+                "FD" ,debug_mode
+            )
 
-        return
+            return
 
     # REGLA PROTECCION
     # if (
@@ -500,7 +522,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
     #     )
 
     #     return
-
+    
     #########################################################
     ####################      PUT  R2         ###############
     #########################################################
@@ -636,7 +658,27 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
         sl=params.sl_pr1_f
         manifestacion=params.umbral_manifestacion_pR1_f
         nmt=params.inf
- 
+    #########################################################
+    ################      CALL  R1  F INV 1  ##################
+    #########################################################
+    elif vars.tipo == "F-INV-1"  : 
+        diamante=params.diamante_pr1_f_inv_1
+        resta=params.resta_pr1_f_inv_1
+        sl=params.sl_pr1_f_inv_1
+        manifestacion=params.umbral_manifestacion_pR1_f_inv_1
+        nmt=params.inf
+
+    #########################################################
+    ################      CALL  R1  F INV 3  ##################
+    #########################################################
+    elif vars.tipo == "F-INV-3"  : 
+        diamante=params.diamante_pr1_f_inv_3
+        resta=params.resta_pr1_f_inv_3
+        sl=params.sl_pr1_f_inv_3
+        manifestacion=params.umbral_manifestacion_pR1_f_inv_3
+        nmt=params.inf
+    else:
+        print("------------",vars.tipo)
     # REGLA PROTECCION
     if (
          vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
