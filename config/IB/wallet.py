@@ -75,20 +75,18 @@ def block_Trades(vars, money):
     insuficiente.
     '''
     #---------------------------------------------------
-    print(vars.trades)
-    print(len(vars.trades) )
-    print(len(vars.trades) < 3)
-    print(money)
-    print(money >= 25000)
-    print((len(vars.trades) < 3 or money >= 25000))
+ 
     if (len(vars.trades) < 3 or money >= 25000):
         vars.bloqueo = False
         print("desbloqueado")
+        print("-----1")
     else:
         vars.bloqueo = True
         print("bloqueado")
+        print("-----2")
 
-
+    print(vars.bloqueo)
+    print("-----3")
 
 def block_Trades_2(vars):
     #---------------------------------------------------
