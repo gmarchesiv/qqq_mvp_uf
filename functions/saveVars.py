@@ -5,7 +5,7 @@ from datetime import datetime
 import json
 import os
 import pytz
-
+from collections import deque
 
 # =======================
 #  - GUARDAR VAIRBALES -
@@ -61,10 +61,12 @@ def saveVars(vars, app, params, estado):
     # data = vars.__dict__.copy()
     # data["askbid_call_prom"]=list(vars.askbid_call_prom)
     # data["askbid_put_prom"]=list(vars.askbid_put_prom)
-    
+    vars.askbid_call_prom=list(vars.askbid_call_prom)
+    vars.askbid_put_prom=list(vars.askbid_put_prom)
     with open(file_name, "w") as json_file:
         json.dump(vars.__dict__, json_file, indent=4)
-  
+    vars.askbid_call_prom=deque(vars.askbid_call_prom, maxlen=89)
+    vars.askbid_put_prom=deque(vars.askbid_put_prom, maxlen=89)
     
 
  
