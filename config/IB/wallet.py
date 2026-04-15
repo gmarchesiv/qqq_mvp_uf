@@ -77,6 +77,7 @@ def block_Trades(vars, money):
     #---------------------------------------------------
     print(vars.trades)
     print(len(vars.trades) )
+    print(len(vars.trades) < 3)
     print(money)
     print(money >= 25000)
     if len(vars.trades) < 3 or money >= 25000:
