@@ -80,8 +80,10 @@ def block_Trades(vars, money):
     print(len(vars.trades) < 3)
     print(money)
     print(money >= 25000)
-    if len(vars.trades) < 3 or money >= 25000:
+    print((len(vars.trades) < 3 or money >= 25000))
+    if (len(vars.trades) < 3 or money >= 25000):
         vars.bloqueo = False
+        print("desbloqueado")
     else:
         vars.bloqueo = True
         print("bloqueado")
