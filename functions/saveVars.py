@@ -58,12 +58,12 @@ def saveVars(vars, app, params, estado):
         }
 
         vars.price = app.etfs[5]["price"]
-    data = vars.__dict__.copy()
-    data["askbid_call_prom"]=list(vars.askbid_call_prom)
-    data["askbid_put_prom"]=list(vars.askbid_put_prom)
-    print(data)
+    # data = vars.__dict__.copy()
+    # data["askbid_call_prom"]=list(vars.askbid_call_prom)
+    # data["askbid_put_prom"]=list(vars.askbid_put_prom)
+    
     with open(file_name, "w") as json_file:
-        json.dump(data, json_file, indent=4)
+        json.dump(vars.__dict__, json_file, indent=4)
   
     
 
