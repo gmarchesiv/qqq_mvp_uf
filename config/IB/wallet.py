@@ -84,6 +84,7 @@ def block_Trades(vars, money):
         vars.bloqueo = False
     else:
         vars.bloqueo = True
+        print("bloqueado")
 
 
 
