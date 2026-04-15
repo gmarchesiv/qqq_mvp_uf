@@ -24,11 +24,11 @@ from database.repository.repository import writeRegister
 
 # funtions/
 from functions.broadcasting import *
-from functions.clean import clean_broadcasting, clean_vars
+from functions.clean import clean_vars
 from functions.events import countdown, isTradingDay
 from functions.labels import generar_label
 from functions.logs import *
-from functions.notifications import sendDisconnection, sendError, sendStart
+from functions.notifications import   sendError, sendStart
 from functions.saveVars import saveVars
 
 # rules/
@@ -39,11 +39,9 @@ from rules.routine import (
     data_option_open,
     data_susciption,
     registration,
-    registro_strike,
-    registro_strike_OI,
+ 
     registro_strike_proximo,
-    saveTransaction,
-    update_status 
+    saveTransaction 
 )
 
 # database/
