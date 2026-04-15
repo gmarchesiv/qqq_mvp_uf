@@ -11,7 +11,7 @@ import os
 # config/
 from config.IB.connection import test_ibkr_connection, ibkr_connection, load_app_vars
 from config.IB.wallet import wallet_config 
-from config.params import parameters
+from config.params import *
 from config.vars.rutina import varsRutina
 from config.vars.broadcasting import varsBroadcasting
 from config.vars.app import varsApps
@@ -78,6 +78,10 @@ def debug_code(archivos):
     # PARAMETROS
     params = parameters(debug_mode=True)
 
+    params_call=call_params()
+        
+    params_put=put_params()
+
     app = App()
     
 
@@ -118,7 +122,7 @@ def debug_code(archivos):
 
 
         if  i ==0 or df["FECHA"][i] != df["FECHA"][i-1]  :
-            clean_vars(vars,varsApp)
+            clean_vars(vars)
 
         
         vars.cask = df["CASK"][i]
@@ -142,10 +146,11 @@ def debug_code(archivos):
 
      
         if vars.rule:
-            if vars.dcall >= params.umbral_cr2:
+            if vars.dcall >= params_call.r2["UMBRAL_R2"]:
                 vars.flag_Call_R2 = True
-            if vars.dput >= params.umbral_pr2:
+            if vars.dput >= params_put.r2["UMBRAL_R2"]:
                 vars.flag_Put_R2 = True
+ 
     
             vars.rule = False
  
@@ -158,7 +163,7 @@ def debug_code(archivos):
         #  -COMPRA-
         # ================================
         if vars.compra:
-            buyOptions(app,varsBc,varsLb,vars,params, debug_mode=True)
+            buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put, debug_mode=True)
         pass
         vars.label_ant=varsLb.label
 

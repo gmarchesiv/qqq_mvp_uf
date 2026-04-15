@@ -22,6 +22,7 @@ CORS(
         r"/get-data": origin,
         r"/transactions": origin,
         r"/daytrade": origin,
+        r"/daytrade_by_date": origin,
         r"/reset": origin,
         r"/hard_reset": origin,
         r"/conection-status": origin,
@@ -111,6 +112,38 @@ WHERE DATE(date) = '{today}'
 
     return jsonify(daytrade_dicts)
 
+@app.route("/daytrade_by_date", methods=["POST"])
+def daytrade_by_date():
+
+    conn = get_db_connection()
+
+    # Obtener date enviado en el body JSON
+    data = request.get_json()
+
+    if not data or "date" not in data:
+        return jsonify({"error": "Debe enviar 'date' en formato YYYY-MM-DD"}), 400
+
+    try:
+        search_date = datetime.strptime(data["date"], "%Y-%m-%d").date()
+    except ValueError:
+        return jsonify({"error": "Formato inválido. Usa YYYY-MM-DD"}), 400
+
+    # Query filtrando solo la fecha
+    rows = conn.execute(
+        """
+        SELECT *
+        FROM dayTrade
+        WHERE DATE(date) = ?
+        """,
+        (search_date,)
+    ).fetchall()
+
+    conn.close()
+
+    # Convertir a lista de diccionarios (forma más simple)
+    result = [dict(row) for row in rows]
+
+    return jsonify(result)
 
 @app.route("/daytrade_all", methods=["GET"])
 def get_daytrade_all():

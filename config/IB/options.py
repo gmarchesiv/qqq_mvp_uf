@@ -17,7 +17,7 @@ from functions.logs import printStamp
 
 
 # Logica de Peticion de Data de opciones
-def req_Options(app, vars, etf):
+def req_Options(app, vars, params):
 
     #---------------------------------------------------
     '''
@@ -26,9 +26,9 @@ def req_Options(app, vars, etf):
     '''
     #---------------------------------------------------
 
-    requestContract(app, etf, vars.strike_c, vars.exp, "C", vars.exchange)
+    requestContract(app, params.etf, vars.strike_c, vars.exp, "C", params.exchange[0])
   
-    requestContract(app, etf, vars.strike_p, vars.exp, "P", vars.exchange)
+    requestContract(app, params.etf, vars.strike_p, vars.exp, "P",params.exchange[0])
     
 
 

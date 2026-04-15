@@ -101,7 +101,7 @@ def data_susciption(app, params, vars):
  
 
     printStamp(" - Cargando Data de Opciones - ")
-    req_Options(app, vars, params.etf)
+    req_Options(app, vars, params )
   
 
     printStamp(" - Esperando Datos - VIX - ")
@@ -170,10 +170,10 @@ def update_status(app, vars,varsApp, params):
     segun sea el caso.
     '''
     #---------------------------------------------------
-    with open("/usr/src/app/data/vars.json") as f:
-        config = json.load(f)
+    # with open("/usr/src/app/data/vars.json") as f:
+    #     config = json.load(f)
 
-    vars.bloqueo = config.get("bloqueo", False)
+    # vars.bloqueo = config.get("bloqueo", False)
     
     
     if app.alerta:
@@ -188,7 +188,7 @@ def update_status(app, vars,varsApp, params):
 
         elif vars.call == False and vars.put == False and vars.compra == False:
             vars.status = "SLEEP"
-        elif  varsApp.flag_bloqueo_tiempo :
+        elif  vars.flag_bloqueo_tiempo :
             vars.status = "BLOQUEO T."
         elif  vars.bloqueo:
             vars.status = "BLOQUEO"
@@ -228,7 +228,7 @@ def registration(app, vars,varsApp, varsLb,params):
 # Calculos
 
 
-def calculations(app, vars,varsBc, params):
+def calculations(app, vars,varsBc, params,params_call,params_put):
 
     #---------------------------------------------------
     '''
@@ -268,9 +268,9 @@ def calculations(app, vars,varsBc, params):
 
      
     if vars.rule:
-        if vars.dcall >= params.umbral_cr2:
+        if vars.dcall >= params_call.r2["UMBRAL_R2"]:
             vars.flag_Call_R2 = True
-        if vars.dput >= params.umbral_pr2:
+        if vars.dput >= params_put.r2["UMBRAL_R2"]:
             vars.flag_Put_R2 = True
  
         vars.rule = False

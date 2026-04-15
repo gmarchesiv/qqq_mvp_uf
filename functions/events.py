@@ -187,7 +187,7 @@ def countdown(zone,app,vars,params):
             minuto_ante = now.minute
 
 
-        if now.time() >= dt_time(7, 30):
+        if now.time() >= dt_time(8, 30): # HORA NY
             if app.alerta==True and vars.flag_alerta==False:
                 sendDisconnection(params )
                 vars.flag_alerta=True

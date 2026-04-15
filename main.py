@@ -1,14 +1,19 @@
-###################################################
-################### LIBRERIAS  ####################
-###################################################
+#####################################################
+# ▒█░░░ ▀█▀ ▒█▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█▀▀▀█ 
+# ▒█░░░ ▒█░ ▒█▀▀▄ ▒█▄▄▀ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ░▀▀▀▄▄ 
+# ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄▄█
+#####################################################
  
+# Utils
+
 import time
 from datetime import datetime
 import traceback
+
 # config/
 from config.IB.connection import test_ibkr_connection, ibkr_connection, load_app_vars
 from config.IB.wallet import wallet_config 
-from config.params import parameters
+from config.params import *
 from config.vars.rutina import varsRutina
 from config.vars.broadcasting import varsBroadcasting
 from config.vars.app import varsApps
@@ -76,6 +81,9 @@ def main():
         # PARAMETROS
         params = parameters(debug_mode=False)
 
+        params_call=call_params()
+        
+        params_put=put_params()
         # ====================
         #  - TEST CONNECTION -
         # ====================
@@ -105,7 +113,7 @@ def main():
         '''
         #---------------------------------------------------
 
-        if isTradingDay(params): # TODO MEJORAR LOS FERIADOS NO AGREGADOS
+        if isTradingDay(params): 
             test_ibkr_connection(params)
             return
 
@@ -184,7 +192,7 @@ def main():
         now = datetime.now(params.zone).strftime("%Y-%m-%d")
         
         if vars.fecha != now:
-            clean_vars(vars,varsApp)
+            clean_vars(vars)
             data_option_open(app,vars,params)
             
             generar_label(params, varsLb,app)
@@ -193,7 +201,7 @@ def main():
          
             # Bloqueo por sesion tardia
             if (timeNow.hour >= 9 and timeNow.minute >= 33):
-               varsApp.flag_bloqueo_tiempo=True
+               vars.flag_bloqueo_tiempo=True
         else:
             load_app_vars(app, varsApp)
             # broadcasting_Alinear_label(varsLb,params) 
@@ -216,8 +224,8 @@ def main():
         '''
         #---------------------------------------------------
         
-        vars.ready=True
-        flag_label_BC=True
+        vars.ready=True 
+
         while True:
 
             timeNow = datetime.now(params.zone).time()
@@ -234,13 +242,10 @@ def main():
             tendencia a la hora de realizar una transaccion.
             '''
             #---------------------------------------------------
-            # GENERAR LABEL
-            # if   (timeNow.hour==9 and timeNow.minute ==32) and flag_label_BC:
-            #     broadcasting_Alinear_label(varsLb,params) 
-            #     flag_label_BC=False
+   
             if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
                 if varsLb.flag_minuto_label:
-                    vars.label_ant=varsLb.label
+                    varsLb.label_ant=varsLb.label
                     generar_label(params, varsLb,app)
                     varsLb.flag_minuto_label=False
 
@@ -273,13 +278,13 @@ def main():
                 '''
                 #---------------------------------------------------
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
-                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
                     
                     if vars.call or vars.put:
                         broadcasting_sell(varsBc,varsLb,vars,params,app)
                         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
                     if vars.compra:
-                        broadcasting_buy(varsBc,varsLb,vars,params,app)
+                        broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
                     pass
                 
                 
@@ -303,11 +308,11 @@ def main():
                 # if int(timeNow.second) in params.frecuencia_accion:
                     
                 saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
-                calculations(app, vars,varsBc, params)  # CALCULOS DE RUTINA
+                calculations(app, vars,varsBc, params,params_call,params_put)  # CALCULOS DE RUTINA
                 readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
 
                 # Se Bloquea en caso la configuracion de la wallet te indique
-                if vars.bloqueo == False and varsApp.flag_bloqueo_tiempo==False:
+                if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
                     # ================================
                     #            -VENTA-
                     # ================================
@@ -317,7 +322,7 @@ def main():
                     #            -COMPRA-
                     # ================================
                     if vars.compra and params.fd >= timeNow:
-                        buyOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                        buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
                     pass
                 
                 # ================================

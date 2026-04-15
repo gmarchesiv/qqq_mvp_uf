@@ -253,7 +253,7 @@ def broadcasting_sell_auto(varsBc,varsLb,vars,params,app):
                   
                     return
 
-def broadcasting_buy(varsBc,varsLb,vars,params,app):
+def broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app):
 
     #---------------------------------------------------
     '''
@@ -280,12 +280,28 @@ def broadcasting_buy(varsBc,varsLb,vars,params,app):
                         varsBc.buy_regla = data["buy_regla"]
                         varsBc.user = data["user"]
                         if varsBc.buy_tipo == "C":
-                          
+                            regla_encontrada=False
+                            for variable,parametro in params_call.__dict__.items():
+                                if varsBc.buy_regla  ==  parametro["REGLA"]:
+                                    vars.params_regla =parametro
+                                    regla_encontrada=True
+                            if not regla_encontrada:
+                                return False
+
+
                             if vars.askbid_call > params.max_askbid_compra_abs or vars.cask <= 0:
                                 return False
                           
                         elif varsBc.buy_tipo == "P":
-                           
+                            regla_encontrada=False
+                            for variable,parametro in params_put.__dict__.items():
+                                if varsBc.buy_regla  ==  parametro["REGLA"]:
+                                    vars.params_regla =parametro
+                                    regla_encontrada=True
+                            if not regla_encontrada:
+                                return False
+
+                               
                             if vars.askbid_put > params.max_askbid_compra_abs or vars.pask <= 0:
                                 return False
                             
