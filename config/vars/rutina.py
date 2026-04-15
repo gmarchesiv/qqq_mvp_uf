@@ -37,7 +37,8 @@ class varsRutina:
         ###############################################
         # VARIABLES DE RUTINA
         ###############################################
- 
+        self.name =self.data.get("name", "") 
+        self.wallet =self.data.get("wallet", {}) 
         self.conexion = False # indica conexcion al sistema 
         self.ready = False  # Indica que se encuentra en Rutina
         self.flag_alerta=False # envia alerta de desconexcion
@@ -67,7 +68,7 @@ class varsRutina:
          # ETF 
 
         self.vix= self.data.get("vix", 0)
-        self.etf_price= self.data.get("etf_price", 0)
+        self.price= self.data.get("price", 0)
 
 
         # OPTION

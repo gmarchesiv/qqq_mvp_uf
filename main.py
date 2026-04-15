@@ -62,13 +62,20 @@ def main():
 
         #---------------------------------------------------
         '''
-        Aqui inicializamos las variables y 
-        parametros antes de comenzar la rutina.
+        Aqui inicializamos las parametros y 
+        variables antes de comenzar la rutina.
         '''
         #---------------------------------------------------
 
+        # PARAMETROS
+        params = parameters(debug_mode=False)
+
+        params_call=call_params()
+        
+        params_put=put_params()
+
         # VARIABLES
-        vars = varsRutina(debug_mode=False)
+        vars = varsRutina(debug_mode=False  )
  
         varsBc = varsBroadcasting(debug_mode=False)
  
@@ -76,12 +83,7 @@ def main():
    
         varsApp=varsApps(debug_mode=False)
    
-        # PARAMETROS
-        params = parameters(debug_mode=False)
-
-        params_call=call_params()
         
-        params_put=put_params()
         # ====================
         #  - TEST CONNECTION -
         # ====================

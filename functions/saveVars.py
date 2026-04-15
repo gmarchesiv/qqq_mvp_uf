@@ -14,7 +14,8 @@ def saveVars(vars, app, params, estado):
     file_name = "/usr/src/app/data/vars.json"
     now = datetime.now(params.zone)
     
-
+    vars.name=params.name
+    vars.wallet=app.wallet
     vars.date= now.date().isoformat() 
     vars.time= now.time().isoformat() 
     vars.trade_hour= str(vars.trade_hour)
@@ -36,7 +37,7 @@ def saveVars(vars, app, params, estado):
             "symbol": "",
             "strike": "",
         }
-        vars.etf_price = 0
+        vars.price = 0
     else:
 
         vars.call_dic = {
@@ -56,10 +57,11 @@ def saveVars(vars, app, params, estado):
             "strike": app.options[2]["strike"],
         }
 
-        vars.etf_price = app.etfs[5]["price"]
+        vars.price = app.etfs[5]["price"]
     data = vars.__dict__.copy()
     data["askbid_call_prom"]=list(vars.askbid_call_prom)
     data["askbid_put_prom"]=list(vars.askbid_put_prom)
+    print(data)
     with open(file_name, "w") as json_file:
         json.dump(data, json_file, indent=4)
   
