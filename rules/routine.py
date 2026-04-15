@@ -170,6 +170,7 @@ def update_status(app, vars,varsApp, params):
     segun sea el caso.
     '''
     #---------------------------------------------------
+    
     with open("/usr/src/app/data/vars.json") as f:
         config = json.load(f)
 

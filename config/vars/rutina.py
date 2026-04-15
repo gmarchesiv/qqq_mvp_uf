@@ -232,3 +232,13 @@ class varsRutina:
         self.flag_Call_label_cambio= self.data.get("flag_Call_label_cambio", False)
         self.flag_Call_label_1_compra= self.data.get("flag_Call_label_1_compra", False) 
         self.flag_Call_label_2_compra= self.data.get("flag_Call_label_2_compra", False) 
+
+
+        file_name = "/usr/src/app/data/vars.json"
+        with open(file_name, "r") as file:
+            datos = json.load(file)
+   
+            datos["bloqueo"] = True
+      
+        with open(file_name, "w") as file:
+            json.dump(datos, file, indent=4)
