@@ -16,7 +16,10 @@ def wallet_config(app, params, vars):
 
     '''
     #---------------------------------------------------
-
+    print(vars.trades)
+    print(len(vars.trades) )
+    print(money)
+    print(money >= 25000)
     wallet_load(app, params)
     trade_counter(vars, params)
     money = wallet_cash(app, params)
