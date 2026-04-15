@@ -148,7 +148,7 @@ class varsRutina:
         self.regla_ant = ""
         self.trade_hour = ""
         self.accion_mensaje = self.data.get("accion_mensaje", 0)
-        self.bloqueo = self.data.get("bloqueo", True)
+        self.bloqueo = True
         self.exchange = self.data.get("exchange", "CBOE")
         self.status = self.data.get("status", "ON")
 
