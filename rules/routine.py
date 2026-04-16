@@ -650,12 +650,14 @@ def registro_strike_proximo(app, vars, params):
 
 # REGISTRO DE STRIKES
 def registro_strike_proximo_2 (app, vars, params): 
+
+    app.request_option_chain(app.etfs[5]["symbol"])
      
     vars.exchange = params.exchange[0]  # SELECCION DEL EXCEHANGE
 
     list_exp = list_checkExpirations_2(app, app.etfs[5]["symbol"], params, vars.exchange)
   
-    printStamp(f"PRECIO: {app.etfs[5]['price']} $")
+    printStamp(f"PRECIO: { vars.precio} $")
     
 
     call = int(vars.precio * ((100 + params.strike_escenario+2) / 100))
@@ -671,18 +673,17 @@ def registro_strike_proximo_2 (app, vars, params):
     call_inf= (round(call_inf / 5) * 5) +params.strike_unidad
     printStamp(f"RANGOS UNIDAD --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
  
-    strikes_put = checkStrike(
-    app, exp_escogido, app.etfs[5]["symbol"], "P", vars.exchange
-)
-    put_list = [
-        float(x) for x in strikes_put if put <= float(x) <= put_inf
-    ]
-
-    strikes_call = checkStrike(
+    strikes = checkStrike(
     app, exp_escogido, app.etfs[5]["symbol"], "C", vars.exchange
 )
+    print(strikes)
+    put_list = [
+        float(x) for x in strikes if put <= float(x) <= put_inf
+    ]
+
+    
     call_list = [
-        float(x) for x in strikes_call if call_inf <= float(x) <= call
+        float(x) for x in strikes if call_inf <= float(x) <= call
     ]
     # Ordenar listas
     put_list.sort()
