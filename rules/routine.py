@@ -671,14 +671,18 @@ def registro_strike_proximo_2 (app, vars, params):
     call_inf= (round(call_inf / 5) * 5) +params.strike_unidad
     printStamp(f"RANGOS UNIDAD --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
  
-    strikes = checkStrike(
-    app, exp_escogido, app.etfs[5]["symbol"], "C", vars.exchange
+    strikes_put = checkStrike(
+    app, exp_escogido, app.etfs[5]["symbol"], "P", vars.exchange
 )
     put_list = [
-        float(x) for x in strikes if put <= float(x) <= put_inf
+        float(x) for x in strikes_put if put <= float(x) <= put_inf
     ]
+
+    strikes_call = checkStrike(
+    app, exp_escogido, app.etfs[5]["symbol"], "C", vars.exchange
+)
     call_list = [
-        float(x) for x in strikes if call_inf <= float(x) <= call
+        float(x) for x in strikes_call if call_inf <= float(x) <= call
     ]
     # Ordenar listas
     put_list.sort()
