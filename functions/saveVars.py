@@ -65,7 +65,8 @@ def saveVars(vars, app, params, estado):
     vars.askbid_put_prom=list(vars.askbid_put_prom)
     
     data=vars.__dict__.copy()
-    data=data["data"]
+    del data["data"]
+   
     print(data)
     with open(file_name, "w") as json_file:
         json.dump(data, json_file, indent=4)
