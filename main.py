@@ -204,13 +204,12 @@ def main():
             if (timeNow.hour >= 9 and timeNow.minute >= 33):
                vars.flag_bloqueo_tiempo=True
         else:
-            load_app_vars(app, varsApp)
-            # broadcasting_Alinear_label(varsLb,params) 
+            load_app_vars(app, varsApp) 
  
   
         wallet_config(app, params, vars)
 
-        # sendStart(app, params)
+        sendStart(app, params)
 
         printStamp(" - INICIO DE RUTINA - ")
          
