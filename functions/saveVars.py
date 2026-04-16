@@ -67,7 +67,7 @@ def saveVars(vars, app, params, estado):
     data=vars.__dict__.copy()
     del data["data"]
    
-    print(data)
+    # print(data)
     with open(file_name, "w") as json_file:
         json.dump(data, json_file, indent=4)
     vars.askbid_call_prom=deque(vars.askbid_call_prom, maxlen=89)

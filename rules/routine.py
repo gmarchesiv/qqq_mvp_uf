@@ -660,8 +660,8 @@ def registro_strike_proximo_2 (app, vars, params):
     printStamp(f"PRECIO: { vars.precio} $")
     
 
-    call = int(vars.precio * ((100 + params.strike_escenario+2) / 100))
-    put = int(vars.precio * ((100 - params.strike_escenario-2) / 100))
+    call = int(vars.precio * ((100 + params.strike_escenario+1) / 100))
+    put = int(vars.precio * ((100 - params.strike_escenario-1) / 100))
 
     call_inf = int(vars.precio * ((100 +  params.strike_escenario) / 100))
     put_inf = int(vars.precio * ((100 - params.strike_escenario) / 100))
