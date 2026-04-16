@@ -658,8 +658,8 @@ def registro_strike_proximo_2 (app, vars, params):
     printStamp(f"PRECIO: {app.etfs[5]['price']} $")
     
 
-    call = int(vars.precio * ((100 + params.strike_escenario+0.6) / 100))
-    put = int(vars.precio * ((100 - params.strike_escenario+0.6) / 100))
+    call = int(vars.precio * ((100 + params.strike_escenario+1) / 100))
+    put = int(vars.precio * ((100 - params.strike_escenario+1) / 100))
 
     call_inf = int(vars.precio * ((100 +  params.strike_escenario) / 100))
     put_inf = int(vars.precio * ((100 - params.strike_escenario) / 100))
@@ -667,9 +667,29 @@ def registro_strike_proximo_2 (app, vars, params):
     printStamp(f"RANGOS --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
 
     exp_escogido=list_exp[params.exp_escogido]
-    put_strike=  round(put_inf / 5) * 5
-    call_strike= round(call_inf / 5) * 5
-  
+    put_inf= ( round(put_inf / 5) * 5) -params.strike_unidad
+    call_inf= (round(call_inf / 5) * 5) +params.strike_unidad
+    printStamp(f"RANGOS UNIDAD --> PUT : {put} - {put_inf} | CALL :{call_inf} - {call}")
+ 
+    strikes = checkStrike(
+    app, exp_escogido, app.etfs[5]["symbol"], "C", vars.exchange
+)
+    put_list = [
+        float(x) for x in strikes if put <= float(x) <= put_inf
+    ]
+    call_list = [
+        float(x) for x in strikes if call_inf <= float(x) <= call
+    ]
+    # Ordenar listas
+    put_list.sort()
+    call_list.sort()
+    printStamp(f"EXP: {exp_escogido} - PUTs:{put_list} / CALLs:{call_list}")
+ 
+    put_strike = put_list[-1]  
+    call_strike = call_list[0] 
+    exp_escogido = exp_escogido
+   
+ 
 
     printStamp(f"EXP: {exp_escogido}")
  
