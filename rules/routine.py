@@ -603,27 +603,27 @@ def registro_strike_proximo(app, vars, params):
     printStamp(f"EXTRAYENDO DATOS DE LA OPCION")
     while True:
         timeNow = datetime.now(params.zone).time()
-
+        
         cask=app.options[21]['ASK']
         cbid=app.options[21]['BID']
         pask=app.options[22]['ASK']
         pbid=app.options[22]['BID']
-        cab=(cask/cbid)-1
-        pab=(pask/pbid)-1
+        readyOpt = 0
+        cab=0
+        pab=0
+        if cbid> 0 :
+            cab=(cask/cbid)-1
+            if params.max_askbid_venta_abs > cab:
+                readyOpt += 1
+        if pbid > 0:
+            pab=(pask/pbid)-1
+            if params.max_askbid_venta_abs > pab:
+                readyOpt += 1
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
             printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {cab}")
             printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {pab}")
-
-        
-        readyOpt = 0
-        
-        if cbid> 0 and params.max_askbid_venta_abs > cab:
-            readyOpt += 1
-     
-        if pbid > 0 and params.max_askbid_venta_abs > pab:
-            readyOpt += 1
-            
+ 
    
         if readyOpt == 2:
             break
@@ -712,22 +712,22 @@ def registro_strike_proximo_2 (app, vars, params):
         cbid=app.options[23]['BID']
         pask=app.options[24]['ASK']
         pbid=app.options[24]['BID']
-        cab=(cask/cbid)-1
-        pab=(pask/pbid)-1
+        readyOpt = 0
+        cab=0
+        pab=0
+        if cbid> 0 :
+            cab=(cask/cbid)-1
+            if params.max_askbid_venta_abs > cab:
+                readyOpt += 1
+        if pbid > 0:
+            pab=(pask/pbid)-1
+            if params.max_askbid_venta_abs > pab:
+                readyOpt += 1
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
             printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {cab}")
             printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {pab}")
-
-        
-        readyOpt = 0
-        
-        if cbid> 0 and params.max_askbid_venta_abs > cab:
-            readyOpt += 1
-     
-        if pbid > 0 and params.max_askbid_venta_abs > pab:
-            readyOpt += 1
-            
+ 
    
         if readyOpt == 2:
             break
@@ -735,7 +735,6 @@ def registro_strike_proximo_2 (app, vars, params):
         if dt_time(16, 0) < timeNow:
             break
         time.sleep(0.5)
-
     
     vars.exp_2 = exp_escogido
     vars.strike_p_2 = put_strike
