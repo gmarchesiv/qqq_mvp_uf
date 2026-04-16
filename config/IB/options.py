@@ -29,6 +29,10 @@ def req_Options(app, vars, params):
     requestContract(app, params.etf, vars.strike_c, vars.exp, "C", params.exchange[0])
   
     requestContract(app, params.etf, vars.strike_p, vars.exp, "P",params.exchange[0])
+
+    requestContract(app, params.etf, vars.strike_c_2, vars.exp_2, "C", params.exchange[0])
+  
+    requestContract(app, params.etf, vars.strike_p_2, vars.exp_2, "P",params.exchange[0])
     
 
 
@@ -313,6 +317,34 @@ def list_checkExpirations(app, etf, params, exchange):
                 lista_exp.append(expiry_date.strftime(format_str))
 
     return lista_exp
+
+def list_checkExpirations_2(app, etf, params, exchange):
+    name = f"{exchange}_{etf}"
+
+    listExpire = list(app.option_chains[name]["expirations"])
+    fecha_actual = datetime.now()
+
+    format_str = "%Y%m%d"
+    listExpire_dates = [datetime.strptime(date, format_str) for date in listExpire]
+
+    # Ordenar la lista en orden descendente
+    listExpire_dates.sort(reverse=False)
+ 
+    lista_exp = []
+    for expiry_date in listExpire_dates:
+        if (expiry_date >= (
+            fecha_actual + timedelta(days=params.days_min_exp_2)
+        ) and expiry_date <= (
+            fecha_actual + timedelta(days=params.days_max_exp_2)
+        )  ): 
+     
+            lista_exp.append(expiry_date.strftime(format_str))
+
+   
+    return lista_exp
+
+
+
 
 # revision del strike disponible
 def dic_checkStrike(app, expiri, etf, tipo, exhange):

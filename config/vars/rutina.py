@@ -90,6 +90,9 @@ class varsRutina:
         self.caida = self.data.get("caida", 0)
         self.trade_hour = ""
         self.regla_ant = ""
+        # ------------------------  2da option
+        self.exp_2 = self.data.get("exp_2", "")
+        
             # CALL
         self.strike_c = self.data.get("strike_c", 0)
         self.dcall = self.data.get("dcall", 0)
@@ -104,7 +107,16 @@ class varsRutina:
         self.price_Call_label=self.data.get("price_Call_label", 0)
         self.d_Call_label=self.data.get("d_Call_label", 0)
         self.promedio_call=self.data.get("promedio_call",0)
-        
+        # ------------------------  2da option
+        self.strike_c_2 = self.data.get("strike_c_2", 0)
+        self.dcall_2 = self.data.get("dcall_2", 0)
+        self.docall_2 = self.data.get("docall_2", 0)
+        self.askbid_call_2 = self.data.get("askbid_call_2", 0)
+        self.call_close_2 = self.data.get("call_close_2", 0)
+        self.call_open_2 = self.data.get("call_open_2", 0)
+        self.cask_2 = 0
+        self.cbid_2 = 0
+ 
             # PUT
         self.strike_p = self.data.get("strike_p", 0)
         self.dput = self.data.get("dput", 0)  
@@ -120,7 +132,16 @@ class varsRutina:
         self.price_Put_label=self.data.get("price_Put_label", 0)
         self.d_Put_label=self.data.get("d_Put_label", 0)
         self.promedio_put=self.data.get("promedio_put",0)
-
+        # ------------------------  2da option
+        self.strike_p_2 = self.data.get("strike_p_2", 0)
+        self.dput_2 = self.data.get("dput_2", 0)  
+        self.doput_2 = self.data.get("doput_2", 0)
+        self.askbid_put_2 = self.data.get("askbid_put_2", 0)
+        self.put_close_2 = self.data.get("put_close_2", 0)
+        self.put_open_2 = self.data.get("put_open_2", 0)
+        self.pask_2 = 0
+        self.pbid_2 = 0
+        
 
         ###############################################
         # VARIABLES DE FLAGS

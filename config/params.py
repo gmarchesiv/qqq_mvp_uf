@@ -39,6 +39,10 @@ class parameters:
         self.token = os.getenv("TOKENBOT")
         self.typeIB = os.getenv("TYPEIB")
         self.cuenta = os.getenv("CUENTA")
+        self.exp_escogido=int( os.getenv("EXP"))
+        self.strike_escenario =int( os.getenv("STRIKE"))
+        self.strike_unidad = int(os.getenv("UNIDAD"))
+
  
         ###############################################
         #               PARAMETROS -  conexión IBKR
@@ -79,6 +83,8 @@ class parameters:
         self.days_min_exp = 31  # DIAS para el exp minimo de busqueda
         self.days_max_exp = 39 
         self.except_days_min_exp = 26
+        self.days_min_exp_2 = 24
+        self.days_max_exp_2 = 45 
 
         # PARAMETROS DE ASKBID DE ACCIONES
         self.max_askbid_venta_prom = 0.03
