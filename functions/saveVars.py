@@ -10,7 +10,7 @@ from collections import deque
 # =======================
 #  - GUARDAR VAIRBALES -
 # =======================
-def saveVars(vars, app, params, estado):
+def saveVars(vars, params, estado):
     file_name = "/usr/src/app/data/vars.json"
     now = datetime.now(params.zone)
     

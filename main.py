@@ -76,7 +76,10 @@ def main():
 
         # VARIABLES
         vars = varsRutina(debug_mode=False  )
- 
+
+        print(vars.flag_Call_reset)
+        saveVars(vars,   params, True)
+        return
         varsBc = varsBroadcasting(debug_mode=False)
  
         varsLb=varsLabel(debug_mode=False)
