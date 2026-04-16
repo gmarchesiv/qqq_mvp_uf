@@ -621,8 +621,8 @@ def registro_strike_proximo(app, vars, params):
                 readyOpt += 1
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {cab}")
-            printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {pab}")
+            printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {round(cab*100,2)} %")
+            printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {round(pab*100,2)} %")
  
    
         if readyOpt == 2:
@@ -661,7 +661,7 @@ def registro_strike_proximo_2 (app, vars, params):
     
 
     call = int(vars.precio * ((100 + params.strike_escenario+2) / 100))
-    put = int(vars.precio * ((100 - params.strike_escenario+2) / 100))
+    put = int(vars.precio * ((100 - params.strike_escenario-2) / 100))
 
     call_inf = int(vars.precio * ((100 +  params.strike_escenario) / 100))
     put_inf = int(vars.precio * ((100 - params.strike_escenario) / 100))
@@ -676,7 +676,7 @@ def registro_strike_proximo_2 (app, vars, params):
     strikes = checkStrike(
     app, exp_escogido, app.etfs[5]["symbol"], "C", vars.exchange
 )
-    print(strikes)
+    # print(strikes)
     put_list = [
         float(x) for x in strikes if put <= float(x) <= put_inf
     ]
@@ -730,8 +730,8 @@ def registro_strike_proximo_2 (app, vars, params):
                 readyOpt += 1
         if int(timeNow.second) in params.frecuencia_accion:
             print("===============================================")
-            printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {cab}")
-            printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {pab}")
+            printStamp(f"CASK: {cask } | CBID: {cbid } | ASKBID: {round(cab*100,2)} %")
+            printStamp(f"PASK: {pask} | PBID: {pbid}| ASKBID: {round(pab*100,2)} %")
  
    
         if readyOpt == 2:
