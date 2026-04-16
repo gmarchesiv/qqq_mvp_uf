@@ -604,10 +604,10 @@ def registro_strike_proximo(app, vars, params):
     while True:
         timeNow = datetime.now(params.zone).time()
 
-        cask=app.options[1]['ASK']
-        cbid=app.options[1]['BID']
-        pask=app.options[2]['ASK']
-        pbid=app.options[2]['BID']
+        cask=app.options[21]['ASK']
+        cbid=app.options[21]['BID']
+        pask=app.options[22]['ASK']
+        pbid=app.options[22]['BID']
         cab=(cask/cbid)-1
         pab=(pask/pbid)-1
         if int(timeNow.second) in params.frecuencia_accion:
@@ -708,10 +708,10 @@ def registro_strike_proximo_2 (app, vars, params):
     while True:
         timeNow = datetime.now(params.zone).time()
 
-        cask=app.options[3]['ASK']
-        cbid=app.options[3]['BID']
-        pask=app.options[4]['ASK']
-        pbid=app.options[4]['BID']
+        cask=app.options[23]['ASK']
+        cbid=app.options[23]['BID']
+        pask=app.options[24]['ASK']
+        pbid=app.options[24]['BID']
         cab=(cask/cbid)-1
         pab=(pask/pbid)-1
         if int(timeNow.second) in params.frecuencia_accion:
