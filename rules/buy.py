@@ -37,7 +37,12 @@ def buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode):
     if vars.askbid_put < params.max_askbid_compra_abs and vars.pask > 0 and  vars.promedio_put < params.max_askbid_compra_prom and vars.compra==True:
         calculos_put(vars, params,params_put,debug_mode)
         buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode)
-
+    if vars.params_regla!="":
+        for k, v in vars.params_regla.items():
+            if isinstance(v, list):
+                vars.params_regla[k] = [
+                    str(x) for x in v
+                ]
     varsLb.label_ant=varsLb.label
 
 def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):

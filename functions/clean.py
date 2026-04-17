@@ -5,7 +5,7 @@ def clean_vars(vars):
 
     # LIMPIEZA DE vars
      
-    
+    vars.params_regla=""
     vars.compra = True
     vars.call=False
     vars.put=False
