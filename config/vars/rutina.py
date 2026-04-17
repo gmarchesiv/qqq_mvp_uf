@@ -47,7 +47,7 @@ class varsRutina:
         self.time= self.data.get("time", "")
         self.trades = self.data.get("trades", []) # Trades Hechos
         self.flag_bloqueo_tiempo= self.data.get("flag_bloqueo_tiempo", False) # Bloqueo Por Tiempo
-        self.bloqueo = True # Bloqueo Por Trades
+        self.bloqueo = False # Bloqueo Por Trades
         self.accion_mensaje = self.data.get("accion_mensaje", 0) # cambios de mensaje compra y venta
         self.exchange = self.data.get("exchange", "CBOE")
         self.hora_inicio = self.data.get("hora_inicio", "") # Hora de inicio
@@ -203,7 +203,7 @@ class varsRutina:
             with open(file_name, "r") as file:
                 datos = json.load(file)
     
-                datos["bloqueo"] = True
+                datos["bloqueo"] = False
         
             with open(file_name, "w") as file:
                 json.dump(datos, file, indent=4)
