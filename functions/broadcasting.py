@@ -65,7 +65,7 @@ def broadcasting_Alinear_label( varsLb,params):
     data = []
     for user in params.users:
         url = f"http://{user['ip']}/get-label"
-        response = requests.get(url)
+        response = requests.get(url, timeout=3)
         if response.status_code == 200:
             data.append(response.json())  
       
