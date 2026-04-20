@@ -19,8 +19,8 @@ def wallet_config(app, params, vars):
 
     wallet_load(app, params)
     trade_counter(vars, params)
-    # money = wallet_cash(app, params)
-    # block_Trades(vars, money)
+    money = wallet_cash(app, params)
+    block_Trades(vars, money)
 
 
 def wallet_load(app, params):
