@@ -16,7 +16,7 @@ from functions.labels import generar_label
 from functions.logs import printStamp, read_buy, readIBData_action
 from functions.notifications import sendError
 from functions.saveVars import saveVars
-
+import copy
 
 # INICIO DE LAS REGLAS DE COMPRA
 def buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode):
@@ -69,7 +69,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.r2["DPUT"][0] <= vars.dput< params_call.r2["DPUT"][1]) and vars.askbid_put < params.max_askbid_compra_alt
         and  (varsLb.label==params_call.r2["LABEL"] )   
     ):
-        vars.params_regla = params_call.r2
+        vars.params_regla =    copy.deepcopy(params_call.r3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -89,7 +89,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.r2_2["DPUT"][0] <= vars.dput< params_call.r2_2["DPUT"][1])and vars.askbid_put < params.max_askbid_compra_alt
         and   (varsLb.label==params_call.r2_2["LABEL"] )    
     ):
-        vars.params_regla = params_call.r2_2
+        vars.params_regla =   copy.deepcopy(params_call.r2_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -109,7 +109,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and   (varsLb.label==params_call.r1["LABEL"] )    
         and vars.flag_Call_reset["R1"]
     ):
-        vars.params_regla = params_call.r1
+        vars.params_regla =   copy.deepcopy(params_call.r1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -128,7 +128,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.r1_2["DPUT"][0] <= vars.dput< params_call.r1_2["DPUT"][1])  and vars.askbid_put < params.max_askbid_compra_alt
         and  (varsLb.label==params_call.r1_2["LABEL"] )     
     ):
-        vars.params_regla = params_call.r1_2
+        vars.params_regla =    copy.deepcopy(params_call.r1_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -145,7 +145,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.r1_3["DPUT"][0] <= vars.dput< params_call.r1_3["DPUT"][1])  and vars.askbid_put < params.max_askbid_compra_alt
         and (varsLb.label==params_call.r1_3["LABEL"] )  
     ):
-        vars.params_regla = params_call.r1_3
+        vars.params_regla =  copy.deepcopy(params_call.r1_3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -167,7 +167,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and vars.flag_Call_reset["R1-E"]
         and not vars.flag_bloqueo_r1_e
     ):
-        vars.params_regla = params_call.r1_e
+        vars.params_regla =   copy.deepcopy(params_call.r1_e)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -189,7 +189,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.inv["DPUT"][0] <= vars.dput< params_call.inv["DPUT"][1])  and vars.askbid_put < params.max_askbid_compra_alt
         # and (varsLb.label==params_call.inv["LABEL"] ) 
     ):
-        vars.params_regla = params_call.inv
+        vars.params_regla =   copy.deepcopy(params_call.inv)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -212,7 +212,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and vars.flag_cambio_fast 
         and vars.flag_Call_R2==False
     ):
-        vars.params_regla = params_call.fast
+        vars.params_regla =  copy.deepcopy(params_call.fast)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -233,7 +233,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (varsLb.label==params_call.r3["LABEL"] )
         and vars.flag_Call_R2==False 
     ):
-        vars.params_regla = params_call.r3
+        vars.params_regla =  copy.deepcopy(params_call.r3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -254,7 +254,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (varsLb.label==params_call.f1["LABEL"] )
      
     ):
-        vars.params_regla = params_call.f1
+        vars.params_regla = copy.deepcopy(params_call.f1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -276,7 +276,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (varsLb.label==params_call.fast_2["LABEL"] )
           and  vars.flag_Call_reset["FAST_2"]
     ):
-        vars.params_regla = params_call.fast_2
+        vars.params_regla =   copy.deepcopy(params_call.fast_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -321,7 +321,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.label_1["UMBRAL_COMPRA"][0] <= vars.d_Call_label <= params_call.label_1["UMBRAL_COMPRA"][1])
         
     ):
-        vars.params_regla = params_call.label_1
+        vars.params_regla =  copy.deepcopy(params_call.label_1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -337,7 +337,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and  (params_call.label_2["UMBRAL_COMPRA"][0] <= vars.d_Call_label <= params_call.label_2["UMBRAL_COMPRA"][1])
         
     ):
-        vars.params_regla = params_call.label_2
+        vars.params_regla =  copy.deepcopy(params_call.label_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
@@ -375,7 +375,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
           and not vars.flag_bloqueo_put
 
     ):
-        vars.params_regla = params_put.r2
+        vars.params_regla =   copy.deepcopy(params_put.r2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -395,7 +395,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and not vars.flag_bloqueo_put
 
     ):
-        vars.params_regla = params_put.r2_e
+        vars.params_regla =   copy.deepcopy(params_put.r2_e)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -415,7 +415,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
           and vars.flag_Put_reset["R2-FAST"]
 
     ):
-        vars.params_regla = params_put.r2_fast
+        vars.params_regla =   copy.deepcopy(params_put.r2_fast)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -434,7 +434,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and (varsLb.label==params_put.r3["LABEL"] )
         and vars.flag_Put_reset["R3"]
     ):
-        vars.params_regla = params_put.r3
+        vars.params_regla =   copy.deepcopy(params_put.r3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -454,7 +454,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
           and  vars.flag_Put_reset["FAST"]
 
     ):
-        vars.params_regla = params_put.fast
+        vars.params_regla =   copy.deepcopy(params_put.fast)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -475,7 +475,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and vars.flag_cambio_R1_label
 
     ):
-        vars.params_regla = params_put.label_1
+        vars.params_regla =   copy.deepcopy(params_put.label_1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -497,7 +497,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and vars.flag_cambio_R1_label
 
     ):
-        vars.params_regla = params_put.label_2
+        vars.params_regla =   copy.deepcopy(params_put.label_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -515,7 +515,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and  (params_put.inv_2["DCALL"][0] <= vars.dcall < params_put.inv_2["DCALL"][1])  and vars.askbid_call < params.max_askbid_compra_alt
         and (varsLb.label==params_put.inv_2["LABEL"] )
     ):
-        vars.params_regla = params_put.inv_2
+        vars.params_regla =   copy.deepcopy(params_put.inv_2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -534,7 +534,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and (varsLb.label==params_put.inv_3["LABEL"] )
 
     ):
-        vars.params_regla = params_put.inv_3
+        vars.params_regla =   copy.deepcopy(params_put.inv_3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -553,7 +553,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and (varsLb.label==params_put.inv_4["LABEL"] )
 
     ):
-        vars.params_regla = params_put.inv_4
+        vars.params_regla =  copy.deepcopy(params_put.inv_4)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -573,7 +573,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
 
     ):
         
-        vars.params_regla = params_put.inv_5
+        vars.params_regla =   copy.deepcopy(params_put.inv_5)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -595,7 +595,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         
 
     ):
-        vars.params_regla = params_put.f1
+        vars.params_regla =  copy.deepcopy(params_put.f1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -614,7 +614,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and (varsLb.label==params_put.f_inv_1["LABEL"] )
  
     ):
-        vars.params_regla = params_put.f_inv_1
+        vars.params_regla =  copy.deepcopy(params_put.f_inv_1)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
@@ -633,7 +633,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
         and (varsLb.label==params_put.f_inv_3["LABEL"] )
  
     ):
-        vars.params_regla = params_put.f_inv_3
+        vars.params_regla =   copy.deepcopy(params_put.f_inv_3)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "P",  vars.params_regla["REGLA"] ,debug_mode
