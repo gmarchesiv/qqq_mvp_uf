@@ -325,6 +325,68 @@ def broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app):
         print(type(e).__name__, ":", e)
         printStamp("-ERROR COMPRA BROADCASTING EN TRY-")             
 
+def broadcasting_buy_hedge(varsBc,varsLb,vars,params,params_call,params_put,app):
+
+    #---------------------------------------------------
+    '''
+    Realiza una compra por Broadcasting, va a revisar
+    la informacion recibida y forzara la regla de venta.
+    '''
+    #---------------------------------------------------
+
+    from rules.buy import buy
+    # Lectura del Archivo
+    file_name = "/usr/src/app/data/broadcasting.json"
+ 
+    try:
+        if os.path.exists(file_name):
+    
+            with open(file_name, "r") as json_file:
+                data = json.load(json_file)
+    
+                if 'buy_fd' in data:
+                    if data["buy_fd"] == True or varsBc.buy_fd == True:
+                        varsBc.buy_fd = True
+                
+                        varsBc.buy_tipo = data["buy_tipo"]
+                        varsBc.buy_regla = data["buy_regla"]
+                        varsBc.user = data["user"]
+                        if varsBc.buy_tipo == "C":
+                         
+                            if vars.askbid_call > params.max_askbid_compra_abs or vars.cask <= 0:
+                                return False
+                          
+                        elif varsBc.buy_tipo == "P":
+                          
+                            if vars.askbid_put > params.max_askbid_compra_abs or vars.pask <= 0:
+                                return False
+                            
+                        else:
+                            printStamp("-ERROR COMPRA BROADCASTING-")
+                            return False
+                        
+                        printStamp(f"-COMPRA BROADCASTING POR :{varsBc.user } - {varsBc.buy_tipo} - {varsBc.buy_regla}")
+                        flag_buy = buy (app,varsBc,varsLb,vars,params,
+                           varsBc.buy_tipo , varsBc.buy_regla ,debug_mode=False)
+
+                        if flag_buy == False:
+                            
+                            varsBc.buy_fd=False
+                           
+                            data["buy_fd"] = False 
+
+                            with open(file_name, "w") as file:
+                                json.dump(data, file, indent=4)
+                            return
+                        
+                        else:
+                            vars.params_regla=params.hedge
+                            varsBc.sell_fd=True
+                        return
+    except Exception as e:
+        print(type(e).__name__, ":", e)
+        printStamp("-ERROR COMPRA BROADCASTING EN TRY-")             
+
 
 async def send_request(session, url, data, user):
     try:

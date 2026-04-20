@@ -1,14 +1,15 @@
  
 
 
-def clean_vars(vars):
+def clean_vars(vars,varsBc):
 
     # LIMPIEZA DE vars
      
     vars.params_regla=""
     vars.compra = True
-    vars.call=False
-    vars.put=False
+    if not varsBc.sell_fd:
+        vars.call=False
+        vars.put=False
 
     vars.flag_real_priceBuy=False
  

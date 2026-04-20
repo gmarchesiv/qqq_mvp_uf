@@ -29,6 +29,7 @@ CORS(
         r"/daytrade_all": origin,
         r"/broadCasting-aliniar": origin,
         r"/broadCasting-strike": origin,
+        r"/broadCasting-buy-fd": origin,
         r"/broadCasting-sell": origin,
         r"/broadCasting-sell-auto": origin,
         r"/broadCasting-buy": origin,
@@ -309,6 +310,39 @@ def post_broadCasting_strike():
 
         data["call_close"] = body.get("call_close", data.get("call_close"))
         data["put_close"] = body.get("put_close", data.get("put_close"))
+
+        # Guardar los datos actualizados de nuevo en el archivo
+        with open(file_name, "w") as file:
+            json.dump(data, file, indent=4)
+
+        # Devolver los datos actualizados como respuesta
+        return jsonify({"status": "ok"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/broadCasting-buy-fd", methods=["POST"])
+def post_broadCasting_buy_fd():
+    file_name = "/usr/src/broadcasting.json"
+    try:
+        # Obtener el body de la solicitud
+        body = request.json
+
+        # Leer los datos existentes en el archivo JSON
+        with open(file_name, "r") as f:
+            data = json.load(f)
+
+        # Actualizar los datos con los valores del body
+        data["buy_tipo"] = body.get(
+            "buy_tipo", data.get("buy_tipo")
+        )
+        data["buy_regla"] = body.get(
+            "buy_regla", data.get("buy_regla")
+        )
+        data["user"] = body.get(
+            "user", data.get("user")
+        )
+        data["buy_fd"] = True
 
         # Guardar los datos actualizados de nuevo en el archivo
         with open(file_name, "w") as file:

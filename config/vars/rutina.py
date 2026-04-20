@@ -54,6 +54,8 @@ class varsRutina:
         self.status = self.data.get("status", "ON") # Status
         self.df=None # Data Frame Debug
         self.i=0 # posicion debug
+        self.sell_fd= self.data.get("sell_fd", False) 
+        # self.sell_fd= self.data.get("sell_fd", False) 
         ###############################################
         # VARIABLES DE TIEMPO
         ###############################################

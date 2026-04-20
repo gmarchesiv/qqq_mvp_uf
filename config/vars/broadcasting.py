@@ -42,7 +42,9 @@ class varsBroadcasting:
         self.put_open = 0
         self.flag_Call_R2 =False
         self.flag_Put_R2= False
-        
+
+        self.buy_fd= False
+        self.sell_fd= False
  
         if debug_mode ==False:
             file_name = "/usr/src/app/data/broadcasting.json"
@@ -52,6 +54,8 @@ class varsBroadcasting:
             
                 datos["sell"] = self.sell
                 datos["buy"] = self.buy
+                datos["buy_fd"] = self.buy_fd
+                datos["sell_fd"] = self.sell_fd
                 datos["max_askbid_venta_abs"] = self.max_askbid_venta_abs
 
             with open(file_name, "w") as file:

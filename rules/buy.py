@@ -642,7 +642,7 @@ def buy_Put(app,varsBc,varsLb,vars,params,params_put,debug_mode):
             vars.params_regla = ""
 
    
- 
+
     
      
 def buy(app,varsBc,varsLb,vars,params, tipo, regla ,debug_mode):

@@ -193,7 +193,7 @@ def main():
         now = datetime.now(params.zone).strftime("%Y-%m-%d")
         
         if vars.fecha != now:
-            clean_vars(vars)
+            clean_vars(vars,varsBc)
             data_option_open(app,vars,params)
             
             generar_label(params, varsLb,app)
@@ -285,6 +285,7 @@ def main():
                         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
                     if vars.compra:
                         broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
+                        broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app)
                     pass
                 
                 
