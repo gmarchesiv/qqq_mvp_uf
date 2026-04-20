@@ -325,7 +325,7 @@ def broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app):
         print(type(e).__name__, ":", e)
         printStamp("-ERROR COMPRA BROADCASTING EN TRY-")             
 
-def broadcasting_buy_hedge(varsBc,varsLb,vars,params,params_call,params_put,app):
+def broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app):
 
     #---------------------------------------------------
     '''
