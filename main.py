@@ -283,6 +283,7 @@ def main():
 
 
                 broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
+                saveVars(vars, app, params, True) 
                 time.sleep(0.5)
             else:
                 break

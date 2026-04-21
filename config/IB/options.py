@@ -223,26 +223,26 @@ def buyOptionContract(app, params, vars, price, tipo, contract, tiker):
 
     # ULTIMA VERIFICACION
     printStamp(f"- ULTIMA REVISION -")
-    if tipo == "P":
-        printStamp(f"ASK :{app.options[2]['ASK']} | ASK/BID_PUT :{round((app.options[2]['ASK'] / app.options[2]['BID'] - 1)*100,2)}%")
-        if (
-            params.max_askbid_compra_abs
-            < (app.options[2]["ASK"] / app.options[2]["BID"] - 1)
-            or app.options[2]["ASK"] <= 0
-        ):
-            printStamp(f"NO COMPRA -> ASK :{app.options[2]['ASK']} | ASK/BID_PUT :{round((app.options[2]['ASK'] / app.options[2]['BID'] - 1)*100,2)}%")
+    # if tipo == "P":
+    #     printStamp(f"ASK :{app.options[2]['ASK']} | ASK/BID_PUT :{round((app.options[2]['ASK'] / app.options[2]['BID'] - 1)*100,2)}%")
+    #     if (
+    #         params.max_askbid_compra_abs
+    #         < (app.options[2]["ASK"] / app.options[2]["BID"] - 1)
+    #         or app.options[2]["ASK"] <= 0
+    #     ):
+    #         printStamp(f"NO COMPRA -> ASK :{app.options[2]['ASK']} | ASK/BID_PUT :{round((app.options[2]['ASK'] / app.options[2]['BID'] - 1)*100,2)}%")
           
-            return False
-    if tipo == "C":
-        printStamp(f"ASK :{app.options[1]['ASK']} | ASK/BID_CALL :{round((app.options[1]['ASK'] / app.options[1]['BID'] - 1)*100,2)}%")
-        if (
-            params.max_askbid_compra_abs
-            < (app.options[1]["ASK"] / app.options[1]["BID"] - 1)
-            or app.options[1]["ASK"] <= 0
-        ):
-            printStamp(f"NO COMPRA -> ASK :{app.options[1]['ASK']} | ASK/BID_CALL :{round((app.options[1]['ASK'] / app.options[1]['BID'] - 1)*100,2)}%")
+    #         return False
+    # if tipo == "C":
+    #     printStamp(f"ASK :{app.options[1]['ASK']} | ASK/BID_CALL :{round((app.options[1]['ASK'] / app.options[1]['BID'] - 1)*100,2)}%")
+    #     if (
+    #         params.max_askbid_compra_abs
+    #         < (app.options[1]["ASK"] / app.options[1]["BID"] - 1)
+    #         or app.options[1]["ASK"] <= 0
+    #     ):
+    #         printStamp(f"NO COMPRA -> ASK :{app.options[1]['ASK']} | ASK/BID_CALL :{round((app.options[1]['ASK'] / app.options[1]['BID'] - 1)*100,2)}%")
          
-            return False
+    #         return False
 
     # EJECUCION DE LA ORDEN
 

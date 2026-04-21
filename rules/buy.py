@@ -698,12 +698,12 @@ def buy(app,varsBc,varsLb,vars,params, tipo, regla ,debug_mode):
 
         if tipo =="C":
             ask=vars.cask
-            contract=app.options[1]["contract"]
-            symbol=app.options[1]["symbol"]
+            contract=app.options[21]["contract"]
+            symbol=app.options[21]["symbol"]
         else:
             ask=vars.pask
-            contract=app.options[2]["contract"]
-            symbol=app.options[2]["symbol"]
+            contract=app.options[22]["contract"]
+            symbol=app.options[22]["symbol"]
 
         
         #BROADCASTING
