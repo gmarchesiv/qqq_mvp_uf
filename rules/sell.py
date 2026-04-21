@@ -189,32 +189,32 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
         # MAXIMA RENTABILIDAD
-        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
-        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
-        #         sell(
-        #             app,varsBc,varsLb,vars,params,
-        #             "C", "SL" ,debug_mode
-        #         )
-        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
-        #         sell(
-        #             app,varsBc,varsLb,vars,params,
-        #             "C",  "TARGET" ,debug_mode
-        #         )
-
-        # else:
-
-        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
-
-            name = f"T{vars.ugs_n}"
-            sell(
-                app,varsBc,varsLb,vars,params,
-                "C",  name ,debug_mode
-            )
-
-            return
+        if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+            if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "C", "SL" ,debug_mode
+                )
+            if vars.rentabilidad >= vars.params_regla["TARGET"]:
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "C",  "TARGET" ,debug_mode
+                )
 
         else:
-            pass
+
+            if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "C",  name ,debug_mode
+                )
+
+                return
+
+            else:
+                pass
 
     # AUN NO MANIFIESTA
     else:
@@ -337,30 +337,30 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
 
-        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
-        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
-        #         sell(
-        #             app,varsBc,varsLb,vars,params,
-        #             "P", "SL" ,debug_mode
-        #         )
-        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
-        #         sell(
-        #             app,varsBc,varsLb,vars,params,
-        #             "P",  "TARGET" ,debug_mode
-        #         )
-        # else:
-            # RETROCESO
-        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
-
-            name = f"T{vars.ugs_n}"
-            sell(
-                app,varsBc,varsLb,vars,params,
-                "P", name ,debug_mode)
-
-            return
-
+        if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+            if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "P", "SL" ,debug_mode
+                )
+            if vars.rentabilidad >= vars.params_regla["TARGET"]:
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "P",  "TARGET" ,debug_mode
+                )
         else:
-            pass
+            # RETROCESO
+            if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
+
+                name = f"T{vars.ugs_n}"
+                sell(
+                    app,varsBc,varsLb,vars,params,
+                    "P", name ,debug_mode)
+
+                return
+
+            else:
+                pass
 
     else:
         if (vars.minutos) >=( vars.params_regla["NMT"]+1) and vars.rentabilidad >=vars.params_regla["TARGET_NMT"]:

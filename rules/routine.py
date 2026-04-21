@@ -63,27 +63,27 @@ def data_option_open(app,   vars,params):
         time.sleep(0.5)
 
 
-    vars.call_open_2 = -1
-    vars.put_open_2 = -1
+    # vars.call_open_2 = -1
+    # vars.put_open_2 = -1
 
-    while (vars.call_open_2==-1 or vars.put_open_2 == -1):
-        timeNow = datetime.now(params.zone).time()
-        c_ask=app.options[3]["ASK"]
-        c_bid=app.options[3]["BID"]
-        p_ask=app.options[4]["ASK"]
-        p_bid=app.options[4]["BID"]
-        if vars.call_open_2==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
-            vars.call_open_2 = c_bid
+    # while (vars.call_open_2==-1 or vars.put_open_2 == -1):
+    #     timeNow = datetime.now(params.zone).time()
+    #     c_ask=app.options[3]["ASK"]
+    #     c_bid=app.options[3]["BID"]
+    #     p_ask=app.options[4]["ASK"]
+    #     p_bid=app.options[4]["BID"]
+    #     if vars.call_open_2==-1 and ((c_ask/c_bid)-1)<params.max_askbid_open:
+    #         vars.call_open_2 = c_bid
 
-        if vars.put_open_2==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
-            vars.put_open_2 = p_bid
+    #     if vars.put_open_2==-1 and ((p_ask/p_bid)-1)<params.max_askbid_open:
+    #         vars.put_open_2 = p_bid
       
-        if   params.max_askbid_hora_open <= timeNow:
-            vars.call_open_2 = c_bid
-            vars.put_open_2 = p_bid
-            vars.flag_bloqueo_tiempo =True
-            break
-        time.sleep(0.5)
+    #     if   params.max_askbid_hora_open <= timeNow:
+    #         vars.call_open_2 = c_bid
+    #         vars.put_open_2 = p_bid
+    #         vars.flag_bloqueo_tiempo =True
+    #         break
+    #     time.sleep(0.5)
         
 
 # REALIZA LA SUSCIPCION DE DATOS
@@ -144,19 +144,19 @@ def data_susciption(app, params, vars):
 
         time.sleep(0.5)
 
-    printStamp(" - Esperando Datos - OPTION-2 - ")
+    # printStamp(" - Esperando Datos - OPTION-2 - ")
 
-    while True:
-        ready  = 0
+    # while True:
+    #     ready  = 0
        
-        if app.options[3]["ASK"] > 0 and app.options[3]["BID"] > 0:
-            ready += 1
-        if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
-            ready += 1
-        if ready == 2:
-            break
+    #     if app.options[3]["ASK"] > 0 and app.options[3]["BID"] > 0:
+    #         ready += 1
+    #     if app.options[4]["ASK"] > 0 and app.options[4]["BID"] > 0:
+    #         ready += 1
+    #     if ready == 2:
+    #         break
 
-        time.sleep(0.5)
+    #     time.sleep(0.5)
 
 
 
@@ -281,19 +281,19 @@ def calculations(app, vars,varsBc, params,params_call,params_put):
 
     # CALCULOS DE 2DA OPTION
 
-    vars.cask_2 = app.options[3]["ASK"]
-    vars.cbid_2 = app.options[3]["BID"]
-    vars.pask_2 = app.options[4]["ASK"]
-    vars.pbid_2 = app.options[4]["BID"]
+    # vars.cask_2 = app.options[3]["ASK"]
+    # vars.cbid_2 = app.options[3]["BID"]
+    # vars.pask_2 = app.options[4]["ASK"]
+    # vars.pbid_2 = app.options[4]["BID"]
     
 
-    # CALCULOS
-    vars.askbid_call_2 = vars.cask_2 / vars.cbid_2 - 1
-    vars.askbid_put_2 = vars.pask_2 / vars.pbid_2 - 1
-    vars.dcall_2 = vars.cbid_2 / vars.call_close_2 - 1
-    vars.dput_2 = vars.pbid_2 / vars.put_close_2 - 1
-    vars.docall_2 = vars.cbid_2 / vars.call_open_2 - 1
-    vars.doput_2 = vars.pbid_2 / vars.put_open_2 - 1
+    # # CALCULOS
+    # vars.askbid_call_2 = vars.cask_2 / vars.cbid_2 - 1
+    # vars.askbid_put_2 = vars.pask_2 / vars.pbid_2 - 1
+    # vars.dcall_2 = vars.cbid_2 / vars.call_close_2 - 1
+    # vars.dput_2 = vars.pbid_2 / vars.put_close_2 - 1
+    # vars.docall_2 = vars.cbid_2 / vars.call_open_2 - 1
+    # vars.doput_2 = vars.pbid_2 / vars.put_open_2 - 1
     
 
 

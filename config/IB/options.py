@@ -30,9 +30,9 @@ def req_Options(app, vars, params):
   
     requestContract(app, params.etf, vars.strike_p, vars.exp, "P",params.exchange[0])
 
-    requestContract(app, params.etf, vars.strike_c_2, vars.exp_2, "C", params.exchange[0])
+    # requestContract(app, params.etf, vars.strike_c_2, vars.exp_2, "C", params.exchange[0])
   
-    requestContract(app, params.etf, vars.strike_p_2, vars.exp_2, "P",params.exchange[0])
+    # requestContract(app, params.etf, vars.strike_p_2, vars.exp_2, "P",params.exchange[0])
     
 
 

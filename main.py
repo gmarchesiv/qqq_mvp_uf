@@ -138,12 +138,12 @@ def main():
             return
         vars.conexion=True
         # Cuenta regresiva para iniciar.
-        try:
-            broadcasting_Alinear_label(varsLb,params)
-            printStamp(" - BROADCASTING LABEL - ")
-        except:
-            printStamp(" - ERROR EN BROADCASTING LABEL - ")
-            pass 
+        # try:
+        #     broadcasting_Alinear_label(varsLb,params)
+        #     printStamp(" - BROADCASTING LABEL - ")
+        # except:
+        #     printStamp(" - ERROR EN BROADCASTING LABEL - ")
+        #     pass 
         
   
 
@@ -227,87 +227,9 @@ def main():
         vars.ready=True 
 
         while True:
-
             timeNow = datetime.now(params.zone).time()
-             
-            # MIENTRAS NO SEA FIN DE DIA
-
-            # ==================================
-            #  -        GENERAR LABEL          -
-            # ==================================
-
-            #---------------------------------------------------
-            '''
-            Generamos el Label cada 5 minutos para tener una 
-            tendencia a la hora de realizar una transaccion.
-            '''
-            #---------------------------------------------------
-   
-            if (timeNow.minute % 10 == 0 or timeNow.minute % 10 == 5):
-                if varsLb.flag_minuto_label:
-                    varsLb.label_ant=varsLb.label
-                    generar_label(params, varsLb,app)
-                    varsLb.flag_minuto_label=False
-
-            else:
-                varsLb.flag_minuto_label=True
-
-            # ==================================
-            #  -        DAY TRADING            -
-            # ==================================
-            
             if params.fin_rutina >= timeNow:
-                #---------------------------------------------------
-                '''
-                Inicio del Horario de Trading.
-                '''
-                #---------------------------------------------------
-            
-                    
-                # ==================================
-                #  -        BROADCASTING           -
-                # ==================================
-
-                #---------------------------------------------------
-                '''
-                Las Funciones Broadcasting permiten compartir 
-                informacion con otras maquinas conectadas a el
-                por REST. Esta Funcion cuenta con compra y venta
-                inducida por otras maquinas y venta obligatoria
-                inducida por una peticion local.
-                '''
-                #---------------------------------------------------
-                # RUTINA DE COMPRA Y VENTA BROADCASTING
-                if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
-                    
-                    if vars.call or vars.put:
-                        broadcasting_sell(varsBc,varsLb,vars,params,app)
-                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                    if vars.compra:
-                        broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
-                        # broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app)
-                    pass
-                
-                
-
-                # ==================================
-                #  -        RUTINA NORMAL          -
-                # ==================================
-                #---------------------------------------------------
-                '''
-                La rutina consiste en realizar compras y ventas 
-                dandole seguimiento al precio de las opciones
-                cada una determinada frecuencia de muestra.
-                La rutina va a realizar lo siguiente:
-                    1) Ver si ya ocurrio una transaccion
-                    2) Calcular variables
-                    3) Generar un log
-                    4) Verificar COMPRAS y VENTAS
-                    5) Registrar el dia
-                '''
-                #---------------------------------------------------
-                # if int(timeNow.second) in params.frecuencia_accion:
-                    
+                # 
                 saveTransaction(app, params, vars)  # VERIFICADOR DE TRANSACCIONES
                 calculations(app, vars,varsBc, params,params_call,params_put)  # CALCULOS DE RUTINA
                 readIBData(app, vars,varsLb)  # LOGS DE LOS CALCULOS
@@ -319,12 +241,7 @@ def main():
                     # ================================
                     if vars.call or vars.put:
                         sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
-                    # ================================
-                    #            -COMPRA-
-                    # ================================
-                    if vars.compra and params.fd >= timeNow:
-                        buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
-                    pass
+                
                 
                 # ================================
                 #          - Registro -
@@ -332,17 +249,6 @@ def main():
 
                 registration(app, vars,varsApp, varsLb,params)
             
-                time.sleep(0.5)
-    
-                # ==================================
-                #  -          ESPERA               -
-                # ==================================
-                #---------------------------------------------------
-                '''
-                Sumando el tiempo de Registro y podemos saltar el 
-                segundo.
-                '''
-                #---------------------------------------------------
                 time.sleep(0.5)
 
             # ==================================
@@ -363,15 +269,23 @@ def main():
 
                 printStamp(" - Registrando Nuevo Strike - ")
                 registro_strike_proximo(app, vars, params)
-                registro_strike_proximo_2(app, vars, params)
+                # registro_strike_proximo_2(app, vars, params)
                 
                 vars.status = "OFF"
                 vars.ready=False
                 saveVars(vars, app, params, True) 
-         
-                break
-           
 
+                break
+        
+        while True:
+            timeNow = datetime.now(params.zone).time()
+            if params.fd >= timeNow: 
+
+
+                broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
+                time.sleep(0.5)
+            else:
+                break
         app.stop()
         api_thread.join()
         printStamp(" - Desconexión completada - ")
