@@ -41,8 +41,9 @@ def buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode):
         for k, v in vars.params_regla.items():
             if isinstance(v, list):
                 vars.params_regla[k] = [
-                    str(x) for x in v
-                ]
+            x if isinstance(x, (int, float)) else str(x)
+            for x in v
+        ]
     varsLb.label_ant=varsLb.label
 
 def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
