@@ -49,8 +49,7 @@ def sellOptions(app,varsBc,varsLb,vars,params,debug_mode):
         return
     else:
         return
-    # sellCall_fd(app,varsBc,varsLb,vars,params,debug_mode)
-# def sellCall_fd(app,varsBc,varsLb,vars,params,debug_mode)
+ 
 
 
 def sell_obligatoria(app,varsBc,varsLb,vars,params,tipo):
@@ -143,7 +142,9 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             return
   
     else:
-        if timeNow >= params.fd and varsBc.sell_fd==False:
+        if( timeNow >= params.fd
+            # and varsBc.sell_fd==False
+            ):
             
         
             name = "FD"
@@ -161,7 +162,8 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
     if  (vars.pico < vars.params_regla["DIAMANTE"][0] and vars.pico>0 and 
                  vars.rentabilidad  < (vars.pico - params.perdida_maxima_c) and 
                     vars.params_regla["REGLA"] not in ["FAST","R2" ,"R2-2"]
-               and varsBc.sell_fd==False ):
+            #    and varsBc.sell_fd==False
+                 ):
         sell(
             app,varsBc,varsLb,vars,params,
             "C",  "PROTECCION_D" ,debug_mode
@@ -187,32 +189,32 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
         # MAXIMA RENTABILIDAD
-        if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
-            if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "C", "SL" ,debug_mode
-                )
-            if vars.rentabilidad >= vars.params_regla["TARGET"]:
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "C",  "TARGET" ,debug_mode
-                )
+        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "C", "SL" ,debug_mode
+        #         )
+        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "C",  "TARGET" ,debug_mode
+        #         )
+
+        # else:
+
+        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
+
+            name = f"T{vars.ugs_n}"
+            sell(
+                app,varsBc,varsLb,vars,params,
+                "C",  name ,debug_mode
+            )
+
+            return
 
         else:
-
-            if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
-
-                name = f"T{vars.ugs_n}"
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "C",  name ,debug_mode
-                )
-
-                return
-
-            else:
-                pass
+            pass
 
     # AUN NO MANIFIESTA
     else:
@@ -294,7 +296,9 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
                 )
             return
     else:
-        if timeNow >= params.fd and   varsBc.sell_fd==False: 
+        if( timeNow >= params.fd 
+        #    and   varsBc.sell_fd==False
+           ): 
             
             sell(
                 app,varsBc,varsLb,vars,params,
@@ -308,7 +312,8 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
     # REGLA PROTECCION
     if ( vars.pico < vars.params_regla["DIAMANTE"][0]  and 
                 vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-                and vars.pico>0   and varsBc.sell_fd==False 
+                and vars.pico>0 
+                    # and varsBc.sell_fd==False 
     ):
         sell(
             app,varsBc,varsLb,vars,params,
@@ -332,30 +337,30 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
 
-        if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
-            if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "P", "SL" ,debug_mode
-                )
-            if vars.rentabilidad >= vars.params_regla["TARGET"]:
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "P",  "TARGET" ,debug_mode
-                )
-        else:
+        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "P", "SL" ,debug_mode
+        #         )
+        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "P",  "TARGET" ,debug_mode
+        #         )
+        # else:
             # RETROCESO
-            if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
+        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
 
-                name = f"T{vars.ugs_n}"
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "P", name ,debug_mode)
+            name = f"T{vars.ugs_n}"
+            sell(
+                app,varsBc,varsLb,vars,params,
+                "P", name ,debug_mode)
 
-                return
+            return
 
-            else:
-                pass
+        else:
+            pass
 
     else:
         if (vars.minutos) >=( vars.params_regla["NMT"]+1) and vars.rentabilidad >=vars.params_regla["TARGET_NMT"]:
@@ -469,7 +474,7 @@ def sell(app,varsBc,varsLb,vars,params, tipo, regla,debug_mode ):
             else:
                 varsLb.flag_minuto_label=True
             # if int(timeNow.second) in params.frecuencia_accion:
-            calculations(app, vars,varsBc, params)
+            calculations(app, vars,varsBc, params,None,None) 
             # ESPERANDO Y REGISTRANDO
             vars.status = "SELLING"
             saveVars(vars, app, params, False)
@@ -525,7 +530,7 @@ def sell_forzada(app,varsBc,varsLb,vars,params, tipo, regla, contract, symbol):
         else:
             varsLb.flag_minuto_label=True
         # if int(timeNow.second) in params.frecuencia_accion:
-        calculations(app, vars,varsBc, params) 
+        calculations(app, vars,varsBc, params,None,None)  
         # ESPERANDO Y REGISTRANDO
         vars.status = "SELLING"
         saveVars(vars, app, params, False)

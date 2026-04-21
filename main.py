@@ -285,7 +285,7 @@ def main():
                         broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
                     if vars.compra:
                         broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
-                        broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app)
+                        # broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app)
                     pass
                 
                 
@@ -322,9 +322,9 @@ def main():
                     # ================================
                     #            -COMPRA-
                     # ================================
-                    # if vars.compra and params.fd >= timeNow:
-                    #     buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
-                    # pass
+                    if vars.compra and params.fd >= timeNow:
+                        buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
+                    pass
                 
                 # ================================
                 #          - Registro -
