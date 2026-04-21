@@ -88,6 +88,22 @@ class dayTrade(Base):
     cAskBid_prom = Column(Float)
     pAskBid_prom = Column(Float)
 
+
+    cStrike_2= Column(Float)
+    pStrike_2= Column(Float)
+    exp_2= Column(Float)
+    cask_2= Column(Float)
+    cbid_2= Column(Float)
+    pask_2= Column(Float)
+    pbid_2= Column(Float)
+
+    cAskBid_2= Column(Float)
+    pAskBid_2= Column(Float)
+    dCall_2= Column(Float)
+    dPut_2= Column(Float)
+    doCall_2= Column(Float)
+    doPut_2= Column(Float)
+
 class label(Base):
     __tablename__ = "label"
     id = Column(Integer, primary_key=True)

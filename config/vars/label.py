@@ -38,6 +38,7 @@ class varsLabel:
         ###############################################
         self.flag_minuto_label=self.data.get("flag_minuto_label", False)
         self.label = self.data.get("label", 0)
+        self.label_ant = self.data.get("label_ant", 0)
         self.retorno = self.data.get("retorno", 0)
         self.signo  = self.data.get("signo", 0)
         self.varianza  = self.data.get("varianza", 0)

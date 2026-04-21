@@ -1,16 +1,6 @@
 {
     "red": [
+        
       
-        {
-            "ip": "10.8.1.4:8000",
-            "user": "Augusto Vidaurre",
-            "rama":false
-        },
-      
-        {
-            "ip": "10.8.1.6:8000",
-            "user": "Gerardo Yupari",
-            "rama":false
-        } 
     ]
 }

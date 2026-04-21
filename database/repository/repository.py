@@ -138,7 +138,24 @@ def writeDayTrade(app, vars,varsLb, params):
             caida=vars.caida,
             rule=vars.regla,
             cAskBid_prom = vars.promedio_call,
-            pAskBid_prom = vars.promedio_put
+            pAskBid_prom = vars.promedio_put,
+
+
+            cStrike_2=app.options[3]["strike"],
+            pStrike_2=app.options[4]["strike"],
+            exp_2=vars.exp_2,
+            cask_2=vars.cask_2,
+            cbid_2=vars.cbid_2,
+            pask_2=vars.pask_2,
+            pbid_2=vars.pbid_2,
+ 
+            cAskBid_2=vars.askbid_call_2,
+            pAskBid_2=vars.askbid_put_2,
+            dCall_2=vars.dcall_2,
+            dPut_2=vars.dput_2,
+            doCall_2=vars.docall_2,
+            doPut_2=vars.doput_2,
+            
         )
 
         session.add(new_data)

@@ -40,13 +40,17 @@ def sellOptions(app,varsBc,varsLb,vars,params,debug_mode):
     if vars.call:
         # sell_obligatoria(app,varsBc,varsLb,vars,params,"C",debug_mode)
         sellCall(app,varsBc,varsLb,vars,params,debug_mode)
+        
         return
     elif vars.put:
         # sell_obligatoria(app,varsBc,varsLb,vars,params,"P",debug_mode)
         sellPut(app,varsBc,varsLb,vars,params,debug_mode)
+       
         return
     else:
         return
+ 
+
 
 def sell_obligatoria(app,varsBc,varsLb,vars,params,tipo):
     #---------------------------------------------------
@@ -138,7 +142,9 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             return
   
     else:
-        if timeNow >= params.fd:
+        if( timeNow >= params.fd
+            # and varsBc.sell_fd==False
+            ):
             
         
             name = "FD"
@@ -150,217 +156,32 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             return
     
  
-    # REGLA DE PROTECCION
-    # if (
-    #     vars.rentabilidad < (vars.pico - params.perdida_maxima_c_r2)
-    #     and vars.manifesto == False and   (vars.tipo == "R2" or vars.tipo == "R2-2")
-    # ):
-    #     sell(
-    #         app,varsBc,varsLb,vars,params,
-    #         "C",  "PROTECCION" ,debug_mode
-    #     )
-
-    #     return
+  
     
     # REGLA DE PROTECCION
-    if ( vars.rentabilidad < (vars.pico - params.perdida_maxima_c)
-        and vars.manifesto == False and vars.pico>0 and (vars.tipo != "R2" and  vars.tipo != "R2-2" )
-        and vars.tipo not in ["R1-FAST","R2" ,"R2-2"]
-    ):
+    if  (vars.pico < vars.params_regla["DIAMANTE"][0] and vars.pico>0 and 
+                 vars.rentabilidad  < (vars.pico - params.perdida_maxima_c) and 
+                    vars.params_regla["REGLA"] not in ["FAST","R2" ,"R2-2"]
+            #    and varsBc.sell_fd==False
+                 ):
         sell(
             app,varsBc,varsLb,vars,params,
             "C",  "PROTECCION_D" ,debug_mode
         )
 
         return
-        
-    # REGLA DE PROTECCION
-    # if (
-    #     vars.pico > params.umbral_no_perdida_c
-    #     and vars.rentabilidad < params.perdida_maxima_c_abs
-    #     and vars.manifesto == False and vars.tipo != "R2" 
-    # ):
-    #     sell(
-    #         app,varsBc,varsLb,vars,params,
-    #         "C",  "PROTECCION" ,debug_mode
-    #     )
-
-    #     return
-    
-        
-
-    #########################################################
-    ################      CALL    R2       ##################
-    #########################################################
-    if vars.tipo == "R2": 
-        diamante=params.diamante_cr2
-        resta=params.resta_cr2
-        sl=params.sl_cr2
-        manifestacion=params.umbral_manifestacion_cR2
-        nmt=params.min_desicion_cR2
-
-    #########################################################
-    ################      CALL    R2-2     ##################
-    #########################################################
-    elif vars.tipo == "R2-2": 
-        diamante=params.diamante_cr2_2
-        resta=params.resta_cr2_2
-        sl=params.sl_cr2_2
-        manifestacion=params.umbral_manifestacion_cR2_2
-        nmt=params.min_desicion_cR2
-
-    #########################################################
-    ################      CALL  R1         ##################
-    #########################################################
-    elif vars.tipo == "R1"  : 
-        diamante=params.diamante_cr1
-        resta=params.resta_cr1
-        sl=params.sl_cr1
-        manifestacion=params.umbral_manifestacion_cR1
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1-2       ##################
-    #########################################################
-    elif vars.tipo == "R1-2"  : 
-        diamante=params.diamante_cr1_2
-        resta=params.resta_cr1_2
-        sl=params.sl_cr1_2
-        manifestacion=params.umbral_manifestacion_cR1_2
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1-3      ##################
-    #########################################################
-    elif vars.tipo == "R1-3"  : 
-        diamante=params.diamante_cr1_3
-        resta=params.resta_cr1_3
-        sl=params.sl_cr1_3
-        manifestacion=params.umbral_manifestacion_cR1_3
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  E      ##################
-    #########################################################
-    elif vars.tipo == "R1-E"  : 
-        diamante=params.diamante_cr1_e
-        resta=params.resta_cr1_e
-        sl=params.sl_cr1_e
-        manifestacion=params.umbral_manifestacion_cR1_e
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  E2      ##################
-    #########################################################
-    elif vars.tipo == "R1-E2"  : 
-        diamante=params.diamante_cr1_e2
-        resta=params.resta_cr1_e2
-        sl=params.sl_cr1_e2
-        manifestacion=params.umbral_manifestacion_cR1_e2
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  INV    ##################
-    #########################################################
-    elif vars.tipo == "R1-I": 
-        diamante=params.diamante_cr1_i
-        resta=params.resta_cr1_i
-        sl=params.sl_cr1_i
-        manifestacion=params.umbral_manifestacion_cr1_i
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  C      ##################
-    #########################################################
-    elif vars.tipo ==  "R1-C": 
-        diamante=params.diamante_cr1_c
-        resta=params.resta_cr1_c
-        sl=params.sl_cr1_c
-        manifestacion=params.umbral_manifestacion_cR1_c
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  FAST   ##################
-    #########################################################
-    elif vars.tipo == "R1-FAST":  
-        diamante=params.diamante_cr1_fast
-        resta=params.resta_cr1_fast
-        sl=params.sl_cr1_fast
-        manifestacion=params.umbral_manifestacion_cR1_fast
-        nmt=params.inf
-
-
-    #########################################################
-    ################      CALL  R3         ##################
-    #########################################################
-    elif vars.tipo == "R3"  : 
-        diamante=params.diamante_cr3
-        resta=params.resta_cr3
-        sl=params.sl_cr3
-        manifestacion=params.umbral_manifestacion_cR3
-        nmt=params.inf
-    
      
-    #########################################################
-    ################      CALL  R1  F      ##################
-    #########################################################
-    elif vars.tipo == "F"  : 
-        diamante=params.diamante_cr1_f1
-        resta=params.resta_cr1_f1
-        sl=params.sl_cr1_f1
-        manifestacion=params.umbral_manifestacion_cR1_f1
-        nmt=params.inf
-    #########################################################
-    ################      CALL  R1  F2      ##################
-    #########################################################
-    elif vars.tipo == "F2"  : 
-        diamante=params.diamante_cr1_f2
-        resta=params.resta_cr1_f2
-        sl=params.sl_cr1_f2
-        manifestacion=params.umbral_manifestacion_cR1_f2
-        nmt=params.inf
-    
-    
-
-    #########################################################
-    ################      CALL  R1  FAST2      ##################
-    #########################################################
-    elif vars.tipo == "R1-FAST_2"  : 
-        diamante=params.diamante_cr1_fast2
-        resta=params.resta_cr1_fast2
-        sl=params.sl_cr1_fast2
-        manifestacion=params.umbral_manifestacion_cR1_fast2
-        nmt=params.inf
-
-    #########################################################
-    ####################      CALL  R1  LABEL  ###############
-    #########################################################
-    elif vars.tipo == "LABEL-I": 
-        diamante=params.diamante_cr1_label
-        resta=params.resta_cr1_label
-        sl=params.sl_cr1_label
-        manifestacion=params.umbral_manifestacion_cR1_label
-        nmt=params.inf
-
-    #########################################################
-    ####################      CALL  R1  LABEL 2###############
-    #########################################################
-    elif vars.tipo == "LABEL-II": 
-        diamante=params.diamante_cr1_label_2
-        resta=params.resta_cr1_label_2
-        sl=params.sl_cr1_label_2
-        manifestacion=params.umbral_manifestacion_cR1_label_2
-        nmt=params.inf
-
+        
+ 
     #########################################################
     ####################      VENTA       ###################
     #########################################################
 
     # MANIFIESTA
-    if vars.manifesto:
+    if vars.pico > vars.params_regla["DIAMANTE"][0]:
         # DIAMANTE
-        for y in range(vars.ugs_n, len(diamante)):
-            if round(vars.pico, 5) > diamante[y]:
+        for y in range(vars.ugs_n, len(vars.params_regla["DIAMANTE"])):
+            if round(vars.pico, 5) > vars.params_regla["DIAMANTE"][y]:
                 vars.ugs_n = y
                 if vars.ugs_n != vars.ugs_n_ant:
                     vars.minutos = 0
@@ -368,7 +189,21 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
         # MAXIMA RENTABILIDAD
-        if vars.rentabilidad <= (vars.pico - resta[vars.ugs_n]):
+        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "C", "SL" ,debug_mode
+        #         )
+        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "C",  "TARGET" ,debug_mode
+        #         )
+
+        # else:
+
+        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
 
             name = f"T{vars.ugs_n}"
             sell(
@@ -383,32 +218,9 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
 
     # AUN NO MANIFIESTA
     else:
+ 
 
-        # vars.manifesto
-        if vars.pico >= manifestacion:
-            vars.manifesto = True
-            vars.minutos = 0
-            # DIAMANTE
-            for y in range(vars.ugs_n, len( diamante)):
-                if round(vars.pico, 5) >  diamante[y]:
-                    vars.ugs_n = y
-                    if vars.ugs_n != vars.ugs_n_ant:
-                        vars.minutos = 0
-                        vars.ugs_n_ant = vars.ugs_n
-                else:
-                    break
-            # MAXIMA RENTABILIDAD
-            if vars.rentabilidad <= (vars.pico -  resta[vars.ugs_n]):
-
-                name = f"T{vars.ugs_n}"
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "C",  name ,debug_mode
-                )
-
-                return
-
-        elif vars.minutos >= (nmt+1): 
+        if vars.minutos >= (vars.params_regla["NMT"]+1)and vars.rentabilidad >=vars.params_regla["TARGET_NMT"]:
             sell(
                 app,varsBc,varsLb,vars,params,
                 "C", "NMT" ,debug_mode
@@ -416,7 +228,7 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
 
             return
         # STOP LOSS
-        elif vars.rentabilidad <= sl:
+        elif vars.rentabilidad <= vars.params_regla["SL"]:
             sell(
                 app,varsBc,varsLb,vars,params,
                 "C", "SL" ,debug_mode
@@ -425,7 +237,7 @@ def sellCall(app,varsBc,varsLb,vars,params,debug_mode):
             return
 
     vars.venta_intentos=0
-    vars.regla_broadcasting=""
+ 
 
 def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
@@ -484,7 +296,9 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
                 )
             return
     else:
-        if timeNow >= params.fd:
+        if( timeNow >= params.fd 
+        #    and   varsBc.sell_fd==False
+           ): 
             
             sell(
                 app,varsBc,varsLb,vars,params,
@@ -494,196 +308,12 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
             return
 
-    # REGLA PROTECCION
-    # if (
-    #     vars.pico > params.umbral_no_perdida_p_r2
-    #     and vars.rentabilidad < (vars.pico - params.perdida_maxima_p_r2)
-    #     and vars.manifesto == False and  vars.tipo == "R2"
-    # ):
-    #     sell(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P",  "PROTECCION" ,debug_mode
-    #     )
-
-    #     return
-
-    
-
-
-    # REGLA PROTECCION
-    # if (
-    #     vars.pico > params.umbral_no_perdida_p
-    #     and vars.rentabilidad < params.perdida_maxima_p_abs
-    #     and vars.manifesto == False and vars.tipo != "R2" 
-    # ):
-    #     sell(
-    #         app,varsBc,varsLb,vars,params,
-    #         "P",  "PROTECCION" ,debug_mode
-    #     )
-
-    #     return
-    
-    #########################################################
-    ####################      PUT  R2         ###############
-    #########################################################
-    if vars.tipo == "R2": 
-        diamante=params.diamante_pr2
-        resta=params.resta_pr2
-        sl=params.sl_pr2
-        manifestacion=params.umbral_manifestacion_pR2
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R2 E       ###############
-    #########################################################
-    elif vars.tipo == "R2-E": 
-        diamante=params.diamante_pR2_e
-        resta=params.resta_pR2_e
-        sl=params.sl_pr2_e
-        manifestacion=params.umbral_manifestacion_pR2_e
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R2  FAST   ###############
-    #########################################################
-    elif vars.tipo == "R2-FAST": 
-        diamante=params.diamante_pr2_fast
-        resta=params.resta_pr2_fast
-        sl=params.sl_pr2_fast
-        manifestacion=params.umbral_manifestacion_pR2_fast
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R3     ###################
-    #########################################################
-    elif vars.tipo == "R3": 
-        diamante=params.diamante_pr3
-        resta=params.resta_pr3
-        sl=params.sl_pr3
-        manifestacion=params.umbral_manifestacion_pR3
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R1  FAST   ###############
-    #########################################################
-    elif vars.tipo == "R1-FAST": 
-        diamante=params.diamante_pr1_fast
-        resta=params.resta_pr1_fast
-        sl=params.sl_pr1_fast
-        manifestacion=params.umbral_manifestacion_pR1_fast
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R1  LABEL  ###############
-    #########################################################
-    elif vars.tipo == "LABEL-I": 
-        diamante=params.diamante_pr1_label
-        resta=params.resta_pr1_label
-        sl=params.sl_pr1_label
-        manifestacion=params.umbral_manifestacion_pR1_label
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R1  LABEL 2###############
-    #########################################################
-    elif vars.tipo == "LABEL-II": 
-        diamante=params.diamante_pr1_label_2
-        resta=params.resta_pr1_label_2
-        sl=params.sl_pr1_label_2
-        manifestacion=params.umbral_manifestacion_pR1_label_2
-        nmt=params.inf
-
-    #########################################################
-    ####################      PUT  R1  LABEL 4###############
-    #########################################################
-    elif vars.tipo == "LABEL-IV": 
-        diamante=params.diamante_pr1_label_4
-        resta=params.resta_pr1_label_4
-        sl=params.sl_pr1_label_4
-        manifestacion=params.umbral_manifestacion_pR1_label_4
-        nmt=params.inf
-    #########################################################
-    ####################      PUT  R1     ###################
-    #########################################################
-    elif vars.tipo == "R1": 
-        diamante=params.diamante_pr1
-        resta=params.resta_pr1
-        sl=params.sl_pr1
-        manifestacion=params.umbral_manifestacion_pR1
-        nmt=params.inf
  
-    #########################################################
-    ####################      PUT  R1  I2 ###################
-    #########################################################
-    elif vars.tipo == "R1-I2": 
-        diamante=params.diamante_pr1_i_2
-        resta=params.resta_pr1_i_2
-        sl=params.sl_pr1_i_2
-        manifestacion=params.umbral_manifestacion_pR1_i_2
-        nmt=params.inf
-    #########################################################
-    ####################      PUT  R1  I3 ###################
-    #########################################################
-    elif vars.tipo == "R1-I3": 
-        diamante=params.diamante_pr1_i_3
-        resta=params.resta_pr1_i_3
-        sl=params.sl_pr1_i_3
-        manifestacion=params.umbral_manifestacion_pR1_i_3
-        nmt=params.inf
-    #########################################################
-    ####################      PUT  R1  I4 ###################
-    #########################################################
-    elif vars.tipo == "R1-I4": 
-        diamante=params.diamante_pr1_i_4
-        resta=params.resta_pr1_i_4
-        sl=params.sl_pr1_i_4
-        manifestacion=params.umbral_manifestacion_pR1_i_4
-        nmt=params.inf
-    #########################################################
-    ####################      PUT  R1  I5 ###################
-    #########################################################
-    elif vars.tipo == "R1-I5": 
-        diamante=params.diamante_pr1_i_5
-        resta=params.resta_pr1_i_5
-        sl=params.sl_pr1_i_5
-        manifestacion=params.umbral_manifestacion_pR1_i_5
-        nmt=params.inf
-   
-    #########################################################
-    ####################      PUT  R1  F      ###############
-    #########################################################
-    elif vars.tipo =="F":    
-        diamante=params.diamante_pr1_f
-        resta=params.resta_pr1_f
-        sl=params.sl_pr1_f
-        manifestacion=params.umbral_manifestacion_pR1_f
-        nmt=params.inf
-    #########################################################
-    ################      CALL  R1  F INV 1  ##################
-    #########################################################
-    elif vars.tipo == "F-INV-1"  : 
-        diamante=params.diamante_pr1_f_inv_1
-        resta=params.resta_pr1_f_inv_1
-        sl=params.sl_pr1_f_inv_1
-        manifestacion=params.umbral_manifestacion_pR1_f_inv_1
-        nmt=params.inf
-
-    #########################################################
-    ################      CALL  R1  F INV 3  ##################
-    #########################################################
-    elif vars.tipo == "F-INV-3"  : 
-        diamante=params.diamante_pr1_f_inv_3
-        resta=params.resta_pr1_f_inv_3
-        sl=params.sl_pr1_f_inv_3
-        manifestacion=params.umbral_manifestacion_pR1_f_inv_3
-        nmt=params.inf
-    else:
-        print("------------",vars.tipo)
     # REGLA PROTECCION
-    if (
-         vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
-        and vars.manifesto == False and vars.pico>0  and
-        vars.pico < diamante[0]
+    if ( vars.pico < vars.params_regla["DIAMANTE"][0]  and 
+                vars.rentabilidad < (vars.pico - params.perdida_maxima_p)
+                and vars.pico>0 
+                    # and varsBc.sell_fd==False 
     ):
         sell(
             app,varsBc,varsLb,vars,params,
@@ -695,11 +325,11 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
     ####################      VENTA       ###################
     #########################################################
     # MANIFIESTA
-    if vars.manifesto:
+    if vars.pico > vars.params_regla["DIAMANTE"][0]:
 
         # DIAMANTE
-        for y in range(vars.ugs_n, len(diamante)):
-            if round(vars.pico, 5) > diamante[y]:
+        for y in range(vars.ugs_n, len(vars.params_regla["DIAMANTE"])):
+            if round(vars.pico, 5) > vars.params_regla["DIAMANTE"][y]:
                 vars.ugs_n = y
                 if vars.ugs_n != vars.ugs_n_ant:
                     vars.minutos = 0
@@ -707,8 +337,20 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             else:
                 break
 
-        # RETROCESO
-        if vars.rentabilidad <= (vars.pico - resta[vars.ugs_n]):
+        # if varsBc.sell_fd and  vars.pico >=  vars.params_regla["UMBRAL"]:
+        #     if vars.rentabilidad <= vars.params_regla["SL_UMBRAL"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "P", "SL" ,debug_mode
+        #         )
+        #     if vars.rentabilidad >= vars.params_regla["TARGET"]:
+        #         sell(
+        #             app,varsBc,varsLb,vars,params,
+        #             "P",  "TARGET" ,debug_mode
+        #         )
+        # else:
+            # RETROCESO
+        if vars.rentabilidad <= (vars.pico - vars.params_regla["RESTA"][vars.ugs_n]):
 
             name = f"T{vars.ugs_n}"
             sell(
@@ -721,37 +363,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             pass
 
     else:
-        # print(vars.df["FECHA"][vars.i],vars.df["HORA"][vars.i],vars.rentabilidad*100 , vars.pico*100 )
-        # vars.manifesto
-        if vars.pico >= manifestacion:
-            vars.manifesto = True
-            vars.minutos = 0
-
-            # DIAMANTE
-            for y in range(vars.ugs_n, len(diamante)):
-                if round(vars.pico, 5) > diamante[y]:
-                    vars.ugs_n = y
-                    if vars.ugs_n != vars.ugs_n_ant:
-                        vars.minutos = 0
-                        vars.ugs_n_ant = vars.ugs_n
-                else:
-                    break
-
-            # RETROCESO
-            if vars.rentabilidad <= (vars.pico - resta[vars.ugs_n]):
-
-                name = f"T{vars.ugs_n}"
-                sell(
-                    app,varsBc,varsLb,vars,params,
-                    "P", name,debug_mode)
-
-                return
-
-            else:
-                pass
-        
-
-        elif (vars.minutos) >=( nmt+1): 
+        if (vars.minutos) >=( vars.params_regla["NMT"]+1) and vars.rentabilidad >=vars.params_regla["TARGET_NMT"]:
             sell(
                 app,varsBc,varsLb,vars,params,
                 "P", "NMT" ,debug_mode
@@ -760,7 +372,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
             return
 
         # SL
-        elif vars.rentabilidad <=sl:
+        elif vars.rentabilidad <=vars.params_regla["SL"]:
 
             sell(
                 app,varsBc,varsLb,vars,params,
@@ -772,8 +384,7 @@ def sellPut(app,varsBc,varsLb,vars,params,debug_mode):
 
    
     vars.venta_intentos=0
-    vars.regla_broadcasting=""
-     
+ 
 def sell(app,varsBc,varsLb,vars,params, tipo, regla,debug_mode ):
    
     #---------------------------------------------------
@@ -821,16 +432,7 @@ def sell(app,varsBc,varsLb,vars,params, tipo, regla,debug_mode ):
 
         
 
-        # REBOTE
-
-        if vars.rentabilidad<0:
-            
-            if vars.venta_intentos>=params.intentos:
-                pass   
-            else:
-                vars.venta_intentos+=1
-                return
-    
+   
         varsBc.sell_regla = regla
 
         # BROADCASTING
@@ -863,7 +465,7 @@ def sell(app,varsBc,varsLb,vars,params, tipo, regla,debug_mode ):
             else:
                 varsLb.flag_minuto_label=True
             # if int(timeNow.second) in params.frecuencia_accion:
-            calculations(app, vars,varsBc, params)
+            calculations(app, vars,varsBc, params,None,None) 
             # ESPERANDO Y REGISTRANDO
             vars.status = "SELLING"
             saveVars(vars, app, params, False)
@@ -919,7 +521,7 @@ def sell_forzada(app,varsBc,varsLb,vars,params, tipo, regla, contract, symbol):
         else:
             varsLb.flag_minuto_label=True
         # if int(timeNow.second) in params.frecuencia_accion:
-        calculations(app, vars,varsBc, params) 
+        calculations(app, vars,varsBc, params,None,None)  
         # ESPERANDO Y REGISTRANDO
         vars.status = "SELLING"
         saveVars(vars, app, params, False)
