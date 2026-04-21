@@ -322,9 +322,9 @@ def main():
                     # ================================
                     #            -COMPRA-
                     # ================================
-                    if vars.compra and params.fd >= timeNow:
-                        buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
-                    pass
+                    # if vars.compra and params.fd >= timeNow:
+                    #     buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
+                    # pass
                 
                 # ================================
                 #          - Registro -
