@@ -280,7 +280,7 @@ def main():
         while True:
             timeNow = datetime.now(params.zone).time()
             if params.fd >= timeNow: 
-
+                printStamp(" - ESPERANDO INTRUCCION DE COMPRA - ")
 
                 broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
                 saveVars(vars, app, params, True) 
