@@ -70,7 +70,7 @@ def buy_Call(app,varsBc,varsLb,vars,params,params_call,debug_mode):
         and (params_call.r2["DPUT"][0] <= vars.dput< params_call.r2["DPUT"][1]) and vars.askbid_put < params.max_askbid_compra_alt
         and  (varsLb.label==params_call.r2["LABEL"] )   
     ):
-        vars.params_regla =    copy.deepcopy(params_call.r3)
+        vars.params_regla =    copy.deepcopy(params_call.r2)
         trade=buy(
             app,varsBc,varsLb,vars,params,
             "C",vars.params_regla["REGLA"]  ,debug_mode
