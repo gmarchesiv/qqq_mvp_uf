@@ -171,9 +171,9 @@ def writeTransactions(app, id, vars):
     Session = sessionmaker(bind=engine)
     session = Session()
     try:
-
+        trade_hour = datetime.fromisoformat(vars.trade_hour)
         new_transaction = transactions(
-            date=vars.trade_hour,
+            date=trade_hour,
             action=app.execution_details[id]["action"],
             tiker=app.execution_details[id]["tiker"],
             type=app.execution_details[id]["type"],
