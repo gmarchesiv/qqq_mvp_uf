@@ -280,11 +280,11 @@ def main():
                 # RUTINA DE COMPRA Y VENTA BROADCASTING
                 if vars.bloqueo == False and vars.flag_bloqueo_tiempo==False:
                     
-                    if vars.call or vars.put:
-                        broadcasting_sell(varsBc,varsLb,vars,params,app)
-                        broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
-                    if vars.compra:
-                        broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
+                    # if vars.call or vars.put:
+                    #     broadcasting_sell(varsBc,varsLb,vars,params,app)
+                    #     broadcasting_sell_auto(varsBc,varsLb,vars,params,app)
+                    # if vars.compra:
+                        # broadcasting_buy(varsBc,varsLb,vars,params,params_call,params_put,app)
                         # broadcasting_buy_hedge(varsBc,varsLb,vars,params ,app)
                     pass
                 
@@ -317,13 +317,13 @@ def main():
                     # ================================
                     #            -VENTA-
                     # ================================
-                    if vars.call or vars.put:
-                        sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
+                    # if vars.call or vars.put:
+                    #     sellOptions(app,varsBc,varsLb,vars,params,debug_mode=False )
                     # ================================
                     #            -COMPRA-
                     # ================================
-                    if vars.compra and params.fd >= timeNow:
-                        buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
+                    # if vars.compra and params.fd >= timeNow:
+                    #     buyOptions(app,varsBc,varsLb,vars,params,params_call,params_put,debug_mode=False )
                     pass
                 
                 # ================================
